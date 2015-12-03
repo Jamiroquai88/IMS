@@ -1,0 +1,67 @@
+/*
+ * main_station.cpp
+ *
+ *  Created on: Nov 29, 2015
+ *      Author: pavel
+ */
+
+#include "main_station.h"
+#include "adjacent_station.h"
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+CMainStation::CMainStation()
+{
+	// TODO Auto-generated constructor stub
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+CMainStation::~CMainStation()
+{
+    // Delete adjacent stations
+	for(AdjacentStations::iterator it = m_AdjacentStations.begin();
+        it != m_AdjacentStations.end();
+        ++it)
+	{
+	    delete *it;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+CMainStation& CMainStation::GetInstance()
+{
+    static CMainStation mainStation;
+    return mainStation;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainStation::SetTitle(const std::string& title)
+{
+    m_Title = title;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+const CMainStation::AdjacentStations& CMainStation::GetAdjacentStations() const
+{
+    return m_AdjacentStations;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+const CAdjacentStation& CMainStation::GetAdjacentStation(size_t id) const
+{
+
+    return *m_AdjacentStations[id];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+CAdjacentStation& CMainStation::GetAdjacentStation(size_t id)
+{
+    return *m_AdjacentStations[id];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+size_t CMainStation::AddAdjacentStations(const std::string& title)
+{
+    m_AdjacentStations.push_back(new CAdjacentStation(title));
+    return m_AdjacentStations.size() - 1;
+}
