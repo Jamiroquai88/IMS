@@ -46,7 +46,7 @@ public:
      *          deletes the segment in the destructor.
      * \param   pNestedSegment Pointer to CTrack object.
      */
-    void AddNestedSegment(CTrack* pNestedSegment);
+    CTrack& AddNestedSegment(CTrack* pNestedSegment);
 
     /**
      * \brief Add passing train. The train will be notified about accidents/defects.

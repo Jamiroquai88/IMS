@@ -23,7 +23,7 @@ CTrack::~CTrack()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CTrack::AddNestedSegment(CTrack* pNestedSegment)
+CTrack& CTrack::AddNestedSegment(CTrack* pNestedSegment)
 {
     m_pNestedSegment = pNestedSegment;
     m_pNestedSegment->m_pParentTrack = this;
