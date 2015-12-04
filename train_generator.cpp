@@ -28,7 +28,9 @@ CTrainGenerator::CTrainGenerator(const std::string& trainTitle,
     m_AverageDelay(averageDelay),
     m_MainStationArrival(mainStationArrival),
     m_MainStationDeparture(mainStationDeparture)
-{}
+{
+std::cout << "TITLEEEEEEEEEEEEEEEEEEEE" << m_TrainTitle << std::endl;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CTrainGenerator::AddException(unsigned minutesStart, unsigned minutesEnd)
