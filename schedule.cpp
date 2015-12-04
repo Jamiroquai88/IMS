@@ -203,6 +203,8 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
       else
         freq = CTrainGenerator::FREQ_DAILY;
 
+      std::cout << "TITLE: " << unit.name << std::endl;
+
       CTrainGenerator& myTrainGenerator =
           pStationFrom->AddTrain(unit.name,
             unit.appears, *pStationTo,
