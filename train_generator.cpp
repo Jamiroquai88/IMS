@@ -30,7 +30,9 @@ CTrainGenerator::CTrainGenerator(const std::string& trainTitle,
     m_StopsInMainStation(bStopsInMainStation),
     m_MainStationArrival(mainStationArrival),
     m_MainStationDeparture(mainStationDeparture)
-{}
+{
+std::cout << "TITLEEEEEEEEEEEEEEEEEEEE" << m_TrainTitle << std::endl;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CTrainGenerator::~CTrainGenerator()

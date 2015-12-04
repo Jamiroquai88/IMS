@@ -15,5 +15,20 @@ CDefect::~CDefect()
 void CDefect::Behavior()
 {
   DBG_LOG_T("Generated defect, takes " << m_trainRepair);
+  CMainStation::Tracks tracks = CMainStation::GetInstance().GetTracks();
+
+  SetDefectStartTime(Time);
+
+  RandomSeed(42);
+  unsigned int index = Random() % tracks.size();
+  for(auto train : tracks[index]->GetPassingTrains())
+  {
+    train->Activate();
+  }
+}
+
+void CDefect::SetDefectStartTime(unsigned int time)
+{
+  m_defStartTime = time;
 }
 
