@@ -15,6 +15,7 @@
 #include <map>
 
 class CAdjacentStation;
+class CTrack;
 
 /**
  * \brief Singleton. Main train station of the simulation.

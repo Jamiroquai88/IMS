@@ -14,6 +14,7 @@
 #include <set>
 
 class CTrain;
+class CDefect;
 
 class CTrack
 {

@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
     mainStation.AddAdjacentStation("Zilina Solinky");
     mainStation.AddAdjacentStation("Zilina Zariecie");
 
+
     // Track 127 - Zilina ------> Cadca
     mainStation.AddTrack(mainStation.GetAdjacentStation("Bohumin"), 94)
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Cesky Tesin"), 65))
@@ -96,5 +97,6 @@ int main(int argc, char *argv[])
 
     Run();
     DBG_LOG(mainStation.GetAdjacentStations().size());
+
     return 0;
 }

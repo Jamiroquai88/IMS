@@ -6,6 +6,7 @@
  */
 
 #include "defect.h"
+#include "train.h"
 
 CDefect::~CDefect()
 {
@@ -20,7 +21,7 @@ void CDefect::Behavior()
   SetDefectStartTime(Time);
 
   RandomSeed(42);
-  unsigned int index = Random() % tracks.size();
+  unsigned int index = ((int)round(simlib3::Random()*100000)) % tracks.size();
   for(auto train : tracks[index]->GetPassingTrains())
   {
     train->Activate();
