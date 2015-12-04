@@ -9,10 +9,14 @@
 #define TRACK_H_
 
 #include "simlib.h"
+#include "train.h"
+#include <set>
 
 class CTrack
 {
 public:
+    typedef std::set<CTrain*> Trains;
+
     /**
      * \brief Constructor.
      * \param length Track length
@@ -32,6 +36,7 @@ public:
     CTrack* GetParentTrack() const;
     unsigned GetLength() const;
     unsigned GetNestedSegmentLength() const;
+    const Trains& GetPassingTrains() const;
     /** \} */
 
     /**
@@ -41,6 +46,18 @@ public:
      */
     void AddNestedSegment(CTrack* pNestedSegment);
 
+    /**
+     * \brief Add passing train. The train will be notified about accidents/defects.
+     * \param train Train to be added
+     */
+    void AddPassingTrain(CTrain& train);
+
+    /**
+     * \brief Remove passing train.
+     * \param train Train to be removed
+     */
+    void RemovePassingTrain(CTrain& train);
+
 private:
     // length
     unsigned m_Length;
@@ -48,6 +65,8 @@ private:
     CTrack* m_pParentTrack;
     // nested segment
     CTrack* m_pNestedSegment;
+    // passing trains
+    Trains m_PassingTrains;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,13 +75,6 @@ private:
 inline CTrack* CTrack::GetNestedSegment() const
 {
     return m_pNestedSegment;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-inline void CTrack::AddNestedSegment(CTrack* pNestedSegment)
-{
-    m_pNestedSegment = pNestedSegment;
-    m_pNestedSegment->m_pParentTrack = this;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -81,6 +93,12 @@ inline unsigned CTrack::GetLength() const
 inline unsigned CTrack::GetNestedSegmentLength() const
 {
     return m_pNestedSegment ? m_pNestedSegment->GetLength() : 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline const CTrack::Trains& CTrack::GetPassingTrains() const
+{
+    return m_PassingTrains;
 }
 
 
