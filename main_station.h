@@ -30,6 +30,7 @@ public:
     // root tracks (from main station to the last station)
     typedef std::vector<CTrack*> Tracks;
 
+
 	~CMainStation();
 
 	/**
@@ -48,6 +49,7 @@ public:
     bool HasTrack(const CAdjacentStation& adjStation) const;
 
     const Tracks& GetTracks() const;
+    Histogram& GetHistogram();
     const CTrack& GetTrack(const CAdjacentStation& adjStation) const;
     CTrack& GetTrack(const CAdjacentStation& adjStation);
 
@@ -66,6 +68,8 @@ private:
     Tracks m_Tracks;
     // Tracks segments lookup
     AllTracksMap m_TracksMap;
+    // Histogram for defects
+    Histogram m_histogram;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,6 +96,12 @@ inline CTrack& CMainStation::GetTrack(const CAdjacentStation& adjStation)
 {
     assert(m_TracksMap.find(&adjStation) != m_TracksMap.end());
     return *m_TracksMap[&adjStation];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline Histogram& CMainStation::GetHistogram()
+{
+  return m_histogram;
 }
 
 #endif /* MAIN_STATION_H_ */
