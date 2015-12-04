@@ -78,5 +78,6 @@ CTrack& CMainStation::AddTrack(const CAdjacentStation& adjStation, unsigned leng
 {
     CTrack* pTrack = new CTrack(adjStation, length);
     m_TracksMap[&adjStation] = pTrack;
+    m_Tracks.push_back(pTrack);
     return *pTrack;
 }
