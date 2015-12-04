@@ -77,6 +77,6 @@ void CMainStation::AddAdjacentStation(const std::string& title)
 CTrack& CMainStation::AddTrack(const CAdjacentStation& adjStation, unsigned length)
 {
     CTrack* pTrack = new CTrack(adjStation, length);
-    m_Tracks.push_back(pTrack);
+    m_TracksMap[&adjStation] = pTrack;
     return *pTrack;
 }

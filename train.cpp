@@ -24,7 +24,19 @@ CTrain::CTrain(const CTrainGenerator& generator,
     m_ScheduledMainStationDeparture(scheduledMainStationDeparture),
     m_ScheduledTargetStationArrival(scheduledTargetStationArrival)
 {
-    std::cout << "TITLE: " << generator.GetStartStation().GetTitle() << std::endl;
+    const CAdjacentStation& startStation =
+            static_cast<const CAdjacentStation&>(generator.GetStartStation());
+
+    if(CMainStation::GetInstance().HasTrack(startStation))
+    {
+        m_pTrack = &CMainStation::GetInstance()
+            .GetTrack(startStation);
+    }
+    else
+    {
+        m_pTrack = &CMainStation::GetInstance()
+            .GetTrack(static_cast<const CAdjacentStation&>(generator.GetTargetStation()));
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,11 +46,14 @@ CTrain::~CTrain()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CTrain::Behavior()
 {
+    // go to track
+    m_pTrack->AddPassingTrain(*this);
+
     // travel to the main station
     DBG_LOG_T(m_Generator.GetTrainTitle() + ": Start in " + m_Generator.GetStartStation().GetTitle());
 
     // stops in the main station
-    if( m_ScheduledMainStationArrival )
+    if( m_Generator.StopsInMainStation() )
     {
         unsigned timeToMainSt = m_ScheduledMainStationArrival - m_ScheduledStartTime;
         DBG_LOG_T(m_Generator.GetTrainTitle() + ": ride duration: " +
@@ -48,6 +63,9 @@ void CTrain::Behavior()
             CTimeInterval::MinutesToTime(Time + timeToMainSt));
 
         Wait(timeToMainSt);
+
+        // go off the track
+        m_pTrack->RemovePassingTrain(*this);
 
         // in main station
         DBG_LOG(m_Generator.GetTrainTitle() + ": Entering the main station");
@@ -59,6 +77,11 @@ void CTrain::Behavior()
         }
 
         Wait(m_ScheduledMainStationDeparture - m_ScheduledMainStationArrival);
+
+        // go on the second track
+        m_pTrack = &CMainStation::GetInstance()
+            .GetTrack(static_cast<const CAdjacentStation&>(m_Generator.GetTargetStation()));
+        m_pTrack->AddPassingTrain(*this);
 
         // leaving main station
         DBG_LOG(m_Generator.GetTrainTitle() + ": Leaving the main station");
@@ -75,5 +98,8 @@ void CTrain::Behavior()
                 ": delay " +
                 CTimeInterval::MinutesToTime(Time - m_ScheduledTargetStationArrival));
     }
+
+    // leave the track
+    m_pTrack->RemovePassingTrain(*this);
 }
 

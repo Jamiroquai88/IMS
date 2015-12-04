@@ -18,6 +18,7 @@ CTrainGenerator::CTrainGenerator(const std::string& trainTitle,
     CTrainGenerator::Frequency frequency,
     unsigned targetStationArrival,
     unsigned averageDelay,
+    bool bStopsInMainStation,
     unsigned mainStationArrival,
     unsigned mainStationDeparture)
   : m_TrainTitle(trainTitle),
@@ -26,6 +27,7 @@ CTrainGenerator::CTrainGenerator(const std::string& trainTitle,
     m_Frequency(frequency),
     m_TargetStationArrival(targetStationArrival),
     m_AverageDelay(averageDelay),
+    m_StopsInMainStation(bStopsInMainStation),
     m_MainStationArrival(mainStationArrival),
     m_MainStationDeparture(mainStationDeparture)
 {}

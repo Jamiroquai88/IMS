@@ -20,6 +20,7 @@ public:
             CTrainGenerator::Frequency frequency,
             unsigned targetStationArrival,
             unsigned averageDelay = 0,
+            bool bStopsInMainStation = false,
             unsigned mainStationArrival = 0,
             unsigned mainStationDeparture = 0);
 

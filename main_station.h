@@ -10,6 +10,7 @@
 
 #include "station.h"
 #include "track.h"
+#include <cassert>
 #include <vector>
 #include <map>
 
@@ -23,6 +24,9 @@ class CMainStation : public CStation
 public:
     // title => station
     typedef std::map<std::string, CAdjacentStation*> AdjacentStations;
+    // all tracks segments lookup
+    typedef std::map<const CAdjacentStation*, CTrack*> AllTracksMap;
+    // root tracks (from main station to the last station)
     typedef std::vector<CTrack*> Tracks;
 
 	~CMainStation();
@@ -39,8 +43,12 @@ public:
     CAdjacentStation& GetAdjacentStation(const std::string& title);
 
     void AddAdjacentStation(const std::string& title);
-    void AddTrack(const std::string& adjStationTitle);
+
+    bool HasTrack(const CAdjacentStation& adjStation) const;
+
     const Tracks& GetTracks() const;
+    const CTrack& GetTrack(const CAdjacentStation& adjStation) const;
+    CTrack& GetTrack(const CAdjacentStation& adjStation);
 
     CTrack& AddTrack(const CAdjacentStation& adjStation, unsigned length);
 
@@ -52,12 +60,35 @@ private:
 
     // Members
     AdjacentStations m_AdjacentStations;
+    // Root tracks
     Tracks m_Tracks;
+    // Tracks segments lookup
+    AllTracksMap m_TracksMap;
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline bool CMainStation::HasTrack(const CAdjacentStation& adjStation) const
+{
+    return m_TracksMap.find(&adjStation) != m_TracksMap.end();
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 inline const CMainStation::Tracks& CMainStation::GetTracks() const
 {
     return m_Tracks;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline const CTrack& CMainStation::GetTrack(const CAdjacentStation& adjStation) const
+{
+    return *m_TracksMap.find(&adjStation)->second;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline CTrack& CMainStation::GetTrack(const CAdjacentStation& adjStation)
+{
+    assert(m_TracksMap.find(&adjStation) != m_TracksMap.end());
+    return *m_TracksMap[&adjStation];
 }
 
 #endif /* MAIN_STATION_H_ */

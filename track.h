@@ -9,9 +9,11 @@
 #define TRACK_H_
 
 #include "simlib.h"
-#include "train.h"
+#include "defect.h"
 #include "adjacent_station.h"
 #include <set>
+
+class CTrain;
 
 class CTrack
 {
@@ -60,6 +62,17 @@ public:
      */
     void RemovePassingTrain(CTrain& train);
 
+    /**
+     * \brief Set defect.
+     * \param defect Defect
+     */
+    void SetDefect(CDefect& defect);
+
+    /**
+     * \brief Remove defect.
+     */
+    void ClearDefect();
+
 private:
     // adjacent station
     const CAdjacentStation& m_AdjacentStation;
@@ -71,6 +84,8 @@ private:
     CTrack* m_pNestedSegment;
     // passing trains
     Trains m_PassingTrains;
+    // defect
+    CDefect* m_pDefect;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

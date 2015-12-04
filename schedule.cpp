@@ -205,7 +205,8 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
 
       pStationFrom->AddTrain(unit.name,
         unit.appears, *pStationTo,
-        freq, unit.disappears, unit.late, unit.comes, unit.leaves);
+        freq, unit.disappears, unit.late,
+        !unit.through.empty(), unit.comes, unit.leaves);
 
       std::cout  << "Train " << unit.name << " planned for sim time "
             << CTimeInterval::MinutesToTime(unit.appears)

@@ -10,6 +10,7 @@
 
 #include "simlib.h"
 #include "station.h"
+#include "track.h"
 
 class CTrainGenerator;
 
@@ -44,6 +45,8 @@ private:
 
     // arrival at the target station
     unsigned m_ScheduledTargetStationArrival;
+
+    CTrack* m_pTrack;
 };
 
 #endif /* CTRAIN_H_ */

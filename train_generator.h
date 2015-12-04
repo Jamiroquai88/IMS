@@ -33,7 +33,7 @@ public:
     typedef std::vector<CTimeInterval*> ScheduleExceptions;
 
     /**
-     * \brief Constructor
+     * \brief Constructor.
      */
     CTrainGenerator(const std::string& trainTitle,
         CStation& startStation,
@@ -41,6 +41,7 @@ public:
         Frequency frequency,
         unsigned targetStationArrival,
         unsigned averageDelay = 0,
+        bool bStopsInMainStation = false,
         unsigned mainStationArrival = 0,
         unsigned mainStationDeparture = 0);
 
@@ -63,6 +64,7 @@ public:
     const std::string& GetTrainTitle() const;
     unsigned GetAverageDelay() const;
     Frequency GetFrequency() const;
+    bool StopsInMainStation() const;
     unsigned GetMainStationArrival() const;
     unsigned GetMainStationDeparture() const;
     const ScheduleExceptions& GetScheduleExceptions() const;
@@ -84,6 +86,9 @@ private:
 
     // average delay
     unsigned m_AverageDelay;
+
+    // stops in main station
+    bool m_StopsInMainStation;
 
     // stop at main station
     unsigned m_MainStationArrival;
@@ -110,6 +115,12 @@ inline unsigned CTrainGenerator::GetAverageDelay() const
 inline CTrainGenerator::Frequency CTrainGenerator::GetFrequency() const
 {
     return m_Frequency;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline bool CTrainGenerator::StopsInMainStation() const
+{
+    return m_StopsInMainStation;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
