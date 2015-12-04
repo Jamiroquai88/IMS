@@ -42,6 +42,7 @@ public:
     unsigned GetLength() const;
     unsigned GetNestedSegmentLength() const;
     const Trains& GetPassingTrains() const;
+    CDefect* GetDefect();
     /** \} */
 
     /**
@@ -121,5 +122,10 @@ inline const CTrack::Trains& CTrack::GetPassingTrains() const
     return m_PassingTrains;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline CDefect* CTrack::GetDefect()
+{
+    return m_pDefect;
+}
 
 #endif /* TRACK_H_ */

@@ -49,6 +49,12 @@ void CTrain::Behavior()
     // go to track
     m_pTrack->AddPassingTrain(*this);
 
+    // check for defect
+    if(m_pTrack->GetDefect() != NULL)
+    {
+        DBG_LOG_T("TRAIN AFFECTED BY DEFECT");
+    }
+
     // travel to the main station
     DBG_LOG_T(m_Generator.GetTrainTitle() + ": Start in " + m_Generator.GetStartStation().GetTitle());
 
@@ -63,6 +69,11 @@ void CTrain::Behavior()
             CTimeInterval::MinutesToTime(Time + timeToMainSt));
 
         Wait(timeToMainSt);
+        // check for defect
+        if(m_pTrack->GetDefect() != NULL)
+        {
+            DBG_LOG_T("TRAIN AFFECTED BY DEFECT");
+        }
 
         // go off the track
         m_pTrack->RemovePassingTrain(*this);
@@ -89,6 +100,11 @@ void CTrain::Behavior()
 
     // travel to the target station
     Wait(m_ScheduledTargetStationArrival - m_ScheduledMainStationDeparture);
+    // check for defect
+    if(m_pTrack->GetDefect() != NULL)
+    {
+        DBG_LOG_T("TRAIN AFFECTED BY DEFECT");
+    }
 
     // in target station
     DBG_LOG_T(m_Generator.GetTrainTitle() + ": End in " + m_Generator.GetTargetStation().GetTitle());

@@ -20,7 +20,6 @@ CTrack::CTrack(const CAdjacentStation& adjacentStation, unsigned length)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CTrack::~CTrack()
 {
-    delete m_pParentTrack;
     delete m_pNestedSegment;
 }
 
