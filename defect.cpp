@@ -33,6 +33,14 @@ void CDefect::Behavior()
   {
     train->Activate();
   }
+
+  Wait(Exponential(m_trainRepair));
+  tracks[index]->ClearDefect();
+
+  for(auto train : tracks[index]->GetPassingTrains())
+  {
+    train->Activate();
+  }
 }
 
 void CDefect::SetDefectStartTime(unsigned int time)

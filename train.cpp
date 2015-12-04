@@ -53,6 +53,7 @@ void CTrain::Behavior()
     if(m_pTrack->GetDefect() != NULL)
     {
         DBG_LOG_T("TRAIN AFFECTED BY DEFECT");
+        Passivate();
     }
 
     // travel to the main station
@@ -73,6 +74,7 @@ void CTrain::Behavior()
         if(m_pTrack->GetDefect() != NULL)
         {
             DBG_LOG_T("TRAIN AFFECTED BY DEFECT");
+            Passivate();
         }
 
         // go off the track
@@ -104,6 +106,7 @@ void CTrain::Behavior()
     if(m_pTrack->GetDefect() != NULL)
     {
         DBG_LOG_T("TRAIN AFFECTED BY DEFECT");
+        Passivate();
     }
 
     // in target station
