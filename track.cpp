@@ -27,6 +27,7 @@ CTrack& CTrack::AddNestedSegment(CTrack* pNestedSegment)
 {
     m_pNestedSegment = pNestedSegment;
     m_pNestedSegment->m_pParentTrack = this;
+    return *pNestedSegment;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
