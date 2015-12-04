@@ -45,6 +45,11 @@ public:
         unsigned mainStationDeparture = 0);
 
     /**
+     * \brief Destructor.
+     */
+    ~CTrainGenerator();
+
+    /**
      * \brief Add interval when the train is not generated
      */
     void AddException(unsigned minutesStart, unsigned minutesEnd);

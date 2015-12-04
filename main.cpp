@@ -34,25 +34,25 @@ int main(int argc, char *argv[])
     CMainStation& mainStation = CMainStation::GetInstance();
     mainStation.SetTitle("Zilina");
 
+    mainStation.AddAdjacentStation("Bohumin");
+    mainStation.AddAdjacentStation("Brodno");
+    mainStation.AddAdjacentStation("Bytca");
+    mainStation.AddAdjacentStation("Cadca");
+    mainStation.AddAdjacentStation("Cesky Tesin");
+    mainStation.AddAdjacentStation("Horny Hricov");
+    mainStation.AddAdjacentStation("Kralovany");
+    mainStation.AddAdjacentStation("Kysucke Nove Mesto");
+    mainStation.AddAdjacentStation("Povazska Bystrica");
+    mainStation.AddAdjacentStation("Rudina");
+    mainStation.AddAdjacentStation("Ruzomberok");
+    mainStation.AddAdjacentStation("Trencin");
+    mainStation.AddAdjacentStation("Vrutky");
+    mainStation.AddAdjacentStation("Zilina Solinky");
+    mainStation.AddAdjacentStation("Zilina Zariecie");
+
     CSchedule schedule;
     if(!schedule.OpenConfigFile() || !schedule.ParseAndPlan(mainStation))
         return -1;
-
-    mainStation.AddAdjacentStations("Bohumin");
-    mainStation.AddAdjacentStations("Brodno");
-    mainStation.AddAdjacentStations("Bytca");
-    mainStation.AddAdjacentStations("Cadca");
-    mainStation.AddAdjacentStations("Cesky Tesin");
-    mainStation.AddAdjacentStations("Horny Hricov");
-    mainStation.AddAdjacentStations("Kralovany");
-    mainStation.AddAdjacentStations("Kysucke Nove Mesto");
-    mainStation.AddAdjacentStations("Povazska Bystrica");
-    mainStation.AddAdjacentStations("Rudina");
-    mainStation.AddAdjacentStations("Ruzomberok");
-    mainStation.AddAdjacentStations("Trencin");
-    mainStation.AddAdjacentStations("Vrutky");
-    mainStation.AddAdjacentStations("Zilina Solinky");
-    mainStation.AddAdjacentStations("Zilina Zariecie");
 
     CDefectGenerator smallDefects(CTimeInterval::TimeToMinutes(0,0, SMALL_DEFECT_FREQ),
       SMALL_DEFECT_DELAY);

@@ -23,7 +23,9 @@ CTrain::CTrain(const CTrainGenerator& generator,
     m_ScheduledMainStationArrival(scheduledMainStationArrival),
     m_ScheduledMainStationDeparture(scheduledMainStationDeparture),
     m_ScheduledTargetStationArrival(scheduledTargetStationArrival)
-{}
+{
+    std::cout << "TITLE: " << generator.GetStartStation().GetTitle() << std::endl;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CTrain::~CTrain()
@@ -73,6 +75,5 @@ void CTrain::Behavior()
                 ": delay " +
                 CTimeInterval::MinutesToTime(Time - m_ScheduledTargetStationArrival));
     }
-
 }
 

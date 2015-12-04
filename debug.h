@@ -34,5 +34,13 @@
 #define DBG_LOG_T(x)
 #endif
 
+/**
+ * \brief Debug condition
+ */
+#ifdef DEBUG
+#define DBG_CONDITION(c,str) { if(!(c)){ std::cerr << "DEBUG_CHECK: " << str << std::endl; exit(1); }
+#else
+#define DBG_CONDITION(x)
+#endif
 
 #endif /* DEBUG_H_ */

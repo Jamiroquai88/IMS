@@ -7,6 +7,8 @@
 
 #include "main_station.h"
 #include "adjacent_station.h"
+#include "debug.h"
+#include "assert.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CMainStation::CMainStation()
@@ -54,12 +56,14 @@ const CMainStation::AdjacentStations& CMainStation::GetAdjacentStations() const
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 const CAdjacentStation& CMainStation::GetAdjacentStation(const std::string& title) const
 {
+    assert(m_AdjacentStations.find(title) != m_AdjacentStations.end());
     return *m_AdjacentStations.find(title)->second;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CAdjacentStation& CMainStation::GetAdjacentStation(const std::string& title)
 {
+    assert(m_AdjacentStations.find(title) != m_AdjacentStations.end());
     return *m_AdjacentStations[title];
 }
 

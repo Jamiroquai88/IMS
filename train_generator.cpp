@@ -31,6 +31,10 @@ CTrainGenerator::CTrainGenerator(const std::string& trainTitle,
 {}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+CTrainGenerator::~CTrainGenerator()
+{}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 void CTrainGenerator::AddException(unsigned minutesStart, unsigned minutesEnd)
 {
     m_ScheduleExceptions.push_back(new CTimeInterval(minutesStart, minutesEnd));

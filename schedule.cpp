@@ -175,11 +175,11 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
 
       if(unit.to != "Zilina")
       {
-          pStationFrom = &mainStation.GetAdjacentStation(unit.to);
+          pStationTo = &mainStation.GetAdjacentStation(unit.to);
       }
       else
       {
-          pStationFrom = &mainStation;
+          pStationTo = &mainStation;
       }
 
       // travelling over midnight - move to next day
@@ -203,17 +203,14 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
       else
         freq = CTrainGenerator::FREQ_DAILY;
 
-      std::cout << "TITLE: " << unit.name << std::endl;
+      pStationFrom->AddTrain(unit.name,
+        unit.appears, *pStationTo,
+        freq, unit.disappears, unit.late, unit.comes, unit.leaves);
 
-      CTrainGenerator& myTrainGenerator =
-          pStationFrom->AddTrain(unit.name,
-            unit.appears, *pStationTo,
-            freq, unit.disappears, unit.late, unit.comes, unit.leaves);
-
-      /*std::cout  << "Train " << unit.name << " planned for sim time "
+      std::cout  << "Train " << unit.name << " planned for sim time "
             << CTimeInterval::MinutesToTime(unit.appears)
             << ", from " << unit.from
-            << " to " << unit.to << std::endl;*/
+            << " to " << unit.to << std::endl;
       continue;
     }
     else
