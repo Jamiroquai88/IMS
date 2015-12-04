@@ -82,6 +82,7 @@ inline const CMainStation::Tracks& CMainStation::GetTracks() const
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 inline const CTrack& CMainStation::GetTrack(const CAdjacentStation& adjStation) const
 {
+    assert(m_TracksMap.find(&adjStation) != m_TracksMap.end());
     return *m_TracksMap.find(&adjStation)->second;
 }
 
