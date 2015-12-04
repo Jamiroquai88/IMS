@@ -8,6 +8,7 @@
 #ifndef DEBUG_H_
 #define DEBUG_H_
 
+#include "time_interval.h"
 #include <iostream>
 
 /**
@@ -28,7 +29,7 @@
  * \brief Debug log with time
  */
 #ifdef DEBUG
-#define DBG_LOG_T(x) (DBG_LOG(x << "(" << Time << ")"))
+#define DBG_LOG_T(x) (DBG_LOG(x << " (" << CTimeInterval::MinutesToTime(Time) << ")"))
 #else
 #define DBG_LOG_T(x)
 #endif
