@@ -20,8 +20,14 @@ void CDefect::Behavior()
 
   SetDefectStartTime(Time);
 
-  RandomSeed(42);
-  unsigned int index = ((int)round(simlib3::Random()*100000)) % tracks.size();
+  DBG_LOG("Defect on Track generated");
+
+  unsigned int index = ((int)round(simlib3::Random()*100)); // % tracks.size();
+
+  index = index % tracks.size();
+
+  DBG_LOG("Index of track " << tracks.size());
+
   for(auto train : tracks[index]->GetPassingTrains())
   {
     train->Activate();

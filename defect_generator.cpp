@@ -15,6 +15,7 @@ CDefectGenerator::~CDefectGenerator()
 void CDefectGenerator::Behavior()
 {
   (new CDefect(m_repairTime))->Activate(Time);
-  Activate(Time + Exponential(m_freq));
+  double plan = Time + Exponential(m_freq);
+  Activate(plan);
 }
 
