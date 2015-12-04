@@ -38,6 +38,22 @@ int main(int argc, char *argv[])
     if(!schedule.OpenConfigFile() || !schedule.ParseAndPlan(mainStation))
         return -1;
 
+    mainStation.AddAdjacentStations("Bohumin");
+    mainStation.AddAdjacentStations("Brodno");
+    mainStation.AddAdjacentStations("Bytca");
+    mainStation.AddAdjacentStations("Cadca");
+    mainStation.AddAdjacentStations("Cesky Tesin");
+    mainStation.AddAdjacentStations("Horny Hricov");
+    mainStation.AddAdjacentStations("Kralovany");
+    mainStation.AddAdjacentStations("Kysucke Nove Mesto");
+    mainStation.AddAdjacentStations("Povazska Bystrica");
+    mainStation.AddAdjacentStations("Rudina");
+    mainStation.AddAdjacentStations("Ruzomberok");
+    mainStation.AddAdjacentStations("Trencin");
+    mainStation.AddAdjacentStations("Vrutky");
+    mainStation.AddAdjacentStations("Zilina Solinky");
+    mainStation.AddAdjacentStations("Zilina Zariecie");
+
     CDefectGenerator smallDefects(CTimeInterval::TimeToMinutes(0,0, SMALL_DEFECT_FREQ),
       SMALL_DEFECT_DELAY);
     smallDefects.Activate(CTimeInterval::TimeToMinutes(0,0, SMALL_DEFECT_FREQ));
@@ -49,6 +65,8 @@ int main(int argc, char *argv[])
     CDefectGenerator largeDefects(CTimeInterval::TimeToMinutes(0,0, LARGE_DEFECT_FREQ),
       LARGE_DEFECT_DELAY);
     largeDefects.Activate(CTimeInterval::TimeToMinutes(0,0, LARGE_DEFECT_FREQ));
+
+
 
     Run();
     DBG_LOG(mainStation.GetAdjacentStations().size());
