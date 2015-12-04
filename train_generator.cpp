@@ -60,8 +60,9 @@ void CTrainGenerator::Behavior()
         unsigned mainStationArrival = m_MainStationArrival ? Time + m_MainStationArrival : 0;
         unsigned mainStationDeparture = m_MainStationDeparture ? Time + m_MainStationDeparture : 0;
 
-        (new CTrain(*this, targetStationArrival, mainStationArrival,
-                mainStationDeparture))->Activate();
+        // Generate train with delay
+        (new CTrain(*this, Time, targetStationArrival, mainStationArrival,
+                mainStationDeparture))->Activate(Time + Exponential(m_AverageDelay));
     }
 
     // Repeat in future

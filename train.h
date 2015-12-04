@@ -21,9 +21,10 @@ public:
      * \param generator Train generator containing train settings (schedule, exceptions..)
      */
     CTrain(const CTrainGenerator& generator,
-        unsigned targetStationArrival,
-        unsigned mainStationArrival = 0,
-        unsigned mainStationDeparture = 0);
+        unsigned scheduledStartTime,
+        unsigned scheduledTargetStationArrival,
+        unsigned scheduledMainStationArrival = 0,
+        unsigned scheduledMainStationDeparture = 0);
 
     virtual ~CTrain();
 
@@ -34,11 +35,15 @@ private:
 
     // own schedule times (computed by generator)
 
+    // start time
+    unsigned m_ScheduledStartTime;
+
     // stop at main station
-    unsigned m_MainStationArrival;
-    unsigned m_MainStationDeparture;
+    unsigned m_ScheduledMainStationArrival;
+    unsigned m_ScheduledMainStationDeparture;
+
     // arrival at the target station
-    unsigned m_TargetStationArrival;
+    unsigned m_ScheduledTargetStationArrival;
 };
 
 #endif /* CTRAIN_H_ */

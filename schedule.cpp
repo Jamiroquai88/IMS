@@ -241,7 +241,7 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
       CTrainGenerator& myTrainGenerator =
           mainStation.GetAdjacentStation(adjStationFrom).AddTrain(unit.name,
             unit.appears, mainStation.GetAdjacentStation(adjStationTo),
-            freq, unit.disappears, unit.late);
+            freq, unit.disappears, unit.late, unit.comes, unit.leaves);
 
       /*std::cout  << "Train " << unit.name << " planned for sim time "
             << CTimeInterval::MinutesToTime(unit.appears)
