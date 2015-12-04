@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 {
     DBG_LOG("SIMULATION START - DEBUG");
 
-    Init(0, CTimeInterval::TimeToMinutes(0,0, 10));
+    Init(0, CTimeInterval::TimeToMinutes(0,0, 1000));
 
     // Main station
     CMainStation& mainStation = CMainStation::GetInstance();
