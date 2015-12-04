@@ -37,7 +37,7 @@ echo "Large defect takes approximatelly $((29307/366)) minutes." >> defects.leve
 # It is 4185 days from the start date to the end date, end date included
 # Or 11 years, 5 months, 15 days including the end date
 days=4185
-#echo "Defect happens every $(($days/$lines)) days."
+echo "Defect happens every $(($days/$lines)) days."
 echo "Small defect happens every $(($days/170)) days." >> defects.level
 echo "Medium defect happens every $(($days/101)) days." >> defects.level
 echo "Large defect happens every $(($days/366)) days." >> defects.level
