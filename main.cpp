@@ -38,35 +38,59 @@ int main(int argc, char *argv[])
     if(!schedule.OpenConfigFile() || !schedule.ParseAndPlan(mainStation))
         return -1;
 
-    mainStation.AddAdjacentStations("Bohumin");
-    mainStation.AddAdjacentStations("Brodno");
-    mainStation.AddAdjacentStations("Bytca");
-    mainStation.AddAdjacentStations("Cadca");
-    mainStation.AddAdjacentStations("Cesky Tesin");
-    mainStation.AddAdjacentStations("Horny Hricov");
-    mainStation.AddAdjacentStations("Kralovany");
-    mainStation.AddAdjacentStations("Kysucke Nove Mesto");
-    mainStation.AddAdjacentStations("Povazska Bystrica");
-    mainStation.AddAdjacentStations("Rudina");
-    mainStation.AddAdjacentStations("Ruzomberok");
-    mainStation.AddAdjacentStations("Trencin");
-    mainStation.AddAdjacentStations("Vrutky");
-    mainStation.AddAdjacentStations("Zilina Solinky");
-    mainStation.AddAdjacentStations("Zilina Zariecie");
+    mainStation.AddAdjacentStation("Bohumin");
+    mainStation.AddAdjacentStation("Brodno");
+    mainStation.AddAdjacentStation("Bytca");
+    mainStation.AddAdjacentStation("Cadca");
+    mainStation.AddAdjacentStation("Cesky Tesin");
+    mainStation.AddAdjacentStation("Horny Hricov");
+    mainStation.AddAdjacentStation("Kralovany");
+    mainStation.AddAdjacentStation("Kysucke Nove Mesto");
+    mainStation.AddAdjacentStation("Povazska Bystrica");
+    mainStation.AddAdjacentStation("Rudina");
+    mainStation.AddAdjacentStation("Ruzomberok");
+    mainStation.AddAdjacentStation("Trencin");
+    mainStation.AddAdjacentStation("Vrutky");
+    mainStation.AddAdjacentStation("Zilina Solinky");
+    mainStation.AddAdjacentStation("Zilina Zariecie");
 
+    // Track 127 - Zilina ------> Cadca
+    mainStation.AddTrack(mainStation.GetAdjacentStation("Bohumin"), 94)
+        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Cesky Tesin"), 65))
+        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Cadca"), 30))
+        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Kysucke Nove Mesto"), 10))
+        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Rudina"), 7))
+        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Brodno"), 5));
+
+    // Track 126 - Zilina ------> Rajec
+    mainStation.AddTrack(mainStation.GetAdjacentStation("Zilina Solinky"), 5)
+        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Zilina Zariecie"), 2));
+
+    // Track 120 - Bratislava ------> Zilina
+    mainStation.AddTrack(mainStation.GetAdjacentStation("Trencin"), 179)
+        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Povazska Bystrica"), 32))
+        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Bytca"), 17))
+        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Horny Hricov"), 7));
+
+    // Track 180 - Zilina ------> Kosice
+    mainStation.AddTrack(mainStation.GetAdjacentStation("Ruzomberok"), 57)
+        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Kralovany"), 39))
+        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Vrutky"), 21));
+
+    // Small Defects Generator
     CDefectGenerator smallDefects(CTimeInterval::TimeToMinutes(0,0, SMALL_DEFECT_FREQ),
       SMALL_DEFECT_DELAY);
     smallDefects.Activate(CTimeInterval::TimeToMinutes(0,0, SMALL_DEFECT_FREQ));
 
+    // Medium Defects Generator
     CDefectGenerator mediumDefects(CTimeInterval::TimeToMinutes(0,0, MEDIUM_DEFECT_FREQ),
       MEDIUM_DEFECT_DELAY);
     mediumDefects.Activate(CTimeInterval::TimeToMinutes(0,0, MEDIUM_DEFECT_FREQ));
 
+    // Large Defects Generator
     CDefectGenerator largeDefects(CTimeInterval::TimeToMinutes(0,0, LARGE_DEFECT_FREQ),
       LARGE_DEFECT_DELAY);
     largeDefects.Activate(CTimeInterval::TimeToMinutes(0,0, LARGE_DEFECT_FREQ));
-
-
 
     Run();
     DBG_LOG(mainStation.GetAdjacentStations().size());
