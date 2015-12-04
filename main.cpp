@@ -34,9 +34,7 @@ int main(int argc, char *argv[])
     CMainStation& mainStation = CMainStation::GetInstance();
     mainStation.SetTitle("Zilina");
 
-    CSchedule schedule;
-    if(!schedule.OpenConfigFile() || !schedule.ParseAndPlan(mainStation))
-        return -1;
+
 
     mainStation.AddAdjacentStation("Bohumin");
     mainStation.AddAdjacentStation("Brodno");
@@ -53,6 +51,10 @@ int main(int argc, char *argv[])
     mainStation.AddAdjacentStation("Vrutky");
     mainStation.AddAdjacentStation("Zilina Solinky");
     mainStation.AddAdjacentStation("Zilina Zariecie");
+
+    CSchedule schedule;
+    if(!schedule.OpenConfigFile() || !schedule.ParseAndPlan(mainStation))
+        return -1;
 
     // Track 127 - Zilina ------> Cadca
     mainStation.AddTrack(mainStation.GetAdjacentStation("Bohumin"), 94)
@@ -94,5 +96,6 @@ int main(int argc, char *argv[])
 
     Run();
     DBG_LOG(mainStation.GetAdjacentStations().size());
+
     return 0;
 }

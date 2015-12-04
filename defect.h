@@ -10,6 +10,8 @@
 
 #include "simlib.h"
 #include "debug.h"
+#include "main_station.h"
+#include <math.h>
 
 class CDefect : public Process
 {
