@@ -8,8 +8,9 @@
 #include "track.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-CTrack::CTrack(unsigned length)
-  : m_Length(length),
+CTrack::CTrack(const CAdjacentStation& adjacentStation, unsigned length)
+  : m_AdjacentStation(adjacentStation),
+    m_Length(length),
     m_pParentTrack(NULL),
     m_pNestedSegment(NULL)
 {}

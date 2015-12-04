@@ -10,6 +10,7 @@
 
 #include "simlib.h"
 #include "train.h"
+#include "adjacent_station.h"
 #include <set>
 
 class CTrack
@@ -19,9 +20,10 @@ public:
 
     /**
      * \brief Constructor.
-     * \param length Track length
+     * \param srcStation    Adjacent train station (destination is always the main station)
+     * \param length        Track length
      */
-    CTrack(unsigned length);
+    CTrack(const CAdjacentStation& adjacentStation, unsigned length);
 
     /**
      * \brief Destructor.
@@ -59,6 +61,8 @@ public:
     void RemovePassingTrain(CTrain& train);
 
 private:
+    // adjacent station
+    const CAdjacentStation& m_AdjacentStation;
     // length
     unsigned m_Length;
     // parent track
