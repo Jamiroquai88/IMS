@@ -7,14 +7,16 @@
 
 #include "track.h"
 
-CTrack::CTrack()
-{
-    // TODO Auto-generated constructor stub
+////////////////////////////////////////////////////////////////////////////////////////////////////
+CTrack::CTrack(unsigned length)
+  : m_Length(length),
+    m_pParentTrack(NULL),
+    m_pNestedSegment(NULL)
+{}
 
-}
-
+////////////////////////////////////////////////////////////////////////////////////////////////////
 CTrack::~CTrack()
 {
-    // TODO Auto-generated destructor stub
+    delete m_pParentTrack;
+    delete m_pNestedSegment;
 }
-
