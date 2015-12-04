@@ -155,39 +155,32 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
   CSchedule::STrainProcess unit;
   unit.name = "";
 
-
   while(1)
   {
     if(GetLink(unit))
     {
       if(unit.name == "EOF")
         return true;
-      bool bexists_from = false;
-      bool bexists_to = false;
-      size_t adjStationFrom;
-      size_t adjStationTo;
 
-      unsigned int count = 0;
-      for(const CAdjacentStation *station : mainStation.GetAdjacentStations())
+      CStation* pStationFrom;
+      CStation* pStationTo;
+      if(unit.from != "Zilina")
       {
-        std::string title = station->GetTitle();
-        if(unit.from == title)
-        {
-          bexists_from = true;
-          adjStationFrom = count;
-        }
-        if(unit.to == title)
-        {
-          bexists_to = true;
-          adjStationTo = count;
-        }
-        count++;
+          pStationFrom = &mainStation.GetAdjacentStation(unit.from);
+      }
+      else
+      {
+          pStationFrom = &mainStation;
       }
 
-      if(!bexists_from  && unit.from != "Zilina")
-        adjStationFrom = mainStation.AddAdjacentStations(unit.from);
-      if(!bexists_to  && unit.to != "Zilina")
-        adjStationTo = mainStation.AddAdjacentStations(unit.to);
+      if(unit.to != "Zilina")
+      {
+          pStationFrom = &mainStation.GetAdjacentStation(unit.to);
+      }
+      else
+      {
+          pStationFrom = &mainStation;
+      }
 
       // travelling over midnight - move to next day
       if(unit.comes < unit.appears)
@@ -210,37 +203,9 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
       else
         freq = CTrainGenerator::FREQ_DAILY;
 
-      if(unit.to == "Zilina")
-      {
-
-        CTrainGenerator& myTrainGenerator =
-            mainStation.GetAdjacentStation(adjStationTo).AddTrain(unit.name,
-                unit.appears, mainStation.GetInstance(),
-                freq, unit.disappears, unit.late);
-
-        /*std::cout  << "Train " << unit.name << " planned for sim time "
-            << CTimeInterval::MinutesToTime(unit.appears)
-            << ", from " << mainStation.GetAdjacentStation(adjStationFrom).GetTitle()
-            << " to " << mainStation.GetTitle() << std::endl;*/
-        continue;
-      }
-
-      if(unit.from == "Zilina")
-      {
-        CTrainGenerator& myTrainGenerator = mainStation.AddTrain(unit.name,
-            unit.appears, mainStation.GetAdjacentStation(adjStationTo),
-            freq, unit.disappears, unit.late);
-
-        /*std::cout  << "Train " << unit.name << " planned for sim time "
-            << CTimeInterval::MinutesToTime(unit.appears)
-            << ", from " << unit.from
-            << " to " << mainStation.GetAdjacentStation(adjStationTo).GetTitle() << std::endl;*/
-        continue;
-      }
-
       CTrainGenerator& myTrainGenerator =
-          mainStation.GetAdjacentStation(adjStationFrom).AddTrain(unit.name,
-            unit.appears, mainStation.GetAdjacentStation(adjStationTo),
+          pStationFrom->AddTrain(unit.name,
+            unit.appears, *pStationTo,
             freq, unit.disappears, unit.late, unit.comes, unit.leaves);
 
       /*std::cout  << "Train " << unit.name << " planned for sim time "

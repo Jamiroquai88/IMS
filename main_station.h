@@ -9,7 +9,9 @@
 #define MAIN_STATION_H_
 
 #include "station.h"
+#include "track.h"
 #include <vector>
+#include <map>
 
 class CAdjacentStation;
 
@@ -19,7 +21,9 @@ class CAdjacentStation;
 class CMainStation : public CStation
 {
 public:
-    typedef std::vector<CAdjacentStation*> AdjacentStations;
+    // title => station
+    typedef std::map<std::string, CAdjacentStation*> AdjacentStations;
+    typedef std::vector<CTrack*> Tracks;
 
 	~CMainStation();
 
@@ -31,10 +35,14 @@ public:
 	void SetTitle(const std::string& title);
 
 	const AdjacentStations& GetAdjacentStations() const;
-    const CAdjacentStation& GetAdjacentStation(size_t id) const;
-    CAdjacentStation& GetAdjacentStation(size_t id);
+    const CAdjacentStation& GetAdjacentStation(const std::string& title) const;
+    CAdjacentStation& GetAdjacentStation(const std::string& title);
 
-    size_t AddAdjacentStations(const std::string& title);
+    void AddAdjacentStation(const std::string& title);
+    void AddTrack(const std::string& adjStationTitle);
+    const Tracks& GetTracks() const;
+
+    CTrack& AddTrack(const CAdjacentStation& adjStation, unsigned length);
 
 private:
 	CMainStation();
@@ -44,6 +52,12 @@ private:
 
     // Members
     AdjacentStations m_AdjacentStations;
+    Tracks m_Tracks;
 };
+
+inline const CMainStation::Tracks& CMainStation::GetTracks() const
+{
+    return m_Tracks;
+}
 
 #endif /* MAIN_STATION_H_ */
