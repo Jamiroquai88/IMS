@@ -29,7 +29,7 @@ CTrack& CTrack::AddNestedSegment(CTrack* pNestedSegment)
     m_pNestedSegment = pNestedSegment;
     m_pNestedSegment->m_pParentTrack = this;
     // register the nested segment in the main station (to the lookup table)
-    CMainStation::GetInstance().AddTrack(pNestedSegment->m_AdjacentStation,
+    CMainStation::GetInstance().AddCoreTrack(pNestedSegment->m_AdjacentStation,
         pNestedSegment->GetLength());
 
     return *pNestedSegment;

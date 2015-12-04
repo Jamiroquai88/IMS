@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 
 
     // Track 127 - Zilina ------> Cadca
-    mainStation.AddTrack(mainStation.GetAdjacentStation("Bohumin"), 94)
+    mainStation.AddCoreTrack(mainStation.GetAdjacentStation("Bohumin"), 94)
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Cesky Tesin"), 65))
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Cadca"), 30))
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Kysucke Nove Mesto"), 10))
@@ -60,17 +60,17 @@ int main(int argc, char *argv[])
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Brodno"), 5));
 
     // Track 126 - Zilina ------> Rajec
-    mainStation.AddTrack(mainStation.GetAdjacentStation("Zilina Solinky"), 5)
+    mainStation.AddCoreTrack(mainStation.GetAdjacentStation("Zilina Solinky"), 5)
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Zilina Zariecie"), 2));
 
     // Track 120 - Bratislava ------> Zilina
-    mainStation.AddTrack(mainStation.GetAdjacentStation("Trencin"), 179)
+    mainStation.AddCoreTrack(mainStation.GetAdjacentStation("Trencin"), 179)
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Povazska Bystrica"), 32))
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Bytca"), 17))
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Horny Hricov"), 7));
 
     // Track 180 - Zilina ------> Kosice
-    mainStation.AddTrack(mainStation.GetAdjacentStation("Ruzomberok"), 57)
+    mainStation.AddCoreTrack(mainStation.GetAdjacentStation("Ruzomberok"), 57)
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Kralovany"), 39))
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Vrutky"), 21));
 

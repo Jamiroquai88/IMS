@@ -74,10 +74,16 @@ void CMainStation::AddAdjacentStation(const std::string& title)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-CTrack& CMainStation::AddTrack(const CAdjacentStation& adjStation, unsigned length)
+CTrack& CMainStation::AddCoreTrack(const CAdjacentStation& adjStation, unsigned length)
 {
     CTrack* pTrack = new CTrack(adjStation, length);
-    m_TracksMap[&adjStation] = pTrack;
     m_Tracks.push_back(pTrack);
+    AddTrackSegment(*pTrack);
     return *pTrack;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainStation::AddTrackSegment(CTrack& track)
+{
+    m_TracksMap[&track.GetAdjacentStation()] = &track;
 }

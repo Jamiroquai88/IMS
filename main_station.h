@@ -51,7 +51,8 @@ public:
     const CTrack& GetTrack(const CAdjacentStation& adjStation) const;
     CTrack& GetTrack(const CAdjacentStation& adjStation);
 
-    CTrack& AddTrack(const CAdjacentStation& adjStation, unsigned length);
+    CTrack& AddCoreTrack(const CAdjacentStation& adjStation, unsigned length);
+    void AddTrackSegment(CTrack& track);
 
 private:
 	CMainStation();
