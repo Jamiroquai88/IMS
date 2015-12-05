@@ -1,0 +1,107 @@
+%=========================================================================
+% (c) Michal Bidlo, Bohuslav K?ena, 2008
+
+\chapter{Úvod}
+V~tejto práci je rie¹ená implementácia modelu systému hromadnej obsluhy(ïalej len SHO)\cite{fitWeb} dopravného uzlu, pre implementáciu bol autormi zvolený model ¾elezniènej stanice (ïalej ako ®S) ®ilina na území Slovenskej Republiky. 
+Na základe modelu a simulaèných experimentov bude znázornené chovanie systému zalo¾ené na podkladoch pre správu a~riadenie ®S.
+
+\section{Autori projektu}
+
+\subsection{Hlavní autori}
+\begin{itemize}
+\item Pavel Richtarik - xricht21@stud.fit.vutbr.cz
+\item Ján Profant - xprofa00@stud.fit.vutbr.cz 
+\end{itemize}
+
+\subsection{Odborní konzultanti}
+\begin{itemize}
+\item Du¹an Kelo
+\item Jozef Gulík
+\item Vladimír ©nídl
+\end{itemize}
+Obom zmieneným konzultantom ïakujeme za pomoc pri vypracovávaní práce a~za veµmi prínosné odborné rady a~usmernenia. Poïakovanie taktie¾ patrí èlenom klubu vlaky.net\cite{fitWeb}.
+
+\section{Validita modelu}
+Validita modelu SHO bola overená experimentovaním s~modelom, výsledky experimentov odpovedali skutoènému za»a¾eniu ®elezniènej stanice ®ilina podµa grafikonov vlakovej dopravy (ïalej len GVD)\cite{fitWeb} pre rok 2015\cite{fitWeb} a~plánov vlakotvorby nákladnej dopravy (ïalej len ND)\cite{fitWeb}.
+
+\chapter{Rozbor témy a pou¾itých metód/technológií}
+\section{Implementaèné nástroje}
+Pre samotnú implementáciu modelu ®S ®ilina bol pou¾itý jazyk C++\cite{fitWeb} a~simulaèná kni¾nica SIMLIB3\cite{fitWeb}, èím bolo dodr¾ané zadanie projektu.
+
+\section{®eleznièná stanica ®ilina}
+®S ®ilina slú¾i ako dôle¾itý dopravný uzol nielen vrámci Slovenska, ale takisto slú¾i ako hlavný spoj s Èeskou Republikou vrámci stredného Slovenska. Stanica le¾í na vetve panaeurópskeho dopravného koridoru Bratislava - U¾horod. Stanica bola otvorená v~roku 1871 vrámci výstavby Ko¹icko-Bohumínskej ¾eleznice. 
+Na stanici sa nachádzajú tri nástupi¹ia, s~podchodovým  viac úrovòovým prístupom.\cite{fitWeb}
+
+\section{Grafikon vlakovej dopravy}
+Vrámci modelovania systému boli pou¾ité GVD pre rok 2015\cite{fitWeb} obsahujúce vlakové trate\cite{fitWeb} prechádzajúce cez ®S ®ilina, konkrétne:
+
+\begin{itemize}
+\item ®SR 127: ®ilina - Èadca\cite{fitWeb}
+\item ®SR 120: Bratislava - ®ilina\cite{fitWeb}
+\item ®SR 180: ®ilina - Ko¹ice\cite{fitWeb}
+\item ®SR 127: ®ilina - Rajec\cite{fitWeb}
+\end{itemize}
+
+Na daných tratiach sa vyskytujú nasledujúce kategórie vlakov osobnej dopravy\cite{fitWeb}:
+\begin{itemize}
+\item SuperCity (SC) - vlaky s~najvy¹¹ím ¹tandardom a~poskytovanými slu¾bami, najvy¹¹ou prioritou, ktorý nezastavuje na viac ako pä» minút, vyznaèuje sa vysokou prevádzkovou rýchlos»ou (v~Èesku vlakové súpravy Pendolino ÈD~r.~680).
+\item EuroCity (EC) - medzi¹tátny vlak najvy¹¹ej kvality, ktorý sa svojimi parametrami (cestovná rýchlos», poèet zastavení, úroveò poskytovaných slu¾ieb a~pod.) odli¹uje od ostatných vlakov - slú¾i na rýchle spojenie významných miest alebo centier jednotlivých ¹tátov.
+\item EuroNight (EN) - obdoba EC pre noèné spojenie.
+\item InterCity (IC) - medzi¹tátny alebo vnútro¹tátny vlak vy¹¹ej kvality, ktorý sa svojimi parametrami (cestovná rýchlos», poèet zastavení, úroveò poskytovaných slu¾ieb a~pod.) odli¹uje od ostatných vlakov ni¾¹ích kategórií - slú¾i na rýchle spojenie významných miest, (centier) jednotlivých ¹tátov alebo vo vnútro¹tátnej preprave.
+\item Expresný vlak (Ex) - dôle¾itý vlak, spájajúci významné miesta krajín a~¹tátov na veµké vzdialenosti.
+\item Rýchlik (R) - vlak na rýchlu prepravu na väè¹ie vzdialenosti, zastavuje spravidla len v~dôle¾itých staniciach.
+\item Osobný vlak (Os) - vlak, ktorý zabezpeèuje prepravu spravidla do v¹etkých staníc a~zastávok prechádzanej trate.
+\end{itemize}
+
+\section{Plán vlakotvorby nákladnej dopravy}
+Pre úèely validity modelu bolo nevyhnutné do modelu zaradi» okrem osobnej vlakovej dopravy aj dopravu nákladnú. Aj napriek tomu, ¾e nákladné vlaky chodia väè¹inou podµa potreby a~zavádzajú sa operatívne\cite{fitWeb}. Takisto pravidelnos» nákladných vlakov je v tomto prípade otázna, existujú vlaky, ktoré chodia pravidelne a~vlaky, ktoré nejdú napríklad aj rok\cite{fitWeb}. Je potrebné zobra» do úvahy fakt, ¾e ®S ®ilina nie je vlakotvorná stanica a~v¹etka zá»a¾ ND sa sústreïuje do neïalekej vlakotvornej stanice ®ilina-Teplièka\cite{fitWeb}.
+
+Na základe plánu vlakotvorby ND\cite{fitWeb} mô¾me nákladné vlaky rozdeli» do nasledujúcich kategórii:
+\begin{itemize}
+\item Nákladný express (Nex) - vlak vy¹¹ej kvality urèený predov¹etkým na dopravu dôle¾itej zá»a¾e vrátane kombinovanej dopravy.
+\item Priebe¾ný nákladný vlak (Pn) - vlak urèený na dopravu zá»a¾e medzi vlakotvornými stanicami, resp. medzi miestami nákladky a výkladky.
+\item Manipulaèný vlak (Mn) - vlak urèený na obsluhu manipulaèných miest v~medziµahlých staniciach, nákladiskách a~vleèkách.
+\item Vleèkový vlak (Vleè) - vlak urèený na obsluhu vleèiek.
+\end{itemize}
+
+\section{Poruchy vozòov a hnacích dráhových vozidiel}
+Poruchy sú èastým zdrojom oneskorenia vlakov, èi u¾ osobných alebo nákladných. Udalos» poruchy vozòa alebo hnacích dráhových vozidiel (ïalej len HDV) doká¾e naru¹i» chod celej stanice, predov¹etkým vïaka ostrým obratom a~èasom vyhroteným na doraz\cite{fitWeb}. Ako zdroj ¹tatistík o výskyte porúch nám poslú¾il web www.vlaky.net, a~ich databáza porúch HDV a~vozòov vedená od 14.6.2014\cite{fitWeb}.
+Esenciálna pre nás bola då¾ka oneskorenia vlaku a~poèet záznamov poèas tohto èasového obdobia. Poruchy sme rozdelili do troch kategórii - malé (men¹ie ako 10 min), stredné (10 min - 30 min) a~vá¾ne (väè¹ie ako 30 min). Priemerný výskyt chýb a~ich trvanie sme uviedli do nasledujúcej tabuµky:
+
+\begin{table}
+	\caption {}
+    \begin{tabular}{| l | l | l |}
+    \hline
+    Záva¾nos» & Frekvencia výskytu & Då¾ka opravy \\ \hline
+    malá & 24 dní & 2 min \\ \hline
+    stredná & 41 dní & 19 min \\ \hline
+    vá¾na & 11 dní & 80 min \\ \hline
+    \end{tabular}
+\end{table}
+
+\section{Plán obsadenia koµají}
+Priraïovanie konkrétnych koµají a~nástupi¹» je vopred dané. Ka¾dý rok sa pre konkrétnu ®S vypracuváva plán obsadenia koµají, kde sa pri ka¾dej koµaji eviduje, odkedy - dokedy má by» obsadená a ktorým vlakom, toto opatrenie zamedzuje prípadnému nedostatku nástupi¹». Zmeny sa v¹ak èastokrát rie¹ia aj operatívne.\cite{fitWeb} 
+\\Koµaje sú rozdelené najmä na:
+\begin{itemize}
+\item Dopravné - slú¾ia pre vlaky na osobnú dopravu.
+\item Manipulaèné - slú¾ia na nákladku, výkladku, odstraòovanie súprav a iné.
+\item Koµaje bez nástupi¹» - slú¾ia pre nákladnú dopravu.
+\end{itemize}
+
+\chapter{Koncepcia modelu}
+
+\section{Model grafikonu vlakovej dopravy}
+Model vychádzal z GVD 2015\cite{fitWeb} pre trate uvedené v kapitole 2.3. Pre úèely modelu ®S ®ilina sme GVD zjednodu¹ili a v¾dy uviedli len stanicu, s ktorou je konkrétna linka osobnej vlakovej dopravy prepojená (zastávky vlakov osobnej dopravy závisia od kategórie vlaku).\\
+Zastávky na tratiach sú nasledujúce:
+\begin{itemize}
+\item ®SR 127: Brodno, Rudina, Kysucké Nové Mesto, Èadca, Èeský Tì¹ín, Bohumín\cite{fitWeb}
+\item ®SR 120: Horný Hrièov, Bytèa, Pova¾ská Bystrica, Trenèín\cite{fitWeb}
+\item ®SR 180: Vrútky, Kraµovany, Ru¾omberok\cite{fitWeb}
+\item ®SR 127: ®ilina - Záreèie, ®ilina - Solinky\cite{fitWeb}
+\end{itemize}
+
+Veµmi dôle¾itým faktorom pri modelovaní GVD je me¹kanie linky. Jediné ¹tatistiky o  me¹kaniach si vedie dopravca (®eleznièná spoloènos» Slovensko, RegioJet) a tieto informácie nie sú verejne dostupné. Jediný zdroj, ktorý sa tejto tematike venoval bol Vladimír ©nídl z Denníku N v èlánku z 23.6.2015\cite{fitWeb}, ktorý nám následne sprístupnil údaje, ktoré mu boli spoloènos»ami poskytnuté.\cite{fitWeb}
+
+%Pre úèely modelu boli modelované odchody zo staníc priamo napojených na ®S ®ilina
+
+%=========================================================================

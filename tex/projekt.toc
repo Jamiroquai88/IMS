@@ -1,0 +1,15 @@
+\select@language {czech}
+\contentsline {chapter}{\numberline {1}\'Uvod}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Autori projektu}{2}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Hlavn\IeC {\'\i } autori}{2}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Odborn\IeC {\'\i } konzultanti}{2}{subsection.1.1.2}
+\contentsline {section}{\numberline {1.2}Validita modelu}{2}{section.1.2}
+\contentsline {chapter}{\numberline {2}Rozbor t\'emy a pou\v zit\'ych met\'od/technol\'ogi\IeC {\'\i }}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Implementa\v cn\'e n\'astroje}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}\v Zelezni\v cn\'a stanica \v Zilina}{3}{section.2.2}
+\contentsline {section}{\numberline {2.3}Grafikon vlakovej dopravy}{3}{section.2.3}
+\contentsline {section}{\numberline {2.4}Pl\'an vlakotvorby n\'akladnej dopravy}{4}{section.2.4}
+\contentsline {section}{\numberline {2.5}Poruchy voz\v nov a hnac\IeC {\'\i }ch dr\'ahov\'ych vozidiel}{4}{section.2.5}
+\contentsline {section}{\numberline {2.6}Pl\'an obsadenia ko\v laj\IeC {\'\i }}{5}{section.2.6}
+\contentsline {chapter}{\numberline {3}Koncepcia modelu}{6}{chapter.3}
+\contentsline {section}{\numberline {3.1}Model grafikonu vlakovej dopravy}{6}{section.3.1}
