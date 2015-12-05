@@ -71,10 +71,10 @@ private:
     // Tracks segments lookup
     AllTracksMap m_TracksMap;
 
-    // Histogram for defects
-    Histogram m_DefectsHistogram;
     // Histogram for delays
     Histogram m_Delayhistogram;
+    // Histogram for defects
+    Histogram m_DefectsHistogram;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
