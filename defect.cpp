@@ -23,13 +23,18 @@ void CDefect::Behavior()
   DBG_LOG("Defect on Track generated");
 
   unsigned int index = ((int)round(simlib3::Random()*100)); // % tracks.size();
-
   index = index % tracks.size();
-  tracks[index]->SetDefect(*this);
 
-  DBG_LOG("Index of track " << index);
+  unsigned location = ((int)round(simlib3::Random()*100));
+  location = location % tracks[index]->GetLength();
 
-  for(auto train : tracks[index]->GetPassingTrains())
+  tracks[index]->SetDefect(*this, location);
+
+  DBG_LOG("Index of track " << index << location);
+
+  CTrack::Trains passingTrains;
+  tracks[index]->GetPassingTrains(location, true, passingTrains);
+  for(auto train : passingTrains)
   {
     train->Activate();
   }
@@ -37,7 +42,8 @@ void CDefect::Behavior()
   Wait(Exponential(m_trainRepair));
   tracks[index]->ClearDefect();
 
-  for(auto train : tracks[index]->GetPassingTrains())
+  tracks[index]->GetPassingTrains(location, true, passingTrains);
+  for(auto train : passingTrains)
   {
     train->Activate();
   }

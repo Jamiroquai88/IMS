@@ -41,10 +41,21 @@ public:
     CTrack* GetParentTrack() const;
     unsigned GetLength() const;
     unsigned GetNestedSegmentLength() const;
-    const Trains& GetPassingTrains() const;
-    CDefect* GetDefect();
     const CAdjacentStation& GetAdjacentStation() const;
     /** \} */
+
+    /**
+     * \brief Get defect in this segment (including all nested segments)
+     */
+    CDefect* GetDefect();
+
+    /**
+     * \brief Get trains on the tracks before the given kilometer.
+     * \param location          Distance from the main station
+     * \param bFromMainStation  Direction of the train
+     * \param trains            Output trains
+     */
+    void GetPassingTrains(unsigned location, bool bFromMainStation, Trains& trains) const;
 
     /**
      * \brief   Add nested segment. Segment's parent is set to this. This object is the owner,
@@ -67,9 +78,10 @@ public:
 
     /**
      * \brief Set defect.
-     * \param defect Defect
+     * \param defect    Defect
+     * \param location  Number of kilometers from the main station
      */
-    void SetDefect(CDefect& defect);
+    void SetDefect(CDefect& defect, unsigned location);
 
     /**
      * \brief Remove defect.
@@ -115,18 +127,6 @@ inline unsigned CTrack::GetLength() const
 inline unsigned CTrack::GetNestedSegmentLength() const
 {
     return m_pNestedSegment ? m_pNestedSegment->GetLength() : 0;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-inline const CTrack::Trains& CTrack::GetPassingTrains() const
-{
-    return m_PassingTrains;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-inline CDefect* CTrack::GetDefect()
-{
-    return m_pDefect;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
