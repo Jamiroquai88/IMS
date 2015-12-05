@@ -25,42 +25,85 @@ CTrack::~CTrack()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-CDefect* CTrack::GetDefect()
+CDefect* CTrack::GetDefect(unsigned location, bool dirFromMainStation) const
 {
-    if(m_pDefect)
-        return m_pDefect;
-    else if(m_pNestedSegment)
-        return m_pNestedSegment->GetDefect();
+    CDefect* pDefect = NULL;
+    // MAIN STATION -> location -> TARGET STATION
+    if(dirFromMainStation)
+    {
+        if(!m_pDefect)
+        {
+            if(m_pNestedSegment)
+                pDefect = m_pNestedSegment->GetDefect(location, dirFromMainStation);
+        }
+        else if(m_pDefect->GetLocation() >= location)
+            pDefect = m_pDefect;
+    }
+    // MAIN STATION <- location <- TARGET STATION
     else
-        return NULL;
+    {
+        if(!m_pDefect)
+        {
+            if(m_pParentTrack)
+                pDefect = m_pParentTrack->GetDefect(location, dirFromMainStation);
+        }
+        else if(m_pDefect->GetLocation() <= location)
+        {
+            pDefect = m_pDefect;
+        }
+    }
+    return pDefect;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CTrack::GetPassingTrains(unsigned location, bool bFromMainStation, Trains& trains) const
+void CTrack::GetComingTrains(unsigned location, bool bFromMainStation, Trains& trains) const
 {
-    for(Trains::const_iterator itTrain = m_PassingTrains.begin();
-        itTrain != m_PassingTrains.end();
-        ++itTrain)
+    bool bAddOwnTrains = true;
+
+    // MAIN STATION -> location -> TARGET STATION
+    if(bFromMainStation)
     {
-        DBG_LOG("PASSING TRAINS: Track duration: " << (*itTrain)->GetTrackDuration());
-        // train approximate location
-        double progressPercent = (*itTrain)->GetTraveledMinutes() / (double)(*itTrain)->GetTrackDuration();
-
-        DBG_LOG_T("Train progress " << (*itTrain)->GetGenerator().GetTrainTitle()
-            << " Start - " << CTimeInterval::MinutesToTime((*itTrain)->GetRealStartTime())
-            << " progress minutes: "
-            << (*itTrain)->GetTraveledMinutes()
-            << " - " << (progressPercent*100) << "%");
-
-        // opposite direction - invert
-        if(!bFromMainStation)
+        // a nested segment exists
+        if(m_pNestedSegment)
         {
-            progressPercent = 1 - progressPercent;
+            // location is resides within the nested segment
+            if(location < m_pNestedSegment->GetLength())
+            {
+                bAddOwnTrains = false;
+            }
+            m_pNestedSegment->GetComingTrains(location, bFromMainStation, trains);
         }
+    }
+    // MAIN STATION <- location <- TARGET STATION
+    else
+    {
+        // a nested segment exists
+        if(m_pNestedSegment)
+        {
+            // location resides outside the nested segment
+            if(location > m_pNestedSegment->GetLength())
+            {
+                m_pNestedSegment->GetComingTrains(location, bFromMainStation, trains);
+            }
+        }
+    }
 
-        //unsigned location = m_Length * progressPercent;
+    // add own trains
+    if(bAddOwnTrains)
+    {
+        for(Trains::const_iterator itTrain = m_PassingTrains.begin();
+            itTrain != m_PassingTrains.end();
+            ++itTrain)
+        {
+            // train approximate location
+            unsigned trainLocation = (*itTrain)->GetDistanceFromMainStation();
 
-        trains.insert(*itTrain);
+            if( (bFromMainStation && trainLocation < location) ||
+                (!bFromMainStation && trainLocation > location) )
+            {
+                trains.insert(*itTrain);
+            }
+        }
     }
 }
 
@@ -84,10 +127,6 @@ void CTrack::AddPassingTrain(CTrain& train)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CTrack::RemovePassingTrain(CTrain& train)
 {
-    DBG_LOG_T("Remove passing train " << train.GetGenerator().GetTrainTitle()
-        << " Start - " << CTimeInterval::MinutesToTime(train.GetRealStartTime())
-        << " progress minutes: "
-        << train.GetTraveledMinutes());
     m_PassingTrains.erase(&train);
 }
 
@@ -112,4 +151,6 @@ void CTrack::ClearDefect()
 {
     DBG_LOG_T("CLEAR DEFECT");
     m_pDefect = NULL;
+    if(m_pNestedSegment)
+        m_pNestedSegment->ClearDefect();
 }

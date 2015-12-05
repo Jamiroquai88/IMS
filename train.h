@@ -44,9 +44,9 @@ public:
     void Behavior();
 
     unsigned GetRealMainStationdeparture() const;
-    unsigned GetRealStartTime() const;
     unsigned GetTrackDuration() const;
     unsigned GetTraveledMinutes() const;
+    unsigned GetDistanceFromMainStation() const;
     const CTrainGenerator& GetGenerator() const;
 
 private:
@@ -58,12 +58,10 @@ private:
 
     // start time
     unsigned m_ScheduledStartTime;
-    unsigned m_RealStartTime;
 
     // stop at main station
     unsigned m_ScheduledMainStationArrival;
     unsigned m_ScheduledMainStationDeparture;
-    unsigned m_RealMainStationdeparture;
 
     // arrival at the target station
     unsigned m_ScheduledTargetStationArrival;
@@ -74,19 +72,8 @@ private:
     unsigned m_TraveledMinutes;
 
     CTrack* m_pTrack;
+    bool m_DirFromMainStation;
 };
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-inline unsigned CTrain::GetRealMainStationdeparture() const
-{
-    return m_RealMainStationdeparture;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-inline unsigned CTrain::GetRealStartTime() const
-{
-    return m_RealStartTime;
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 inline unsigned CTrain::GetTrackDuration() const
@@ -98,6 +85,32 @@ inline unsigned CTrain::GetTrackDuration() const
 inline unsigned CTrain::GetTraveledMinutes() const
 {
     return m_TraveledMinutes;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline unsigned CTrain::GetDistanceFromMainStation() const
+{
+    // only defined if the train is on a track
+    assert(m_pTrack);
+
+    unsigned distance = 0;
+    if(m_TraveledMinutes > 0)
+    {
+        assert(m_TrackDuration > 0);
+
+        double percent = m_TraveledMinutes / (double)m_TrackDuration;
+        distance = m_pTrack->GetLength() * percent;
+    }
+
+    DBG_LOG_T(GetGenerator().GetTrainTitle()
+            << ":\tTrain Location: "
+            << CTimeInterval::MinutesToTime(m_ScheduledStartTime)
+            << " - "
+            << CTimeInterval::MinutesToTime(m_ScheduledTargetStationArrival)
+            << '\t' << CTimeInterval::MinutesToTime(m_ScheduledTargetStationArrival - m_ScheduledStartTime)
+            << '\t' << distance << " / " << m_pTrack->GetLength());
+
+    return distance;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

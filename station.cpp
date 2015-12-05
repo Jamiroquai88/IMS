@@ -7,7 +7,8 @@ CStation::CStation(const std::string& title)
 {}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-const std::string& CStation::GetTitle() const {
+const std::string& CStation::GetTitle() const
+{
 	return m_Title;
 }
 
@@ -26,7 +27,7 @@ CTrainGenerator& CStation::AddTrain(const std::string& trainTitle,
         frequency, time, targetStationArrival, averageDelay, bStopsInMainStation,
         mainStationArrival, mainStationDeparture);
 
-    DBG_LOG("New train generator: " + pTrainGenerator->GetTrainTitle());
+    //DBG_LOG("New train generator: " + pTrainGenerator->GetTrainTitle());
 
     pTrainGenerator->Activate(time);
     return *pTrainGenerator;

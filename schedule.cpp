@@ -183,19 +183,39 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
       }
 
       // travelling over midnight - move to next day
-      if(unit.comes < unit.appears)
+      if(!unit.through.empty() )
       {
-          unit.comes += 60*24;
-          unit.leaves += 60*24;
-          unit.disappears += 60*24;
+        // comes
+        if(unit.comes < unit.appears)
+        {
+            unit.comes += 60*24;
+            unit.leaves += 60*24;
+            unit.disappears += 60*24;
+            DBG_LOG("SHIFT " << unit.name);
+        }
+
+        // leaves
+        if(unit.leaves < unit.comes)
+        {
+            unit.leaves += 60*24;
+            unit.disappears += 60*24;
+            DBG_LOG("SHIFT " << unit.name);
+        }
+
+        // disappears
+        if(unit.disappears < unit.leaves)
+        {
+            unit.disappears += 60*24;
+            DBG_LOG("SHIFT " << unit.name);
+        }
       }
-      if(unit.leaves < unit.comes)
+      // no stop in main station
+      else if(unit.disappears < unit.appears)
       {
-          unit.leaves += 60*24;
           unit.disappears += 60*24;
+          DBG_LOG("SHIFT " << unit.name);
       }
-      if(unit.disappears < unit.leaves)
-          unit.disappears += 60*24;
+
 
       CTrainGenerator::Frequency freq;
       if(unit.name[unit.name.length()-1] == 'W')
@@ -208,7 +228,7 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
         freq, unit.disappears, unit.late,
         !unit.through.empty(), unit.comes, unit.leaves);
 
-      std::cout  << "Train " << unit.name << " planned for sim time "
+      std::cout  << "Train " << unit.name << " schedule: \t\t"
             << CTimeInterval::MinutesToTime(unit.appears)
             << ", from " << unit.from
             << " to " << unit.to << std::endl;

@@ -45,17 +45,19 @@ public:
     /** \} */
 
     /**
-     * \brief Get defect in this segment (including all nested segments)
+     * \brief Get defect if there is any in front of the given location.
+     * \param location              Distance from the main station
+     * \param dirFromMainStation    Direction - from / to the main station
      */
-    CDefect* GetDefect();
+    CDefect* GetDefect(unsigned location, bool dirFromMainStation) const;
 
     /**
-     * \brief Get trains on the tracks before the given kilometer.
+     * \brief Get trains coming to the given point.
      * \param location          Distance from the main station
      * \param bFromMainStation  Direction of the train
      * \param trains            Output trains
      */
-    void GetPassingTrains(unsigned location, bool bFromMainStation, Trains& trains) const;
+    void GetComingTrains(unsigned location, bool bFromMainStation, Trains& trains) const;
 
     /**
      * \brief   Add nested segment. Segment's parent is set to this. This object is the owner,

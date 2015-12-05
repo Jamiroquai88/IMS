@@ -23,10 +23,8 @@ CTrain::CTrain(const CTrainGenerator& generator,
     unsigned scheduledMainStationDeparture)
   : m_Generator(generator),
     m_ScheduledStartTime(scheduledStartTime),
-    m_RealStartTime(0),
     m_ScheduledMainStationArrival(scheduledMainStationArrival),
     m_ScheduledMainStationDeparture(scheduledMainStationDeparture),
-    m_RealMainStationdeparture(0),
     m_ScheduledTargetStationArrival(scheduledTargetStationArrival),
     m_TrackDuration(0),
     m_TraveledMinutes(0)
@@ -34,15 +32,19 @@ CTrain::CTrain(const CTrainGenerator& generator,
     const CAdjacentStation& startStation =
             static_cast<const CAdjacentStation&>(generator.GetStartStation());
 
+    // (Target <- ) Main Station <- Start Station
     if(CMainStation::GetInstance().HasTrack(startStation))
     {
         m_pTrack = &CMainStation::GetInstance()
             .GetTrack(startStation);
+        m_DirFromMainStation = false;
     }
+    // Main Station -> Target Station
     else
     {
         m_pTrack = &CMainStation::GetInstance()
             .GetTrack(static_cast<const CAdjacentStation&>(generator.GetTargetStation()));
+        m_DirFromMainStation = true;
     }
 }
 
@@ -57,22 +59,34 @@ void CTrain::Behavior()
     CProgressUpdateEvent& progressUpdateEvent = *(new CProgressUpdateEvent(*this));
     progressUpdateEvent.Activate(Time + CProgressUpdateEvent::FREQUENCY);
 
-    m_RealStartTime = Time;
-    DBG_LOG_T(m_Generator.GetTrainTitle() + ": Generated in " + m_Generator.GetStartStation().GetTitle());
+    unsigned realStartTime = Time;
+    unsigned initialDelay = realStartTime - m_ScheduledStartTime;
+
+    DBG_LOG_T(m_Generator.GetTrainTitle() + ":\t\tGenerated in " + m_Generator.GetStartStation().GetTitle());
 
     // go to track
     m_pTrack->AddPassingTrain(*this);
 
-    // check for defect
-    if(m_pTrack->GetDefect() != NULL)
-    {
-        DBG_LOG_T("S TRAIN AFFECTED BY DEFECT");
-        Passivate();
-        assert(m_pTrack->GetDefect() == NULL);
-    }
-
     // start
-    DBG_LOG_T(m_Generator.GetTrainTitle() + ": Start in " + m_Generator.GetStartStation().GetTitle());
+    DBG_LOG_T(m_Generator.GetTrainTitle()
+        << ":\t\tStart in " + m_Generator.GetStartStation().GetTitle()
+        << " with initial delay: " << initialDelay << "minutes");
+
+    // check for defect
+    CDefect* pDefect = m_pTrack->GetDefect(0, m_DirFromMainStation);
+    if(pDefect != NULL)
+    {
+        unsigned defectId = pDefect->GetId();
+        DBG_LOG_T(m_Generator.GetTrainTitle()
+            << ":\t\tCan't start because of a defect (id: " << defectId << ")");
+
+        Passivate();
+        // defect must be fixed now
+        assert(m_pTrack->GetDefect(GetDistanceFromMainStation(), m_DirFromMainStation) == NULL);
+
+        DBG_LOG_T(m_Generator.GetTrainTitle()
+            << ":\t\tStarting after a defect removal (id: " << defectId << ")");
+    }
 
     // time to target station
     unsigned timeToTargetStation = m_ScheduledTargetStationArrival - m_ScheduledStartTime;
@@ -81,15 +95,8 @@ void CTrain::Behavior()
     if( m_Generator.StopsInMainStation() )
     {
         unsigned timeToMainSt = m_ScheduledMainStationArrival - m_ScheduledStartTime;
-        DBG_LOG_T(m_Generator.GetTrainTitle() + ": ride start: "
-                  << CTimeInterval::MinutesToTime(m_ScheduledStartTime)
-                  << m_Generator.GetTrainTitle() + ": ride main station arrival: "
-                  << CTimeInterval::MinutesToTime(m_ScheduledMainStationArrival));
 
-        DBG_LOG_T(m_Generator.GetTrainTitle() + ": ride duration: " +
-            CTimeInterval::MinutesToTime(timeToMainSt));
-
-        DBG_LOG_T(m_Generator.GetTrainTitle() + ": Going to stop in the main station at: " +
+        DBG_LOG_T(m_Generator.GetTrainTitle() + ":\t\tMain station arrival scheduled at: " +
             CTimeInterval::MinutesToTime(Time + timeToMainSt));
 
         // travel to the main station
@@ -99,17 +106,22 @@ void CTrain::Behavior()
         m_pTrack->RemovePassingTrain(*this);
 
         // in main station
-        DBG_LOG_T(m_Generator.GetTrainTitle() + ": Entering the main station");
-        if(Time > m_ScheduledMainStationArrival)
+        DBG_LOG_T(m_Generator.GetTrainTitle()
+            << ":\t\tEntering the main station with delay: "
+            << ((unsigned)Time - m_ScheduledMainStationArrival) << " minutes");
+
+        if((unsigned)Time > m_ScheduledMainStationArrival)
         {
-            DBG_LOG(m_Generator.GetTrainTitle() +
-                    ": delay " +
-                    CTimeInterval::MinutesToTime(Time - m_ScheduledMainStationArrival));
+            DBG_LOG(m_Generator.GetTrainTitle()
+                << ":\t\tadditional delay: "
+                << ((unsigned)Time - m_ScheduledMainStationArrival) << " minutes");
         }
 
+        // wait at the main station
         Wait(m_ScheduledMainStationDeparture - m_ScheduledMainStationArrival);
 
-        m_RealMainStationdeparture = Time;
+        // going from the main station
+        m_DirFromMainStation = !m_DirFromMainStation;
 
         // go on the second track
         m_pTrack = &CMainStation::GetInstance()
@@ -117,7 +129,23 @@ void CTrain::Behavior()
         m_pTrack->AddPassingTrain(*this);
 
         // leaving main station
-        DBG_LOG_T(m_Generator.GetTrainTitle() + ": Leaving the main station");
+        DBG_LOG_T(m_Generator.GetTrainTitle() + ":\t\tLeaving the main station");
+
+        // check for defect
+        CDefect* pDefect = m_pTrack->GetDefect(0, m_DirFromMainStation);
+        if(pDefect != NULL)
+        {
+            unsigned defectId = pDefect->GetId();
+            DBG_LOG_T(m_Generator.GetTrainTitle()
+                << ":\t\tCan't leave main station because of a defect (id: " << defectId << ")");
+
+            Passivate();
+            // defect must be fixed now
+            assert(m_pTrack->GetDefect(GetDistanceFromMainStation(), m_DirFromMainStation) == NULL);
+
+            DBG_LOG_T(m_Generator.GetTrainTitle()
+                << ":\t\tLeaving station after a defect removal (id: " << defectId << ")");
+        }
 
         // update time to target station
         timeToTargetStation = m_ScheduledTargetStationArrival - m_ScheduledMainStationDeparture;
@@ -130,12 +158,14 @@ void CTrain::Behavior()
     m_pTrack->RemovePassingTrain(*this);
 
     // in target station
-    DBG_LOG_T(m_Generator.GetTrainTitle() + ": End in " + m_Generator.GetTargetStation().GetTitle());
+    DBG_LOG_T(m_Generator.GetTrainTitle() + ":\t\tEnd in " + m_Generator.GetTargetStation().GetTitle());
     if(Time > m_ScheduledTargetStationArrival)
     {
-    	double delayTime = Time - m_ScheduledTargetStationArrival;
-        DBG_LOG(m_Generator.GetTrainTitle() +
-                ": delay " + CTimeInterval::MinutesToTime(delayTime));
+    	unsigned delayTime = Time - m_ScheduledTargetStationArrival;
+        DBG_LOG(m_Generator.GetTrainTitle()
+            << ":\t\tTotal delay: "
+            << delayTime << " minutes");
+
         CMainStation::GetInstance().GetDelayHistogram()
         		(delayTime);
     }
@@ -171,9 +201,12 @@ void CTrain::Travel(unsigned duration)
         //DBG_LOG_T(m_Generator.GetTrainTitle() << " Progress: " << m_TraveledMinutes << " / " << duration);
 
         // wait for activation (e.g. defect fix)
-        if(m_pTrack->GetDefect() != NULL)
+        CDefect* pDefect = m_pTrack->GetDefect(GetDistanceFromMainStation(), m_DirFromMainStation);
+        if(pDefect != NULL)
         {
-            DBG_LOG_T("TRAIN AFFECTED BY DEFECT");
+            DBG_LOG_T(m_Generator.GetTrainTitle()
+                << ":\t\tStopping because of defect (id: "
+                << pDefect->GetId() << ")");
             Passivate();
         }
 
@@ -197,7 +230,9 @@ CTrain::CProgressUpdateEvent::CProgressUpdateEvent(CTrain& train)
 void CTrain::CProgressUpdateEvent::Behavior()
 {
     // only ask for update when the train is traveling without any active defect
-    if(m_Train.m_pTrack->GetDefect() == NULL && m_Train.GetTrackDuration())
+    if(m_Train.m_pTrack &&
+       m_Train.m_pTrack->GetDefect(m_Train.GetDistanceFromMainStation(), m_Train.m_DirFromMainStation) == NULL &&
+       m_Train.GetTrackDuration())
     {
         //DBG_LOG("PROGRESS REQ");
         m_Train.Activate();

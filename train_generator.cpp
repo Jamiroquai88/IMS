@@ -68,9 +68,11 @@ void CTrainGenerator::Behavior()
         unsigned mainStationArrival = Time + m_ScheduleMainStationArrival - m_ScheduleStartTime;
         unsigned mainStationDeparture = Time + m_ScheduleMainStationDeparture - m_ScheduleStartTime;
 
+        /*
         DBG_LOG_T(GetTrainTitle() << " targetStationArrival: " << CTimeInterval::MinutesToTime(targetStationArrival));
         DBG_LOG_T(GetTrainTitle() << " mainStationArrival: " << CTimeInterval::MinutesToTime(mainStationArrival));
         DBG_LOG_T(GetTrainTitle() << " mainStationDeparture: " << CTimeInterval::MinutesToTime(mainStationDeparture));
+        */
 
         // Generate train with delay
         (new CTrain(*this, Time, targetStationArrival, mainStationArrival,
