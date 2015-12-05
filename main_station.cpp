@@ -11,8 +11,12 @@
 #include "assert.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-CMainStation::CMainStation() : m_histogram("Defects in system", 0, 5, 30)
-{}
+CMainStation::CMainStation()
+	: m_Delayhistogram("Delays durations in system", 0, 5, 30),
+	  m_DefectsHistogram("Defects in system", 0, 5, 30)
+{
+
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CMainStation::~CMainStation()
