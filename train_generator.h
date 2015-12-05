@@ -39,11 +39,12 @@ public:
         CStation& startStation,
         CStation& targetStation,
         Frequency frequency,
-        unsigned targetStationArrival,
+        unsigned scheduleStartTime,
+        unsigned scheduleTargetStationArrival,
         unsigned averageDelay = 0,
         bool bStopsInMainStation = false,
-        unsigned mainStationArrival = 0,
-        unsigned mainStationDeparture = 0);
+        unsigned scheduleMainStationArrival = 0,
+        unsigned scheduleMainStationDeparture = 0);
 
     /**
      * \brief Destructor.
@@ -81,8 +82,11 @@ private:
     CStation& m_TargetStation;
     Frequency m_Frequency;
 
+    // start time
+    unsigned m_ScheduleStartTime;
+
     // arrival at the target station
-    unsigned m_TargetStationArrival;
+    unsigned m_ScheduleTargetStationArrival;
 
     // average delay
     unsigned m_AverageDelay;
@@ -91,8 +95,8 @@ private:
     bool m_StopsInMainStation;
 
     // stop at main station
-    unsigned m_MainStationArrival;
-    unsigned m_MainStationDeparture;
+    unsigned m_ScheduleMainStationArrival;
+    unsigned m_ScheduleMainStationDeparture;
 
     // schedule exceptions
     ScheduleExceptions m_ScheduleExceptions;
@@ -126,13 +130,13 @@ inline bool CTrainGenerator::StopsInMainStation() const
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 inline unsigned CTrainGenerator::GetMainStationArrival() const
 {
-    return m_MainStationArrival;
+    return m_ScheduleMainStationArrival;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 inline unsigned CTrainGenerator::GetMainStationDeparture() const
 {
-    return m_MainStationDeparture;
+    return m_ScheduleMainStationDeparture;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,7 +160,7 @@ inline const CStation& CTrainGenerator::GetTargetStation() const
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 inline unsigned CTrainGenerator::GetTargetStationArrival() const
 {
-    return m_TargetStationArrival;
+    return m_ScheduleTargetStationArrival;
 }
 
 

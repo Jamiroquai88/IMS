@@ -20,10 +20,14 @@ void CDefect::Behavior()
 
   SetDefectStartTime(Time);
 
-  DBG_LOG("Defect on Track generated");
-
   unsigned int index = ((int)round(simlib3::Random()*100)); // % tracks.size();
   index = index % tracks.size();
+
+  // multiple defects at the same time are disabled
+  if(tracks[index]->GetDefect())
+      return;
+
+  DBG_LOG("Defect on Track generated");
 
   unsigned location = ((int)round(simlib3::Random()*100));
   location = location % tracks[index]->GetLength();
@@ -34,20 +38,29 @@ void CDefect::Behavior()
 
   CTrack::Trains passingTrains;
   tracks[index]->GetPassingTrains(location, true, passingTrains);
+  DBG_LOG("PASSING TRAINS: " << passingTrains.size());
   for(auto train : passingTrains)
   {
-    train->Activate();
+      // interrupt travelling trains
+      if(train->GetTrackDuration())
+      {
+          train->Activate();
+      }
   }
 
   double repair = Exponential(m_trainRepair);
+  DBG_LOG("Defect repair time: " << m_trainRepair);
   CMainStation::GetInstance().GetDefectsHistogram()(repair);
   Wait(repair);
   tracks[index]->ClearDefect();
 
+  // reload passing trains (new trains could have been generated and are waiting)
+  passingTrains.clear();
   tracks[index]->GetPassingTrains(location, true, passingTrains);
+  DBG_LOG("PASSING TRAINS: " << passingTrains.size());
   for(auto train : passingTrains)
   {
-    train->Activate();
+      train->Activate();
   }
 }
 

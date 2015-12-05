@@ -23,11 +23,11 @@ CTrainGenerator& CStation::AddTrain(const std::string& trainTitle,
     unsigned mainStationDeparture)
 {
     CTrainGenerator* pTrainGenerator = new CTrainGenerator(trainTitle, *this, targetStation,
-        frequency, targetStationArrival, averageDelay, bStopsInMainStation, mainStationArrival,
-        mainStationDeparture);
+        frequency, time, targetStationArrival, averageDelay, bStopsInMainStation,
+        mainStationArrival, mainStationDeparture);
 
     DBG_LOG("New train generator: " + pTrainGenerator->GetTrainTitle());
 
-    pTrainGenerator->Activate(Time + time);
+    pTrainGenerator->Activate(time);
     return *pTrainGenerator;
 }

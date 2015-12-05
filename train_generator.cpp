@@ -16,6 +16,7 @@ CTrainGenerator::CTrainGenerator(const std::string& trainTitle,
     CStation& startStation,
     CStation& targetStation,
     CTrainGenerator::Frequency frequency,
+    unsigned scheduleStartTime,
     unsigned targetStationArrival,
     unsigned averageDelay,
     bool bStopsInMainStation,
@@ -25,11 +26,12 @@ CTrainGenerator::CTrainGenerator(const std::string& trainTitle,
     m_StartStation(startStation),
     m_TargetStation(targetStation),
     m_Frequency(frequency),
-    m_TargetStationArrival(targetStationArrival),
+    m_ScheduleStartTime(scheduleStartTime),
+    m_ScheduleTargetStationArrival(targetStationArrival),
     m_AverageDelay(averageDelay),
     m_StopsInMainStation(bStopsInMainStation),
-    m_MainStationArrival(mainStationArrival),
-    m_MainStationDeparture(mainStationDeparture)
+    m_ScheduleMainStationArrival(mainStationArrival),
+    m_ScheduleMainStationDeparture(mainStationDeparture)
 {}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,9 +64,13 @@ void CTrainGenerator::Behavior()
     if(!bExceptionalTime)
     {
         // Compute concrete arrival and departure times
-        unsigned targetStationArrival = Time + m_TargetStationArrival;
-        unsigned mainStationArrival = m_MainStationArrival ? Time + m_MainStationArrival : 0;
-        unsigned mainStationDeparture = m_MainStationDeparture ? Time + m_MainStationDeparture : 0;
+        unsigned targetStationArrival = Time + m_ScheduleTargetStationArrival - m_ScheduleStartTime;
+        unsigned mainStationArrival = Time + m_ScheduleMainStationArrival - m_ScheduleStartTime;
+        unsigned mainStationDeparture = Time + m_ScheduleMainStationDeparture - m_ScheduleStartTime;
+
+        DBG_LOG_T(GetTrainTitle() << " targetStationArrival: " << CTimeInterval::MinutesToTime(targetStationArrival));
+        DBG_LOG_T(GetTrainTitle() << " mainStationArrival: " << CTimeInterval::MinutesToTime(mainStationArrival));
+        DBG_LOG_T(GetTrainTitle() << " mainStationDeparture: " << CTimeInterval::MinutesToTime(mainStationDeparture));
 
         // Generate train with delay
         (new CTrain(*this, Time, targetStationArrival, mainStationArrival,

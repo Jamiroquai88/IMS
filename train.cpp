@@ -13,7 +13,7 @@
 #include <iostream>
 
 // update progress every 5 minutes
-const unsigned CTrain::CProgressUpdateEvent::FREQUENCY = 5;
+const unsigned CTrain::CProgressUpdateEvent::FREQUENCY = 10;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CTrain::CTrain(const CTrainGenerator& generator,
@@ -68,6 +68,7 @@ void CTrain::Behavior()
     {
         DBG_LOG_T("S TRAIN AFFECTED BY DEFECT");
         Passivate();
+        assert(m_pTrack->GetDefect() == NULL);
     }
 
     // start
@@ -80,6 +81,11 @@ void CTrain::Behavior()
     if( m_Generator.StopsInMainStation() )
     {
         unsigned timeToMainSt = m_ScheduledMainStationArrival - m_ScheduledStartTime;
+        DBG_LOG_T(m_Generator.GetTrainTitle() + ": ride start: "
+                  << CTimeInterval::MinutesToTime(m_ScheduledStartTime)
+                  << m_Generator.GetTrainTitle() + ": ride main station arrival: "
+                  << CTimeInterval::MinutesToTime(m_ScheduledMainStationArrival));
+
         DBG_LOG_T(m_Generator.GetTrainTitle() + ": ride duration: " +
             CTimeInterval::MinutesToTime(timeToMainSt));
 
@@ -93,7 +99,7 @@ void CTrain::Behavior()
         m_pTrack->RemovePassingTrain(*this);
 
         // in main station
-        DBG_LOG(m_Generator.GetTrainTitle() + ": Entering the main station");
+        DBG_LOG_T(m_Generator.GetTrainTitle() + ": Entering the main station");
         if(Time > m_ScheduledMainStationArrival)
         {
             DBG_LOG(m_Generator.GetTrainTitle() +
@@ -111,7 +117,7 @@ void CTrain::Behavior()
         m_pTrack->AddPassingTrain(*this);
 
         // leaving main station
-        DBG_LOG(m_Generator.GetTrainTitle() + ": Leaving the main station");
+        DBG_LOG_T(m_Generator.GetTrainTitle() + ": Leaving the main station");
 
         // update time to target station
         timeToTargetStation = m_ScheduledTargetStationArrival - m_ScheduledMainStationDeparture;
@@ -148,7 +154,7 @@ void CTrain::Travel(unsigned duration)
     unsigned timeToTarget = duration;
 
     // update track duration & location
-    m_TrackDuration = 0;
+    m_TrackDuration = duration;
     m_TraveledMinutes = 0;
 
     Wait(timeToTarget);
@@ -159,17 +165,22 @@ void CTrain::Travel(unsigned duration)
         // interrupted
         timeToTarget = expectedArrivalTime - Time;
 
-        if(m_pTrack->GetDefect() != NULL)
-            DBG_LOG_T("TRAIN AFFECTED BY DEFECT");
-
         // update progress
         m_TraveledMinutes = duration - timeToTarget;
 
+        //DBG_LOG_T(m_Generator.GetTrainTitle() << " Progress: " << m_TraveledMinutes << " / " << duration);
+
         // wait for activation (e.g. defect fix)
-        Passivate();
+        if(m_pTrack->GetDefect() != NULL)
+        {
+            DBG_LOG_T("TRAIN AFFECTED BY DEFECT");
+            Passivate();
+        }
 
         // defect fixed - wait for the rest of the journey
         expectedArrivalTime = Time + timeToTarget;
+
+        Wait(timeToTarget);
     }
 
     // update track duration & location
@@ -185,8 +196,10 @@ CTrain::CProgressUpdateEvent::CProgressUpdateEvent(CTrain& train)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CTrain::CProgressUpdateEvent::Behavior()
 {
-    if(m_Train.m_pTrack->GetDefect() == NULL)
+    // only ask for update when the train is traveling without any active defect
+    if(m_Train.m_pTrack->GetDefect() == NULL && m_Train.GetTrackDuration())
     {
+        //DBG_LOG("PROGRESS REQ");
         m_Train.Activate();
     }
     Activate(Time + FREQUENCY);

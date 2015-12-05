@@ -38,16 +38,13 @@ CDefect* CTrack::GetDefect()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CTrack::GetPassingTrains(unsigned location, bool bFromMainStation, Trains& trains) const
 {
-    trains.clear();
     for(Trains::const_iterator itTrain = m_PassingTrains.begin();
         itTrain != m_PassingTrains.end();
         ++itTrain)
     {
-        DBG_LOG("pass");
+        DBG_LOG("PASSING TRAINS: Track duration: " << (*itTrain)->GetTrackDuration());
         // train approximate location
         double progressPercent = (*itTrain)->GetTraveledMinutes() / (double)(*itTrain)->GetTrackDuration();
-
-        DBG_LOG("pass");
 
         DBG_LOG_T("Train progress " << (*itTrain)->GetGenerator().GetTrainTitle()
             << " Start - " << CTimeInterval::MinutesToTime((*itTrain)->GetRealStartTime())
