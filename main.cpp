@@ -1,5 +1,4 @@
 #include "unistd.h"
-#include "train.h"
 #include "schedule.h"
 #include "station.h"
 #include "adjacent_station.h"
@@ -28,7 +27,7 @@ int main(int argc, char *argv[])
 {
     DBG_LOG("SIMULATION START - DEBUG");
 
-    Init(0, CTimeInterval::TimeToMinutes(0,0, 100));
+    Init(0, CTimeInterval::TimeToMinutes(0,0, 500));
 
     // Main station
     CMainStation& mainStation = CMainStation::GetInstance();

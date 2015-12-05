@@ -18,7 +18,7 @@ class CTimeInterval;
 /**
  * \brief   Train generator - generating trains according to the schedule.
  */
-class CTrainGenerator : public Event
+class CPublicTrainGenerator : public Event
 {
 public:
 
@@ -35,7 +35,7 @@ public:
     /**
      * \brief Constructor.
      */
-    CTrainGenerator(const std::string& trainTitle,
+    CPublicTrainGenerator(const std::string& trainTitle,
         CStation& startStation,
         CStation& targetStation,
         Frequency frequency,
@@ -49,7 +49,7 @@ public:
     /**
      * \brief Destructor.
      */
-    ~CTrainGenerator();
+    ~CPublicTrainGenerator();
 
     /**
      * \brief Add interval when the train is not generated
@@ -105,60 +105,60 @@ private:
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                      Public interface                                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline const std::string& CTrainGenerator::GetTrainTitle() const
+inline const std::string& CPublicTrainGenerator::GetTrainTitle() const
 {
     return m_TrainTitle;
 }
 
-inline unsigned CTrainGenerator::GetAverageDelay() const
+inline unsigned CPublicTrainGenerator::GetAverageDelay() const
 {
     return m_AverageDelay;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline CTrainGenerator::Frequency CTrainGenerator::GetFrequency() const
+inline CPublicTrainGenerator::Frequency CPublicTrainGenerator::GetFrequency() const
 {
     return m_Frequency;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline bool CTrainGenerator::StopsInMainStation() const
+inline bool CPublicTrainGenerator::StopsInMainStation() const
 {
     return m_StopsInMainStation;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline unsigned CTrainGenerator::GetMainStationArrival() const
+inline unsigned CPublicTrainGenerator::GetMainStationArrival() const
 {
     return m_ScheduleMainStationArrival;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline unsigned CTrainGenerator::GetMainStationDeparture() const
+inline unsigned CPublicTrainGenerator::GetMainStationDeparture() const
 {
     return m_ScheduleMainStationDeparture;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline const CTrainGenerator::ScheduleExceptions& CTrainGenerator::GetScheduleExceptions() const
+inline const CPublicTrainGenerator::ScheduleExceptions& CPublicTrainGenerator::GetScheduleExceptions() const
 {
     return m_ScheduleExceptions;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline const CStation& CTrainGenerator::GetStartStation() const
+inline const CStation& CPublicTrainGenerator::GetStartStation() const
 {
     return m_StartStation;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline const CStation& CTrainGenerator::GetTargetStation() const
+inline const CStation& CPublicTrainGenerator::GetTargetStation() const
 {
     return m_TargetStation;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline unsigned CTrainGenerator::GetTargetStationArrival() const
+inline unsigned CPublicTrainGenerator::GetTargetStationArrival() const
 {
     return m_ScheduleTargetStationArrival;
 }

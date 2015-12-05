@@ -12,9 +12,9 @@
 #include "station.h"
 #include "track.h"
 
-class CTrainGenerator;
+class CPublicTrainGenerator;
 
-class CTrain : public Process
+class CPublicTrain : public Process
 {
 public:
 
@@ -23,23 +23,23 @@ public:
     public:
         static const unsigned FREQUENCY;
 
-        CProgressUpdateEvent(CTrain& train);
+        CProgressUpdateEvent(CPublicTrain& train);
         void Behavior();
     private:
-        CTrain& m_Train;
+        CPublicTrain& m_Train;
     };
 
     /**
      * \brief Constructor
      * \param generator Train generator containing train settings (schedule, exceptions..)
      */
-    CTrain(const CTrainGenerator& generator,
+    CPublicTrain(const CPublicTrainGenerator& generator,
         unsigned scheduledStartTime,
         unsigned scheduledTargetStationArrival,
         unsigned scheduledMainStationArrival = 0,
         unsigned scheduledMainStationDeparture = 0);
 
-    virtual ~CTrain();
+    virtual ~CPublicTrain();
 
     void Behavior();
 
@@ -47,12 +47,12 @@ public:
     unsigned GetTrackDuration() const;
     unsigned GetTraveledMinutes() const;
     unsigned GetDistanceFromMainStation() const;
-    const CTrainGenerator& GetGenerator() const;
+    const CPublicTrainGenerator& GetGenerator() const;
 
 private:
     void Travel(unsigned duration);
 
-    const CTrainGenerator& m_Generator;
+    const CPublicTrainGenerator& m_Generator;
 
     // own schedule times (computed by generator)
 
@@ -76,19 +76,19 @@ private:
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline unsigned CTrain::GetTrackDuration() const
+inline unsigned CPublicTrain::GetTrackDuration() const
 {
     return m_TrackDuration;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline unsigned CTrain::GetTraveledMinutes() const
+inline unsigned CPublicTrain::GetTraveledMinutes() const
 {
     return m_TraveledMinutes;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline unsigned CTrain::GetDistanceFromMainStation() const
+inline unsigned CPublicTrain::GetDistanceFromMainStation() const
 {
     // only defined if the train is on a track
     assert(m_pTrack);
@@ -114,7 +114,7 @@ inline unsigned CTrain::GetDistanceFromMainStation() const
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline const CTrainGenerator& CTrain::GetGenerator() const
+inline const CPublicTrainGenerator& CPublicTrain::GetGenerator() const
 {
     return m_Generator;
 }

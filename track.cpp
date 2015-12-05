@@ -6,7 +6,7 @@
  */
 
 #include "track.h"
-#include "train.h"
+#include "public_train.h"
 #include "main_station.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,6 +71,7 @@ void CTrack::GetComingTrains(unsigned location, bool bFromMainStation, Trains& t
             {
                 bAddOwnTrains = false;
             }
+
             m_pNestedSegment->GetComingTrains(location, bFromMainStation, trains);
         }
     }
@@ -119,13 +120,13 @@ CTrack& CTrack::AddNestedSegment(CTrack* pNestedSegment)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CTrack::AddPassingTrain(CTrain& train)
+void CTrack::AddPassingTrain(CPublicTrain& train)
 {
     m_PassingTrains.insert(&train);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CTrack::RemovePassingTrain(CTrain& train)
+void CTrack::RemovePassingTrain(CPublicTrain& train)
 {
     m_PassingTrains.erase(&train);
 }

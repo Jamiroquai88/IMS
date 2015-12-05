@@ -5,17 +5,17 @@
  *      Author: pavel
  */
 
-#include "train_generator.h"
-#include "train.h"
+#include "public_train_generator.h"
+#include "public_train.h"
 #include "time_interval.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                      CTrainGenerator                                           //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-CTrainGenerator::CTrainGenerator(const std::string& trainTitle,
+CPublicTrainGenerator::CPublicTrainGenerator(const std::string& trainTitle,
     CStation& startStation,
     CStation& targetStation,
-    CTrainGenerator::Frequency frequency,
+    CPublicTrainGenerator::Frequency frequency,
     unsigned scheduleStartTime,
     unsigned targetStationArrival,
     unsigned averageDelay,
@@ -35,17 +35,17 @@ CTrainGenerator::CTrainGenerator(const std::string& trainTitle,
 {}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-CTrainGenerator::~CTrainGenerator()
+CPublicTrainGenerator::~CPublicTrainGenerator()
 {}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CTrainGenerator::AddException(unsigned minutesStart, unsigned minutesEnd)
+void CPublicTrainGenerator::AddException(unsigned minutesStart, unsigned minutesEnd)
 {
     m_ScheduleExceptions.push_back(new CTimeInterval(minutesStart, minutesEnd));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CTrainGenerator::Behavior()
+void CPublicTrainGenerator::Behavior()
 {
     // Check for exceptions
     bool bExceptionalTime = false;
@@ -75,7 +75,7 @@ void CTrainGenerator::Behavior()
         */
 
         // Generate train with delay
-        (new CTrain(*this, Time, targetStationArrival, mainStationArrival,
+        (new CPublicTrain(*this, Time, targetStationArrival, mainStationArrival,
                 mainStationDeparture))->Activate(Time + Exponential(m_AverageDelay));
     }
 

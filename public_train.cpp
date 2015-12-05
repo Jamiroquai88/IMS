@@ -5,18 +5,18 @@
  *      Author: jose
  */
 
-#include "train.h"
-#include "train_generator.h"
+#include "public_train.h"
+#include "public_train_generator.h"
 #include "main_station.h"
 #include "time_interval.h"
 #include "debug.h"
 #include <iostream>
 
 // update progress every 5 minutes
-const unsigned CTrain::CProgressUpdateEvent::FREQUENCY = 10;
+const unsigned CPublicTrain::CProgressUpdateEvent::FREQUENCY = 10;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-CTrain::CTrain(const CTrainGenerator& generator,
+CPublicTrain::CPublicTrain(const CPublicTrainGenerator& generator,
     unsigned scheduledStartTime,
     unsigned scheduledTargetStationArrival,
     unsigned scheduledMainStationArrival,
@@ -49,11 +49,11 @@ CTrain::CTrain(const CTrainGenerator& generator,
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-CTrain::~CTrain()
+CPublicTrain::~CPublicTrain()
 {}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CTrain::Behavior()
+void CPublicTrain::Behavior()
 {
     // create update progress event
     CProgressUpdateEvent& progressUpdateEvent = *(new CProgressUpdateEvent(*this));
@@ -178,7 +178,7 @@ void CTrain::Behavior()
  * \brief Travel on actual track. Set track duration, update trabeled minutes when interrupted.
  * \param duration Scheduled track duration (not including delays caused by defects)
  */
-void CTrain::Travel(unsigned duration)
+void CPublicTrain::Travel(unsigned duration)
 {
     unsigned expectedArrivalTime = Time + duration;
     unsigned timeToTarget = duration;
@@ -222,12 +222,12 @@ void CTrain::Travel(unsigned duration)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-CTrain::CProgressUpdateEvent::CProgressUpdateEvent(CTrain& train)
+CPublicTrain::CProgressUpdateEvent::CProgressUpdateEvent(CPublicTrain& train)
   : m_Train(train)
 {}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CTrain::CProgressUpdateEvent::Behavior()
+void CPublicTrain::CProgressUpdateEvent::Behavior()
 {
     // only ask for update when the train is traveling without any active defect
     if(m_Train.m_pTrack &&

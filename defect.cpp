@@ -6,7 +6,7 @@
  */
 
 #include "defect.h"
-#include "train.h"
+#include "public_train.h"
 
 CDefect::~CDefect()
 {
@@ -23,7 +23,7 @@ void CDefect::Behavior()
   index = index % tracks.size();
 
   // add rand direction
-  m_dirFromMainStation = true;
+  m_dirFromMainStation = false;
 
   // multiple defects at the same time are disabled
   if(tracks[index]->GetDefect(0, m_dirFromMainStation) != NULL)
@@ -35,7 +35,9 @@ void CDefect::Behavior()
   tracks[index]->SetDefect(*this, m_distanceFromMainStation);
 
   CTrack::Trains passingTrains;
+
   tracks[index]->GetComingTrains(m_distanceFromMainStation, m_dirFromMainStation, passingTrains);
+
   DBG_LOG("STOPPING TRAINS: " << passingTrains.size());
   for(auto train : passingTrains)
   {

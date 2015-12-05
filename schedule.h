@@ -17,7 +17,7 @@
 #include <tuple>
 
 #include "main_station.h"
-#include "train_generator.h"
+#include "public_train_generator.h"
 #include "adjacent_station.h"
 
 class CSchedule

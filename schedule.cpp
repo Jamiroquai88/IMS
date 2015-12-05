@@ -217,11 +217,11 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
       }
 
 
-      CTrainGenerator::Frequency freq;
+      CPublicTrainGenerator::Frequency freq;
       if(unit.name[unit.name.length()-1] == 'W')
-        freq = CTrainGenerator::FREQ_WEEKLY;
+        freq = CPublicTrainGenerator::FREQ_WEEKLY;
       else
-        freq = CTrainGenerator::FREQ_DAILY;
+        freq = CPublicTrainGenerator::FREQ_DAILY;
 
       pStationFrom->AddTrain(unit.name,
         unit.appears, *pStationTo,

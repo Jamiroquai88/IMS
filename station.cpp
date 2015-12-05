@@ -13,17 +13,17 @@ const std::string& CStation::GetTitle() const
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-CTrainGenerator& CStation::AddTrain(const std::string& trainTitle,
+CPublicTrainGenerator& CStation::AddTrain(const std::string& trainTitle,
     unsigned time,
     CStation& targetStation,
-    CTrainGenerator::Frequency frequency,
+    CPublicTrainGenerator::Frequency frequency,
     unsigned targetStationArrival,
     unsigned averageDelay,
     bool bStopsInMainStation,
     unsigned mainStationArrival,
     unsigned mainStationDeparture)
 {
-    CTrainGenerator* pTrainGenerator = new CTrainGenerator(trainTitle, *this, targetStation,
+    CPublicTrainGenerator* pTrainGenerator = new CPublicTrainGenerator(trainTitle, *this, targetStation,
         frequency, time, targetStationArrival, averageDelay, bStopsInMainStation,
         mainStationArrival, mainStationDeparture);
 

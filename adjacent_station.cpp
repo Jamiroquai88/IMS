@@ -6,7 +6,7 @@
  */
 
 #include "adjacent_station.h"
-#include "train.h"
+#include "public_train.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                    CAdjacentStation                                            //

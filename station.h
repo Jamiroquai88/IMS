@@ -1,7 +1,7 @@
 #ifndef STATION_H
 #define STATION_H
 
-#include "train_generator.h"
+#include "public_train_generator.h"
 #include <string>
 
 class CStation
@@ -14,10 +14,10 @@ public:
 	/**
      * \brief   Add train
      */
-    CTrainGenerator& AddTrain(const std::string& trainTitle,
+    CPublicTrainGenerator& AddTrain(const std::string& trainTitle,
             unsigned time,
             CStation& targetStation,
-            CTrainGenerator::Frequency frequency,
+            CPublicTrainGenerator::Frequency frequency,
             unsigned targetStationArrival,
             unsigned averageDelay = 0,
             bool bStopsInMainStation = false,

@@ -13,13 +13,13 @@
 #include "adjacent_station.h"
 #include <set>
 
-class CTrain;
+class CPublicTrain;
 class CDefect;
 
 class CTrack
 {
 public:
-    typedef std::set<CTrain*> Trains;
+    typedef std::set<CPublicTrain*> Trains;
 
     /**
      * \brief Constructor.
@@ -70,13 +70,13 @@ public:
      * \brief Add passing train. The train will be notified about accidents/defects.
      * \param train Train to be added
      */
-    void AddPassingTrain(CTrain& train);
+    void AddPassingTrain(CPublicTrain& train);
 
     /**
      * \brief Remove passing train.
      * \param train Train to be removed
      */
-    void RemovePassingTrain(CTrain& train);
+    void RemovePassingTrain(CPublicTrain& train);
 
     /**
      * \brief Set defect.
