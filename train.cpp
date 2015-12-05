@@ -56,8 +56,11 @@ void CTrain::Behavior()
         Passivate();
     }
 
-    // travel to the main station
+    // start
     DBG_LOG_T(m_Generator.GetTrainTitle() + ": Start in " + m_Generator.GetStartStation().GetTitle());
+
+    // time to target station
+    unsigned timeToTargetStation = m_ScheduledTargetStationArrival - m_ScheduledStartTime;
 
     // stops in the main station
     if( m_Generator.StopsInMainStation() )
@@ -75,6 +78,7 @@ void CTrain::Behavior()
         {
             DBG_LOG_T("TRAIN AFFECTED BY DEFECT");
             Passivate();
+            // TODO: wait for the rest of the journey
         }
 
         // go off the track
@@ -98,10 +102,13 @@ void CTrain::Behavior()
 
         // leaving main station
         DBG_LOG(m_Generator.GetTrainTitle() + ": Leaving the main station");
+
+        // update time to target station
+        timeToTargetStation = m_ScheduledTargetStationArrival - m_ScheduledMainStationDeparture;
     }
 
     // travel to the target station
-    Wait(m_ScheduledTargetStationArrival - m_ScheduledMainStationDeparture);
+    Wait(timeToTargetStation);
     // check for defect
     if(m_pTrack->GetDefect() != NULL)
     {
