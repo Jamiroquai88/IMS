@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
     Run();
     DBG_LOG(mainStation.GetAdjacentStations().size());
 
-    CMainStation::GetInstance().GetHistogram().Output();
+    mainStation.GetHistogram().Output();
 
     return 0;
 }
