@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
     Run();
     DBG_LOG(mainStation.GetAdjacentStations().size());
 
-    mainStation.GetHistogram().Output();
+    mainStation.GetDelayHistogram().Output();
 
     return 0;
 }

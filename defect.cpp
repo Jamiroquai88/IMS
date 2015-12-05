@@ -40,7 +40,7 @@ void CDefect::Behavior()
   }
 
   double repair = Exponential(m_trainRepair);
-  CMainStation::GetInstance().GetHistogram()(repair);
+  CMainStation::GetInstance().GetDefectsHistogram()(repair);
   Wait(repair);
   tracks[index]->ClearDefect();
 

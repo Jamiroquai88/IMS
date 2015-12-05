@@ -127,9 +127,11 @@ void CTrain::Behavior()
     DBG_LOG_T(m_Generator.GetTrainTitle() + ": End in " + m_Generator.GetTargetStation().GetTitle());
     if(Time > m_ScheduledTargetStationArrival)
     {
+    	double delayTime = Time - m_ScheduledTargetStationArrival;
         DBG_LOG(m_Generator.GetTrainTitle() +
-                ": delay " +
-                CTimeInterval::MinutesToTime(Time - m_ScheduledTargetStationArrival));
+                ": delay " + CTimeInterval::MinutesToTime(delayTime));
+        CMainStation::GetInstance().GetDelayHistogram()
+        		(delayTime);
     }
 
     // delete event
