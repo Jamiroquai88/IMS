@@ -183,6 +183,9 @@ CTrain::CProgressUpdateEvent::CProgressUpdateEvent(CTrain& train)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CTrain::CProgressUpdateEvent::Behavior()
 {
-    m_Train.Activate();
+    if(m_Train.m_pTrack->GetDefect() == NULL)
+    {
+        m_Train.Activate();
+    }
     Activate(Time + FREQUENCY);
 }
