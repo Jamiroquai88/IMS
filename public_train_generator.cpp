@@ -64,9 +64,9 @@ void CPublicTrainGenerator::Behavior()
     if(!bExceptionalTime)
     {
         // Compute concrete arrival and departure times
-        unsigned targetStationArrival = Time + m_ScheduleTargetStationArrival - m_ScheduleStartTime;
-        unsigned mainStationArrival = Time + m_ScheduleMainStationArrival - m_ScheduleStartTime;
-        unsigned mainStationDeparture = Time + m_ScheduleMainStationDeparture - m_ScheduleStartTime;
+        unsigned targetStationArrival = Time + m_ScheduleTargetStationArrival - m_ScheduleStartTime + CPublicTrain::GetBoardingTime();
+        unsigned mainStationArrival = Time + m_ScheduleMainStationArrival - m_ScheduleStartTime + CPublicTrain::GetBoardingTime();
+        unsigned mainStationDeparture = Time + m_ScheduleMainStationDeparture - m_ScheduleStartTime + CPublicTrain::GetBoardingTime();
 
         /*
         DBG_LOG_T(GetTrainTitle() << " targetStationArrival: " << CTimeInterval::MinutesToTime(targetStationArrival));
@@ -75,8 +75,8 @@ void CPublicTrainGenerator::Behavior()
         */
 
         // Generate train with delay
-        (new CPublicTrain(*this, Time, targetStationArrival, mainStationArrival,
-                mainStationDeparture))->Activate(Time + Exponential(m_AverageDelay));
+        (new CPublicTrain(*this, Time + CPublicTrain::GetBoardingTime(), targetStationArrival,
+            mainStationArrival, mainStationDeparture))->Activate(Time + Exponential(m_AverageDelay));
     }
 
     // Repeat in future

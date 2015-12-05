@@ -18,6 +18,9 @@ class CPublicTrain : public Process
 {
 public:
 
+    /**
+     * \brief Event that periodically activates the train, letting it update its progress.
+     */
     class CProgressUpdateEvent : public Event
     {
     public:
@@ -49,7 +52,12 @@ public:
     unsigned GetDistanceFromMainStation() const;
     const CPublicTrainGenerator& GetGenerator() const;
 
+    static unsigned GetBoardingTime();
+
 private:
+    /// time to wait for passengers to get on the train [minutes]
+    static const unsigned BOARDING_TIME;
+
     void Travel(unsigned duration);
 
     const CPublicTrainGenerator& m_Generator;
@@ -117,6 +125,12 @@ inline unsigned CPublicTrain::GetDistanceFromMainStation() const
 inline const CPublicTrainGenerator& CPublicTrain::GetGenerator() const
 {
     return m_Generator;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline unsigned CPublicTrain::GetBoardingTime()
+{
+    return BOARDING_TIME;
 }
 
 #endif /* CTRAIN_H_ */

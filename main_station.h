@@ -31,7 +31,7 @@ public:
     typedef std::vector<CTrack*> Tracks;
 
 
-	~CMainStation();
+	virtual ~CMainStation();
 
 	/**
 	 * \brief Get singleton instance.
@@ -39,6 +39,11 @@ public:
 	static CMainStation& GetInstance();
 
 	void SetTitle(const std::string& title);
+
+	/**
+	 * \brief Set number of the rails at the station (store capacity).
+	 */
+	void SetRailsNumber(unsigned count);
 
 	const AdjacentStations& GetAdjacentStations() const;
     const CAdjacentStation& GetAdjacentStation(const std::string& title) const;
@@ -59,6 +64,16 @@ public:
     Histogram& GetDefectsHistogram();
 
     Store &GetRailsStore();
+
+    /**
+     * \brief Train enters the station.
+     */
+    void Enter(CPublicTrain& train);
+
+    /**
+     * \brief Train leaves the station.
+     */
+    void Leave(CPublicTrain& train);
 
 private:
 	CMainStation();

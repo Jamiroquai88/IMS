@@ -7,6 +7,7 @@
 
 #include "main_station.h"
 #include "adjacent_station.h"
+#include "public_train.h"
 #include "debug.h"
 #include "assert.h"
 
@@ -14,10 +15,8 @@
 CMainStation::CMainStation()
 	: m_Delayhistogram("Delays durations in system", 0, 5, 30),
 	  m_DefectsHistogram("Defects in system", 0, 5, 30),
-	  m_RailsStore("Station Rails", 7)
-{
-
-}
+	  m_RailsStore("Station Rails", 1)
+{}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CMainStation::~CMainStation()
@@ -50,6 +49,12 @@ CMainStation& CMainStation::GetInstance()
 void CMainStation::SetTitle(const std::string& title)
 {
     m_Title = title;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainStation::SetRailsNumber(unsigned count)
+{
+    m_RailsStore.SetCapacity(count);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -91,4 +96,16 @@ CTrack& CMainStation::AddCoreTrack(const CAdjacentStation& adjStation, unsigned 
 void CMainStation::AddTrackSegment(CTrack& track)
 {
     m_TracksMap[&track.GetAdjacentStation()] = &track;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainStation::Enter(CPublicTrain& train)
+{
+    m_RailsStore.Enter(dynamic_cast<Entity*>(&train), 1);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainStation::Leave(CPublicTrain& train)
+{
+    m_RailsStore.Leave(1);
 }

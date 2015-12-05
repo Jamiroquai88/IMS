@@ -12,6 +12,8 @@
 #include "debug.h"
 #include <iostream>
 
+// boarding time
+const unsigned CPublicTrain::BOARDING_TIME = 5;
 // update progress every 5 minutes
 const unsigned CPublicTrain::CProgressUpdateEvent::FREQUENCY = 10;
 
@@ -59,6 +61,15 @@ void CPublicTrain::Behavior()
     CProgressUpdateEvent& progressUpdateEvent = *(new CProgressUpdateEvent(*this));
     progressUpdateEvent.Activate(Time + CProgressUpdateEvent::FREQUENCY);
 
+    // go to the platform
+    m_Generator.GetStartStation().Enter(*this);
+
+    // wait for passengers to board
+    Wait(CPublicTrain::GetBoardingTime());
+
+    // leave the platform
+    m_Generator.GetStartStation().Leave(*this);
+
     unsigned realStartTime = Time;
     unsigned initialDelay = realStartTime - m_ScheduledStartTime;
 
@@ -105,6 +116,9 @@ void CPublicTrain::Behavior()
         // go off the track
         m_pTrack->RemovePassingTrain(*this);
 
+        // enter main station
+        CMainStation::GetInstance().Enter(*this);
+
         // in main station
         DBG_LOG_T(m_Generator.GetTrainTitle()
             << ":\t\tEntering the main station with delay: "
@@ -122,6 +136,8 @@ void CPublicTrain::Behavior()
 
         // going from the main station
         m_DirFromMainStation = !m_DirFromMainStation;
+
+        CMainStation::GetInstance().Leave(*this);
 
         // go on the second track
         m_pTrack = &CMainStation::GetInstance()

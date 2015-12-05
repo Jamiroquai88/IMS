@@ -20,10 +20,9 @@ class CAdjacentStation : public CStation
 {
 public:
 
-    // Inherit constructor
-    using CStation::CStation;
+    CAdjacentStation(const std::string& title = "");
 
-    ~CAdjacentStation();
+    virtual ~CAdjacentStation();
 private:
 };
 

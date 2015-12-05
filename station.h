@@ -4,10 +4,13 @@
 #include "public_train_generator.h"
 #include <string>
 
+class CPublicTrain;
+
 class CStation
 {
 public:
     CStation(const std::string& title = "");
+    virtual ~CStation();
 
 	const std::string& GetTitle() const;
 
@@ -23,6 +26,16 @@ public:
             bool bStopsInMainStation = false,
             unsigned mainStationArrival = 0,
             unsigned mainStationDeparture = 0);
+
+    /**
+     * \brief   Train enters the station
+     */
+    virtual void Enter(CPublicTrain& train) const;
+
+    /**
+     * \brief   Train leaves the station
+     */
+    virtual void Leave(CPublicTrain& train) const;
 
 protected:
 	std::string m_Title;

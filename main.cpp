@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
     // Main station
     CMainStation& mainStation = CMainStation::GetInstance();
     mainStation.SetTitle("Zilina");
+    mainStation.SetRailsNumber(7);
 
     mainStation.AddAdjacentStation("Bohumin");
     mainStation.AddAdjacentStation("Brodno");
