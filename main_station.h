@@ -30,6 +30,7 @@ public:
     // root tracks (from main station to the last station)
     typedef std::vector<CTrack*> Tracks;
 
+
 	~CMainStation();
 
 	/**
@@ -54,6 +55,9 @@ public:
     CTrack& AddCoreTrack(const CAdjacentStation& adjStation, unsigned length);
     void AddTrackSegment(CTrack& track);
 
+    Histogram& GetDelayHistogram();
+    Histogram& GetDefectsHistogram();
+
 private:
 	CMainStation();
 
@@ -66,6 +70,11 @@ private:
     Tracks m_Tracks;
     // Tracks segments lookup
     AllTracksMap m_TracksMap;
+
+    // Histogram for defects
+    Histogram m_DefectsHistogram;
+    // Histogram for delays
+    Histogram m_Delayhistogram;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,6 +101,18 @@ inline CTrack& CMainStation::GetTrack(const CAdjacentStation& adjStation)
 {
     assert(m_TracksMap.find(&adjStation) != m_TracksMap.end());
     return *m_TracksMap[&adjStation];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline Histogram& CMainStation::GetDelayHistogram()
+{
+  return m_Delayhistogram;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline Histogram& CMainStation::GetDefectsHistogram()
+{
+  return m_DefectsHistogram;
 }
 
 #endif /* MAIN_STATION_H_ */

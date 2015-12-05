@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 {
     DBG_LOG("SIMULATION START - DEBUG");
 
-    Init(0, CTimeInterval::TimeToMinutes(0,0, 100));
+    Init(0, CTimeInterval::TimeToMinutes(0,0, 500));
 
     // Main station
     CMainStation& mainStation = CMainStation::GetInstance();
@@ -97,6 +97,8 @@ int main(int argc, char *argv[])
 
     Run();
     DBG_LOG(mainStation.GetAdjacentStations().size());
+
+    mainStation.GetHistogram().Output();
 
     return 0;
 }

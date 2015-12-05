@@ -39,7 +39,9 @@ void CDefect::Behavior()
     train->Activate();
   }
 
-  Wait(Exponential(m_trainRepair));
+  double repair = Exponential(m_trainRepair);
+  CMainStation::GetInstance().GetHistogram()(repair);
+  Wait(repair);
   tracks[index]->ClearDefect();
 
   tracks[index]->GetPassingTrains(location, true, passingTrains);
