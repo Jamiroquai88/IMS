@@ -13,7 +13,8 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CMainStation::CMainStation()
 	: m_Delayhistogram("Delays durations in system", 0, 5, 30),
-	  m_DefectsHistogram("Defects in system", 0, 5, 30)
+	  m_DefectsHistogram("Defects in system", 0, 5, 30),
+	  m_RailsStore("Station Rails", 7)
 {
 
 }

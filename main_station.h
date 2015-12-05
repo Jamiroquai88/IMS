@@ -58,6 +58,8 @@ public:
     Histogram& GetDelayHistogram();
     Histogram& GetDefectsHistogram();
 
+    Store &GetRailsStore();
+
 private:
 	CMainStation();
 
@@ -75,6 +77,9 @@ private:
     Histogram m_Delayhistogram;
     // Histogram for defects
     Histogram m_DefectsHistogram;
+    // Store for station's rails
+    Store m_RailsStore;
+
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -114,5 +119,13 @@ inline Histogram& CMainStation::GetDefectsHistogram()
 {
   return m_DefectsHistogram;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline Store& CMainStation::GetRailsStore()
+{
+  return m_RailsStore;
+}
+
+
 
 #endif /* MAIN_STATION_H_ */
