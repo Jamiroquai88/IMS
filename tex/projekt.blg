@@ -1,0 +1,47 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: projekt.aux
+The style file: czechiso.bst
+Database file #1: literatura.bib
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+You've used 1 entry,
+            3151 wiz_defined-function locations,
+            656 strings with 5526 characters,
+and the built_in function-call counts, 483 in all, are:
+= -- 33
+> -- 28
+< -- 0
++ -- 15
+- -- 8
+* -- 25
+:= -- 67
+add.period$ -- 2
+call.type$ -- 1
+change.case$ -- 5
+chr.to.int$ -- 0
+cite$ -- 1
+duplicate$ -- 34
+empty$ -- 36
+format.name$ -- 9
+if$ -- 97
+int.to.chr$ -- 0
+int.to.str$ -- 1
+missing$ -- 9
+newline$ -- 13
+num.names$ -- 2
+pop$ -- 22
+preamble$ -- 1
+purify$ -- 5
+quote$ -- 0
+skip$ -- 22
+stack$ -- 0
+substring$ -- 5
+swap$ -- 17
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 4
+warning$ -- 0
+while$ -- 2
+width$ -- 2
+write$ -- 17
