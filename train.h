@@ -25,12 +25,17 @@ public:
         static const unsigned FREQUENCY;
 
         CProgressUpdateEvent(CTrain& train);
+
         void Behavior();
     private:
         CTrain& m_Train;
     };
 
-    CTrain(const CTrainGenerator& generator);
+    CTrain(const CTrainGenerator& generator,
+        unsigned scheduledStartTime,
+        unsigned scheduledTargetStationArrival,
+        unsigned scheduledMainStationArrival = 0,
+        unsigned scheduledMainStationDeparture = 0);
     virtual ~CTrain();
 
     unsigned GetTrackDuration() const;
@@ -42,6 +47,18 @@ protected:
     void Travel(unsigned duration);
 
     const CTrainGenerator& m_Generator;
+
+    // own schedule times (computed by generator)
+
+    // start time
+    unsigned m_ScheduledStartTime;
+
+    // stop at main station
+    unsigned m_ScheduledMainStationArrival;
+    unsigned m_ScheduledMainStationDeparture;
+
+    // arrival at the target station
+    unsigned m_ScheduledTargetStationArrival;
 
     // actual track duration according to the schedule
     unsigned m_TrackDuration;
@@ -80,12 +97,12 @@ inline unsigned CTrain::GetDistanceFromMainStation() const
     }
 
     DBG_LOG_T(GetGenerator().GetTrainTitle()
-            << ":\tTrain Location: "
-            << CTimeInterval::MinutesToTime(m_ScheduledStartTime)
-            << " - "
-            << CTimeInterval::MinutesToTime(m_ScheduledTargetStationArrival)
-            << '\t' << CTimeInterval::MinutesToTime(m_ScheduledTargetStationArrival - m_ScheduledStartTime)
-            << '\t' << distance << " / " << m_pTrack->GetLength());
+        << ":\tTrain Location: "
+        << CTimeInterval::MinutesToTime(m_ScheduledStartTime)
+        << " - "
+        << CTimeInterval::MinutesToTime(m_ScheduledTargetStationArrival)
+        << '\t' << CTimeInterval::MinutesToTime(m_ScheduledTargetStationArrival - m_ScheduledStartTime)
+        << '\t' << distance << " / " << m_pTrack->GetLength());
 
     return distance;
 }

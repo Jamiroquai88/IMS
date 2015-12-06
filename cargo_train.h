@@ -13,7 +13,11 @@
 class CCargoTrain : public CTrain
 {
 public:
-    CCargoTrain(const CTrainGenerator& generator);
+    CCargoTrain(const CTrainGenerator& generator,
+        unsigned scheduledStartTime,
+        unsigned scheduledTargetStationArrival,
+        unsigned scheduledMainStationArrival = 0,
+        unsigned scheduledMainStationDeparture = 0);
     virtual ~CCargoTrain();
 };
 

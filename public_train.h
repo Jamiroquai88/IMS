@@ -38,18 +38,6 @@ public:
 private:
     /// time to wait for passengers to get on the train [minutes]
     static const unsigned BOARDING_TIME;
-
-    // own schedule times (computed by generator)
-
-    // start time
-    unsigned m_ScheduledStartTime;
-
-    // stop at main station
-    unsigned m_ScheduledMainStationArrival;
-    unsigned m_ScheduledMainStationDeparture;
-
-    // arrival at the target station
-    unsigned m_ScheduledTargetStationArrival;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

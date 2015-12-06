@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 {
     DBG_LOG("SIMULATION START - DEBUG");
 
+    RandomSeed(time(NULL));
     Init(0, CTimeInterval::TimeToMinutes(0,0, 365*4));
 
     // Main station

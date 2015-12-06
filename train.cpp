@@ -7,8 +7,16 @@
 
 #include "train.h"
 
-CTrain::CTrain(const CTrainGenerator& generator)
+CTrain::CTrain(const CTrainGenerator& generator,
+    unsigned scheduledStartTime,
+    unsigned scheduledTargetStationArrival,
+    unsigned scheduledMainStationArrival,
+    unsigned scheduledMainStationDeparture)
   : m_Generator(generator),
+    m_ScheduledStartTime(scheduledStartTime),
+    m_ScheduledMainStationArrival(scheduledMainStationArrival),
+    m_ScheduledMainStationDeparture(scheduledMainStationDeparture),
+    m_ScheduledTargetStationArrival(scheduledTargetStationArrival),
     m_TrackDuration(0),
     m_TraveledMinutes(0),
     m_pTrack(NULL),

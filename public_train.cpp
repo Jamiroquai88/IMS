@@ -23,11 +23,8 @@ CPublicTrain::CPublicTrain(const CPublicTrainGenerator& generator,
     unsigned scheduledTargetStationArrival,
     unsigned scheduledMainStationArrival,
     unsigned scheduledMainStationDeparture)
-  : CTrain(generator),
-    m_ScheduledStartTime(scheduledStartTime),
-    m_ScheduledMainStationArrival(scheduledMainStationArrival),
-    m_ScheduledMainStationDeparture(scheduledMainStationDeparture),
-    m_ScheduledTargetStationArrival(scheduledTargetStationArrival)
+  : CTrain(generator, scheduledStartTime, scheduledTargetStationArrival, scheduledMainStationArrival,
+          scheduledMainStationDeparture)
 {
     const CAdjacentStation& startStation =
             static_cast<const CAdjacentStation&>(generator.GetStartStation());

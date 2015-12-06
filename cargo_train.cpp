@@ -7,15 +7,15 @@
 
 #include "cargo_train.h"
 
-CCargoTrain::CCargoTrain(const CTrainGenerator& generator)
-  : CTrain(generator)
-{
-    // TODO Auto-generated constructor stub
-
-}
+CCargoTrain::CCargoTrain(const CTrainGenerator& generator,
+        unsigned scheduledStartTime,
+        unsigned scheduledTargetStationArrival,
+        unsigned scheduledMainStationArrival,
+        unsigned scheduledMainStationDeparture)
+  : CTrain(generator, scheduledStartTime, scheduledTargetStationArrival, scheduledMainStationArrival,
+          scheduledMainStationDeparture)
+{}
 
 CCargoTrain::~CCargoTrain()
-{
-    // TODO Auto-generated destructor stub
-}
+{}
 
