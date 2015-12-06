@@ -17,6 +17,8 @@
 #define MEDIUM_DEFECT_DELAY 19
 #define LARGE_DEFECT_DELAY 80
 
+#define RAILS_NUM 7
+
 /**
  * Main simulation program.
  *
@@ -27,12 +29,12 @@ int main(int argc, char *argv[])
 {
     DBG_LOG("SIMULATION START - DEBUG");
 
-    Init(0, CTimeInterval::TimeToMinutes(0,0, 500));
+    Init(0, CTimeInterval::TimeToMinutes(0,0, 365*4));
 
     // Main station
     CMainStation& mainStation = CMainStation::GetInstance();
     mainStation.SetTitle("Zilina");
-    mainStation.SetRailsNumber(7);
+    mainStation.SetRailsNumber(RAILS_NUM);
 
     mainStation.AddAdjacentStation("Bohumin");
     mainStation.AddAdjacentStation("Brodno");
@@ -100,6 +102,7 @@ int main(int argc, char *argv[])
 
     mainStation.GetDelayHistogram().Output();
     mainStation.GetDefectsHistogram().Output();
+    mainStation.GetRailsStore().Output();
 
     return 0;
 }
