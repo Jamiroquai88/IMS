@@ -13,13 +13,13 @@
 #include "adjacent_station.h"
 #include <set>
 
-class CPublicTrain;
+class CTrain;
 class CDefect;
 
 class CTrack
 {
 public:
-    typedef std::set<CPublicTrain*> Trains;
+    typedef std::set<CTrain*> Trains;
 
     /**
      * \brief Constructor.

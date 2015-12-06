@@ -8,12 +8,12 @@
 #ifndef CARGO_TRAIN_H_
 #define CARGO_TRAIN_H_
 
-#include <simlib.h>
+#include "train.h"
 
-class CCargoTrain: public simlib3::Process
+class CCargoTrain : public CTrain
 {
 public:
-    CCargoTrain();
+    CCargoTrain(const CTrainGenerator& generator);
     virtual ~CCargoTrain();
 };
 

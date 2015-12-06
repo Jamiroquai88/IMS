@@ -7,7 +7,8 @@
 
 #include "cargo_train.h"
 
-CCargoTrain::CCargoTrain()
+CCargoTrain::CCargoTrain(const CTrainGenerator& generator)
+  : CTrain(generator)
 {
     // TODO Auto-generated constructor stub
 

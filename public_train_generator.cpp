@@ -22,27 +22,13 @@ CPublicTrainGenerator::CPublicTrainGenerator(const std::string& trainTitle,
     bool bStopsInMainStation,
     unsigned mainStationArrival,
     unsigned mainStationDeparture)
-  : m_TrainTitle(trainTitle),
-    m_StartStation(startStation),
-    m_TargetStation(targetStation),
-    m_Frequency(frequency),
-    m_ScheduleStartTime(scheduleStartTime),
-    m_ScheduleTargetStationArrival(targetStationArrival),
-    m_AverageDelay(averageDelay),
-    m_StopsInMainStation(bStopsInMainStation),
-    m_ScheduleMainStationArrival(mainStationArrival),
-    m_ScheduleMainStationDeparture(mainStationDeparture)
+  : CTrainGenerator(trainTitle, startStation, targetStation, frequency, scheduleStartTime,
+          targetStationArrival, averageDelay, bStopsInMainStation, mainStationArrival,
+          mainStationDeparture)
 {}
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
 CPublicTrainGenerator::~CPublicTrainGenerator()
 {}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CPublicTrainGenerator::AddException(unsigned minutesStart, unsigned minutesEnd)
-{
-    m_ScheduleExceptions.push_back(new CTimeInterval(minutesStart, minutesEnd));
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CPublicTrainGenerator::Behavior()
