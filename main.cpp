@@ -18,10 +18,16 @@
 #define MEDIUM_DEFECT_DELAY 19
 #define LARGE_DEFECT_DELAY 80
 
+// Trails numbers in Zilina
 #define TRANSPORT_RAILS_NUM 2
 #define CARGO_RAILS_NUM 2
 
+//Cargo trains through Zilina
+#define CARGO_TRAINS_NUM 48
+
 #define SIMULATION_DAYS 300
+
+
 
 void generateCargoTrains(std::vector<CAdjacentStation*>& cargoTrainStations);
 
@@ -123,8 +129,7 @@ int main(int argc, char *argv[])
 
 void generateCargoTrains(std::vector<CAdjacentStation*>& cargoTrainStations)
 {
-    //for(int i = 0; i < Exponential(100); i++ )
-    for(int i = 0; i < 10000; i++ )
+    for(int i = 0; i < CARGO_TRAINS_NUM; i++ )
     {
         CMainStation* pMainStation = &CMainStation::GetInstance();
         CAdjacentStation* pAdjacentStation = cargoTrainStations[rand() % cargoTrainStations.size()];
