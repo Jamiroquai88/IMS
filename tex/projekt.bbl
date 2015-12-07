@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -8,10 +8,84 @@
 \providecommand{\selectlanguage}[1]{\relax}
 \providecommand{\eprint}[2][]{\url{#2}}
 
-\bibitem{fitWeb}
-Rábová, Z.; Hanáèek, P.; Peringer, P.; aj.: U¾iteèné rady pro psaní odborného
-  textu [online]. {\tt
-  http://www.fit.vutbr.cz/info/statnice/psani\_textu.html}, 2008-11-01 [cit.
-  2008-11-28].
+\bibitem{keloMail}
+{Kelo, Du¹an}: modelavanie systemu ¾eleznice [emailová komunikácia]. 28.11.2015
+  07:18 [cit. 2015-11-6].
+
+\bibitem{PVND}
+{Kolektív autorov}: Plán vlakotvorby nákladnej dopravy. 2014.
+
+\bibitem{slajdy136}
+Peringer, P.: Modelování a simulace, slajd è. 136 [online]. {\tt
+  http://www.fit.vutbr.cz/study/courses/IMS/public/prednasky/IMS.pdf},
+  2015-17-09 [cit. 2015-11-7].
+
+\bibitem{slajdy88}
+Peringer, P.: Modelování a simulace, slajd è. 88 [online]. {\tt
+  http://www.fit.vutbr.cz/study/courses/IMS/public/prednasky/IMS.pdf},
+  2015-17-09 [cit. 2015-11-7].
+
+\bibitem{snidlMail}
+{Snídl, Vladimír}: Fwd: Dennik N: Meskanie vlakov [emailová komunikácia].
+  03.12.2015 10:58 [cit. 2015-11-6].
+
+\bibitem{snidlclanok}
+©nídl Vladimír: Rekordérom v me¹kaní IC vlakov je expres RegioJetu z Ko¹íc do
+  Bratislavy [online]. {\tt
+  http://dennikn.sk/164892/vieme-ktore-ic-vlaky-najviac-meskaju-\\-rekorderom-je-expres-regiojetu-z-kosic/},
+  2015-06-23 [cit. 2015-11-7].
+
+\bibitem{cppWeb}
+{WWW stránky}: C++ Programming Language. {\tt http://www.cplusplus.com}.
+
+\bibitem{tratBAWeb}
+{WWW stránky}: Detaily ¾elezniènej trate Bratislava - ®ilina. {\tt
+  http://vlaky.net/servis/trat.asp?id=9}.
+
+\bibitem{tratKEWeb}
+{WWW stránky}: Detaily ¾elezniènej trate ®ilina - Ko¹ice. {\tt
+  http://vlaky.net/servis/trat.asp?id=53}.
+
+\bibitem{tratRAWeb}
+{WWW stránky}: Detaily ¾elezniènej trate ®ilina - Rajec. {\tt
+  http://vlaky.net/servis/trat.asp?id=15}.
+
+\bibitem{tratCAWeb}
+{WWW stránky}: Detaily ¾elezniènej trate ®ilina - Èadca. {\tt
+  http://vlaky.net/servis/trat.asp?id=16}.
+
+\bibitem{gvdWiki}
+{WWW stránky}: Grafikon dopravy. {\tt
+  http://cs.wikipedia.org/wiki/Grafikon\_dopravy}.
+
+\bibitem{gvdSR}
+{WWW stránky}: Grafikon dopravy 2014-2015. {\tt
+  http://www.slovakrail.sk/sk/preprava-osob/tratove-poriadky/\\/gvd-2014-2015.html}.
+
+\bibitem{poruchyWeb}
+{WWW stránky}: Kniha porúch ru¹òov a vozòov. {\tt
+  http://www.vlaky.net/online/poruchy}.
+
+\bibitem{denniknWeb}
+{WWW stránky}: Nezávislé noviny. {\tt http://www.dennikn.sk}.
+
+\bibitem{vlakyTrateWeb}
+{WWW stránky}: Prehµad ¾eleznièných tratí na Slovensku. {\tt
+  http://vlaky.net/servis/trate.asp}.
+
+\bibitem{simlibWeb}
+{WWW stránky}: Simulation Library for C++. {\tt
+  http://www.fit.vutbr.cz/~peringer/SIMLIB}.
+
+\bibitem{vlakWiki}
+{WWW stránky}: Vlak. {\tt http://sk.wikipedia.org/wiki/Vlak}.
+
+\bibitem{vlakyWeb}
+{WWW stránky}: Vlaky, vláèiky, ¾eleznice, trate, modely, simulátory. {\tt
+  http://www.vlaky.net}.
+
+\bibitem{vlakyZilinaWeb}
+{WWW stránky}: ®eleznièné objekty - ®eleznièná stanica ®ilina. {\tt
+  http://vlaky.net/servis/objekt.asp?id=617}.
 
 \end{thebibliography}
