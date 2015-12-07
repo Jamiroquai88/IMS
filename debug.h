@@ -15,6 +15,7 @@
  * \brief Debug helper code
  */
 //#define DEBUG
+#define DELAYS
 
 /**
  * \brief Debug log to stdout
@@ -41,6 +42,12 @@
 #define DBG_CONDITION(c,str) { if(!(c)){ std::cerr << "DEBUG_CHECK: " << str << std::endl; exit(1); }
 #else
 #define DBG_CONDITION(x)
+#endif
+
+#ifdef DELAYS
+#define DELAY_LOG(rel,abs) (std::cout << m_Generator.GetTrainTitle() << ": " << (rel) << " / " << (abs) << std::endl)
+#else
+#define DELAY_LOG(rel,abs)
 #endif
 
 #endif /* DEBUG_H_ */

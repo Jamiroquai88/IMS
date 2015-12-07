@@ -198,15 +198,17 @@ void CPublicTrain::Behavior()
 
     // in target station
     DBG_LOG_T(m_Generator.GetTrainTitle() + ":\t\tEnd in " + m_Generator.GetTargetStation().GetTitle());
-    if(Time > m_ScheduledTargetStationArrival)
+    unsigned absDelay = Time - m_ScheduledTargetStationArrival - STATION_ENTERING_TIME;
+    unsigned relDelay = absDelay - initialDelay;
+    if(absDelay)
     {
-    	unsigned delayTime = Time - m_ScheduledTargetStationArrival;
         DBG_LOG(m_Generator.GetTrainTitle()
             << ":\t\tTotal delay: "
-            << delayTime << " minutes");
+            << absDelay << " minutes");
 
-        CMainStation::GetInstance().GetDelayHistogram()
-        		(delayTime);
+        CMainStation::GetInstance().GetDelayHistogram()(relDelay);
+
+        DELAY_LOG(relDelay, absDelay);
     }
 
     // release platform

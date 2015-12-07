@@ -228,10 +228,10 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
         freq, unit.disappears, unit.late,
         !unit.through.empty(), unit.comes, unit.leaves);
 
-      std::cout  << "Train " << unit.name << " schedule: \t\t"
+      /*std::cout  << "Train " << unit.name << " schedule: \t\t"
             << CTimeInterval::MinutesToTime(unit.appears)
             << ", from " << unit.from
-            << " to " << unit.to << std::endl;
+            << " to " << unit.to << std::endl;*/
       continue;
     }
     else
