@@ -25,7 +25,7 @@
 //Cargo trains through Zilina
 #define CARGO_TRAINS_NUM 48
 
-#define SIMULATION_DAYS 300
+#define SIMULATION_DAYS 365*1
 
 
 
@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
 
 void generateCargoTrains(std::vector<CAdjacentStation*>& cargoTrainStations)
 {
-    for(int i = 0; i < CARGO_TRAINS_NUM; i++ )
+    for(int i = 0; i < CARGO_TRAINS_NUM * SIMULATION_DAYS; i++ )
     {
         CMainStation* pMainStation = &CMainStation::GetInstance();
         CAdjacentStation* pAdjacentStation = cargoTrainStations[rand() % cargoTrainStations.size()];
