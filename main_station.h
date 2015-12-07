@@ -29,7 +29,10 @@ public:
     typedef std::map<const CAdjacentStation*, CTrack*> AllTracksMap;
     // root tracks (from main station to the last station)
     typedef std::vector<CTrack*> Tracks;
-
+    // only one train can go to a particular track at the same time
+    typedef std::map<CTrack*, Facility*> TrackStarts;
+    // only one train can come from a particular track at the same time
+    typedef std::map<CTrack*, Facility*> TrackEnds;
 
 	virtual ~CMainStation();
 
@@ -79,6 +82,9 @@ public:
     void Leave(CPublicTrain& train);
     void Leave(CCargoTrain& train);
 
+    void SeizeTrack(CTrain& train, CTrack* pTrack, bool bStart);
+    void ReleaseTrack(CTrain& train, CTrack* pTrack, bool bStart);
+
 private:
 	CMainStation();
 
@@ -91,6 +97,9 @@ private:
     Tracks m_Tracks;
     // Tracks segments lookup
     AllTracksMap m_TracksMap;
+    // Track locks
+    TrackStarts m_TracksStarts;
+    TrackEnds m_TracksEnds;
 
     // Histogram for delays
     Histogram m_Delayhistogram;

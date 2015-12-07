@@ -39,6 +39,7 @@ public:
      */
     CTrack* GetNestedSegment() const;
     CTrack* GetParentTrack() const;
+    CTrack* GetTopParentTrack();
     unsigned GetLength() const;
     unsigned GetNestedSegmentLength() const;
     const CAdjacentStation& GetAdjacentStation() const;

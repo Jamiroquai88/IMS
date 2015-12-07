@@ -100,6 +100,10 @@ CTrack& CMainStation::AddCoreTrack(const CAdjacentStation& adjStation, unsigned 
     CTrack* pTrack = new CTrack(adjStation, length);
     m_Tracks.push_back(pTrack);
     AddTrackSegment(*pTrack);
+
+    m_TracksStarts[pTrack] = new Facility;
+    m_TracksEnds[pTrack] = new Facility;
+
     return *pTrack;
 }
 
@@ -112,12 +116,14 @@ void CMainStation::AddTrackSegment(CTrack& track)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CMainStation::Enter(CPublicTrain& train)
 {
+    // pick a rail
     m_PublicRailsStore.Enter(dynamic_cast<Entity*>(&train), 1);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CMainStation::Enter(CCargoTrain& train)
 {
+    // pick a rail
     DBG_LOG_T(train.GetGenerator().GetTrainTitle() << "\t\tCargo entering the main station");
     m_CargoRailsStore.Enter(dynamic_cast<Entity*>(&train), 1);
 }
@@ -125,12 +131,32 @@ void CMainStation::Enter(CCargoTrain& train)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CMainStation::Leave(CPublicTrain& train)
 {
+    // pick a rail
     m_PublicRailsStore.Leave(1);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CMainStation::Leave(CCargoTrain& train)
 {
+    // pick a rail
     DBG_LOG_T(train.GetGenerator().GetTrainTitle() << "\t\tCargo leaving the main station");
     m_CargoRailsStore.Leave(1);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainStation::SeizeTrack(CTrain& train, CTrack* pTrack, bool bStart)
+{
+    if(bStart)
+        m_TracksStarts[pTrack->GetTopParentTrack()]->Seize(train);
+    else
+        m_TracksEnds[pTrack->GetTopParentTrack()]->Seize(train);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainStation::ReleaseTrack(CTrain& train, CTrack* pTrack, bool bStart)
+{
+    if(bStart)
+        m_TracksStarts[pTrack->GetTopParentTrack()]->Release(train);
+    else
+        m_TracksEnds[pTrack->GetTopParentTrack()]->Release(train);
 }

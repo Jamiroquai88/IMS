@@ -25,6 +25,15 @@ CTrack::~CTrack()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+CTrack* CTrack::GetTopParentTrack()
+{
+    if(m_pParentTrack)
+        return m_pParentTrack->GetTopParentTrack();
+    else
+        return this;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 CDefect* CTrack::GetDefect(unsigned location, bool dirFromMainStation) const
 {
     CDefect* pDefect = NULL;

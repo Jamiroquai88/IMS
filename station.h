@@ -6,6 +6,8 @@
 
 class CPublicTrain;
 class CCargoTrain;
+class CTrack;
+class CTrain;
 
 class CStation
 {
@@ -45,14 +47,17 @@ public:
     /**
      * \brief   Train enters the station
      */
-    virtual void Enter(CPublicTrain& train) = 0;
-    virtual void Enter(CCargoTrain& train) = 0;
+    virtual void Enter(CPublicTrain& train) {};
+    virtual void Enter(CCargoTrain& train) {};
 
     /**
      * \brief   Train leaves the station
      */
-    virtual void Leave(CPublicTrain& train) = 0;
-    virtual void Leave(CCargoTrain& train) = 0;
+    virtual void Leave(CPublicTrain& train) {};
+    virtual void Leave(CCargoTrain& train) {};
+
+    virtual void SeizeTrack(CTrain& train, CTrack* pTrack, bool bStart) {};
+    virtual void ReleaseTrack(CTrain& train, CTrack* pTrack, bool bStart) {};
 
 protected:
 	std::string m_Title;

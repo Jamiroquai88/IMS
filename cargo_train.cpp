@@ -16,7 +16,18 @@ CCargoTrain::CCargoTrain(CCargoTrainGenerator& generator,
         unsigned scheduledMainStationDeparture)
   : CTrain(generator, scheduledStartTime, scheduledTargetStationArrival, scheduledMainStationArrival,
           scheduledMainStationDeparture)
-{}
+{
+    CMainStation* pMainStation = &CMainStation::GetInstance();
+
+    if(&generator.GetStartStation() == pMainStation)
+    {
+        m_pTrack = &pMainStation->GetTrack(static_cast<CAdjacentStation&>(generator.GetTargetStation()));
+    }
+    else
+    {
+        m_pTrack = &pMainStation->GetTrack(static_cast<CAdjacentStation&>(generator.GetStartStation()));
+    }
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CCargoTrain::~CCargoTrain()
@@ -25,25 +36,29 @@ CCargoTrain::~CCargoTrain()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CCargoTrain::Behavior()
 {
-    // create update progress event
-    CProgressUpdateEvent& progressUpdateEvent = *(new CProgressUpdateEvent(*this));
-    progressUpdateEvent.Activate(Time + CProgressUpdateEvent::FREQUENCY);
-
     DBG_LOG_T(m_Generator.GetTrainTitle() + ":\t\tGenerated in " + m_Generator.GetStartStation().GetTitle());
 
-    // leaving the station
+    // a track needed for the train
     m_Generator.GetStartStation().Enter(*this);
-    DBG_LOG(m_Generator.GetTrainTitle() << "\t\tCargo leaving from " << m_Generator.GetStartStation().GetTitle());
-    Wait(10);
+
+    // lock the track start
+    m_Generator.GetStartStation().SeizeTrack(*this, m_pTrack, true);
+    Wait(1);
+    // leave the platform
     m_Generator.GetStartStation().Leave(*this);
+    // unlock the track start
+    m_Generator.GetStartStation().ReleaseTrack(*this, m_pTrack, true);
 
     Travel(m_ScheduledTargetStationArrival - m_ScheduledStartTime);
 
-    // coming to the station
+    // lock track end
+    m_Generator.GetTargetStation().SeizeTrack(*this, m_pTrack, false);
+    Wait(1);
+    // enter the station
     m_Generator.GetTargetStation().Enter(*this);
-    DBG_LOG(m_Generator.GetTrainTitle() << "\t\tCargo coming to " << m_Generator.GetTargetStation().GetTitle());
-    Wait(10);
-    m_Generator.GetTargetStation().Leave(*this);
+    // unlock track end
+    m_Generator.GetTargetStation().ReleaseTrack(*this, m_pTrack, false);
 
-    progressUpdateEvent.Cancel();
+    // release the rail
+    m_Generator.GetTargetStation().Leave(*this);
 }

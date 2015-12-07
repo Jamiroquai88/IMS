@@ -15,7 +15,7 @@
 // boarding time
 const unsigned CPublicTrain::BOARDING_TIME = 5;
 // update progress every 5 minutes
-const unsigned CPublicTrain::CProgressUpdateEvent::FREQUENCY = 10;
+const unsigned CPublicTrain::CProgressUpdateEvent::FREQUENCY = 60;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CPublicTrain::CPublicTrain(CPublicTrainGenerator& generator,
@@ -62,6 +62,9 @@ void CPublicTrain::Behavior()
     // wait for passengers to board
     Wait(CPublicTrain::GetBoardingTime());
 
+    // lock the track start
+    m_Generator.GetStartStation().SeizeTrack(*this, m_pTrack, true);
+    Wait(1);
     // leave the platform
     m_Generator.GetStartStation().Leave(*this);
 
@@ -72,6 +75,10 @@ void CPublicTrain::Behavior()
 
     // go to track
     m_pTrack->AddPassingTrain(*this);
+
+    // unlock the track start
+    m_Generator.GetStartStation().ReleaseTrack(*this, m_pTrack, true);
+
 
     // start
     DBG_LOG_T(m_Generator.GetTrainTitle()
@@ -111,8 +118,13 @@ void CPublicTrain::Behavior()
         // go off the track
         m_pTrack->RemovePassingTrain(*this);
 
+        // lock track end
+        CMainStation::GetInstance().SeizeTrack(*this, m_pTrack, false);
+        Wait(1);
         // enter main station
         CMainStation::GetInstance().Enter(*this);
+        // unlock track end
+        CMainStation::GetInstance().ReleaseTrack(*this, m_pTrack, false);
 
         // in main station
         DBG_LOG_T(m_Generator.GetTrainTitle()
@@ -132,11 +144,18 @@ void CPublicTrain::Behavior()
         // going from the main station
         m_DirFromMainStation = !m_DirFromMainStation;
 
-        CMainStation::GetInstance().Leave(*this);
-
         // go on the second track
         m_pTrack = &CMainStation::GetInstance()
             .GetTrack(static_cast<const CAdjacentStation&>(m_Generator.GetTargetStation()));
+
+        // lock track start
+        CMainStation::GetInstance().SeizeTrack(*this, m_pTrack, true);
+        Wait(1);
+        // leave the station
+        CMainStation::GetInstance().Leave(*this);
+        // unlock track start
+        CMainStation::GetInstance().ReleaseTrack(*this, m_pTrack, true);
+
         m_pTrack->AddPassingTrain(*this);
 
         // leaving main station
@@ -168,6 +187,15 @@ void CPublicTrain::Behavior()
     // leave the track
     m_pTrack->RemovePassingTrain(*this);
 
+    // lock track end
+    m_Generator.GetTargetStation().SeizeTrack(*this, m_pTrack, false);
+    Wait(1);
+    // enter the station
+    m_Generator.GetTargetStation().Enter(*this);
+    // unlock track end
+    m_Generator.GetTargetStation().ReleaseTrack(*this, m_pTrack, false);
+
+
     // in target station
     DBG_LOG_T(m_Generator.GetTrainTitle() + ":\t\tEnd in " + m_Generator.GetTargetStation().GetTitle());
     if(Time > m_ScheduledTargetStationArrival)
@@ -180,6 +208,9 @@ void CPublicTrain::Behavior()
         CMainStation::GetInstance().GetDelayHistogram()
         		(delayTime);
     }
+
+    // release platform
+    m_Generator.GetTargetStation().Leave(*this);
 
     // delete event
     progressUpdateEvent.Cancel();
