@@ -8,6 +8,7 @@
 #include "main_station.h"
 #include "adjacent_station.h"
 #include "public_train.h"
+#include "cargo_train.h"
 #include "debug.h"
 #include "assert.h"
 
@@ -15,7 +16,8 @@
 CMainStation::CMainStation()
 	: m_Delayhistogram("Delays durations in system", 0, 5, 30),
 	  m_DefectsHistogram("Defects in system", 0, 5, 30),
-	  m_RailsStore("Station Rails", 1)
+	  m_PublicRailsStore("Station Transport Rails", 1),
+	  m_CargoRailsStore("Station Cargo Rails", 1)
 {}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -52,10 +54,17 @@ void CMainStation::SetTitle(const std::string& title)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CMainStation::SetRailsNumber(unsigned count)
+void CMainStation::SetTransportRailsNumber(unsigned count)
 {
-    m_RailsStore.SetCapacity(count);
+    m_PublicRailsStore.SetCapacity(count);
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainStation::SetCargoRailsNumber(unsigned count)
+{
+    m_CargoRailsStore.SetCapacity(count);
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 const CMainStation::AdjacentStations& CMainStation::GetAdjacentStations() const
@@ -78,9 +87,11 @@ CAdjacentStation& CMainStation::GetAdjacentStation(const std::string& title)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CMainStation::AddAdjacentStation(const std::string& title)
+CAdjacentStation* CMainStation::AddAdjacentStation(const std::string& title)
 {
-    m_AdjacentStations[title] = new CAdjacentStation(title);
+    CAdjacentStation* pStation = new CAdjacentStation(title);
+    m_AdjacentStations[title] = pStation;
+    return pStation;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,11 +112,17 @@ void CMainStation::AddTrackSegment(CTrack& track)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CMainStation::Enter(CPublicTrain& train)
 {
-    m_RailsStore.Enter(dynamic_cast<Entity*>(&train), 1);
+    m_PublicRailsStore.Enter(dynamic_cast<Entity*>(&train), 1);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainStation::Enter(CCargoTrain& train)
+{
+    m_CargoRailsStore.Enter(dynamic_cast<Entity*>(&train), 1);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CMainStation::Leave(CPublicTrain& train)
 {
-    m_RailsStore.Leave(1);
+    m_PublicRailsStore.Leave(1);
 }

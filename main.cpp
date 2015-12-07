@@ -6,6 +6,7 @@
 #include "main_station.h"
 #include "debug.h"
 #include "defect_generator.h"
+#include <sstream>
 
 // In days
 #define SMALL_DEFECT_FREQ 24
@@ -17,7 +18,12 @@
 #define MEDIUM_DEFECT_DELAY 19
 #define LARGE_DEFECT_DELAY 80
 
-#define RAILS_NUM 7
+#define TRANSPORT_RAILS_NUM 7
+#define CARGO_RAILS_NUM 7
+
+#define SIMULATION_DAYS 300
+
+void generateCargoTrains(std::vector<CAdjacentStation*>& cargoTrainStations);
 
 /**
  * Main simulation program.
@@ -30,14 +36,17 @@ int main(int argc, char *argv[])
     DBG_LOG("SIMULATION START - DEBUG");
 
     RandomSeed(time(NULL));
-    Init(0, CTimeInterval::TimeToMinutes(0,0, 365*4));
+    Init(0, CTimeInterval::TimeToMinutes(0,0, SIMULATION_DAYS));
 
     // Main station
     CMainStation& mainStation = CMainStation::GetInstance();
     mainStation.SetTitle("Zilina");
-    mainStation.SetRailsNumber(RAILS_NUM);
+    mainStation.SetTransportRailsNumber(TRANSPORT_RAILS_NUM);
+    mainStation.SetCargoRailsNumber(CARGO_RAILS_NUM);
 
-    mainStation.AddAdjacentStation("Bohumin");
+    std::vector<CAdjacentStation*> cargoTrainStations;
+
+    cargoTrainStations.push_back(mainStation.AddAdjacentStation("Bohumin"));
     mainStation.AddAdjacentStation("Brodno");
     mainStation.AddAdjacentStation("Bytca");
     mainStation.AddAdjacentStation("Cadca");
@@ -47,8 +56,8 @@ int main(int argc, char *argv[])
     mainStation.AddAdjacentStation("Kysucke Nove Mesto");
     mainStation.AddAdjacentStation("Povazska Bystrica");
     mainStation.AddAdjacentStation("Rudina");
-    mainStation.AddAdjacentStation("Ruzomberok");
-    mainStation.AddAdjacentStation("Trencin");
+    cargoTrainStations.push_back(mainStation.AddAdjacentStation("Ruzomberok"));
+    cargoTrainStations.push_back(mainStation.AddAdjacentStation("Trencin"));
     mainStation.AddAdjacentStation("Vrutky");
     mainStation.AddAdjacentStation("Zilina Solinky");
     mainStation.AddAdjacentStation("Zilina Zariecie");
@@ -82,6 +91,9 @@ int main(int argc, char *argv[])
     if(!schedule.OpenConfigFile() || !schedule.ParseAndPlan(mainStation))
         return -1;
 
+    // Generate random cargo trains
+    generateCargoTrains(cargoTrainStations);
+
     // Small Defects Generator
 
     CDefectGenerator smallDefects(CTimeInterval::TimeToMinutes(0,0, SMALL_DEFECT_FREQ),
@@ -103,7 +115,43 @@ int main(int argc, char *argv[])
 
     mainStation.GetDelayHistogram().Output();
     mainStation.GetDefectsHistogram().Output();
-    mainStation.GetRailsStore().Output();
+    mainStation.GetTransportRailsStore().Output();
+    mainStation.GetCargoRailsStore().Output();
 
     return 0;
+}
+
+void generateCargoTrains(std::vector<CAdjacentStation*>& cargoTrainStations)
+{ /*
+    for(int i = 0; i < Exponential(100); i++ )
+    {
+        CMainStation* pMainStation = &CMainStation::GetInstance();
+        CAdjacentStation* pAdjacentStation = cargoTrainStations[rand() % cargoTrainStations.size()];
+
+        std::stringstream ssTrainName;
+        ssTrainName << "Cargo Train No. A" << i;
+        unsigned startTime = rand() % CTimeInterval::TimeToMinutes(0,0,SIMULATION_DAYS);
+
+        // coming to / leaving from main station
+        CStation* pSrc;
+        CStation* pDst;
+        if(rand() % 2)
+        {
+            pSrc = pMainStation;
+            pDst = pAdjacentStation;
+        }
+        else
+        {
+            pSrc = pAdjacentStation;
+            pDst = pMainStation;
+        }
+
+        // t = s / v
+        unsigned duration = pMainStation->GetTrack(*pAdjacentStation).GetLength() / 100;
+        // different speeds
+        duration += Exponential(60);
+
+        pSrc->AddCargoTrain(ssTrainName.str(), startTime, *pDst, CTrainGenerator::Frequency::FREQ_ONCE,
+                startTime + duration, 5);
+    }*/
 }

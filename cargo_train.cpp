@@ -6,8 +6,10 @@
  */
 
 #include "cargo_train.h"
+#include "cargo_train_generator.h"
 
-CCargoTrain::CCargoTrain(const CTrainGenerator& generator,
+////////////////////////////////////////////////////////////////////////////////////////////////////
+CCargoTrain::CCargoTrain(const CCargoTrainGenerator& generator,
         unsigned scheduledStartTime,
         unsigned scheduledTargetStationArrival,
         unsigned scheduledMainStationArrival,
@@ -16,6 +18,17 @@ CCargoTrain::CCargoTrain(const CTrainGenerator& generator,
           scheduledMainStationDeparture)
 {}
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 CCargoTrain::~CCargoTrain()
 {}
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CCargoTrain::Behavior()
+{
+    // create update progress event
+    CProgressUpdateEvent& progressUpdateEvent = *(new CProgressUpdateEvent(*this));
+    progressUpdateEvent.Activate(Time + CProgressUpdateEvent::FREQUENCY);
+
+    // go to the platform
+    m_Generator.GetStartStation().Enter(*this);
+}

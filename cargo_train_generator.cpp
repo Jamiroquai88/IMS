@@ -1,19 +1,19 @@
 /*
- * train_generator.cpp
+ * cargo_train_generator.cpp
  *
- *  Created on: Nov 29, 2015
+ *  Created on: Dec 6, 2015
  *      Author: pavel
  */
 
-#include "public_train_generator.h"
-#include "public_train.h"
+#include "cargo_train_generator.h"
+#include "cargo_train.h"
 #include "time_interval.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-CPublicTrainGenerator::CPublicTrainGenerator(const std::string& trainTitle,
+CCargoTrainGenerator::CCargoTrainGenerator(const std::string& trainTitle,
     CStation& startStation,
     CStation& targetStation,
-    CPublicTrainGenerator::Frequency frequency,
+    CCargoTrainGenerator::Frequency frequency,
     unsigned scheduleStartTime,
     unsigned targetStationArrival,
     unsigned averageDelay,
@@ -25,11 +25,12 @@ CPublicTrainGenerator::CPublicTrainGenerator(const std::string& trainTitle,
           mainStationDeparture)
 {}
 
-CPublicTrainGenerator::~CPublicTrainGenerator()
+////////////////////////////////////////////////////////////////////////////////////////////////////
+CCargoTrainGenerator::~CCargoTrainGenerator()
 {}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CPublicTrainGenerator::Behavior()
+void CCargoTrainGenerator::Behavior()
 {
     // Check for exceptions
     bool bExceptionalTime = false;
@@ -48,18 +49,12 @@ void CPublicTrainGenerator::Behavior()
     if(!bExceptionalTime)
     {
         // Compute concrete arrival and departure times
-        unsigned targetStationArrival = Time + m_ScheduleTargetStationArrival - m_ScheduleStartTime + CPublicTrain::GetBoardingTime();
-        unsigned mainStationArrival = Time + m_ScheduleMainStationArrival - m_ScheduleStartTime + CPublicTrain::GetBoardingTime();
-        unsigned mainStationDeparture = Time + m_ScheduleMainStationDeparture - m_ScheduleStartTime + CPublicTrain::GetBoardingTime();
-
-        /*
-        DBG_LOG_T(GetTrainTitle() << " targetStationArrival: " << CTimeInterval::MinutesToTime(targetStationArrival));
-        DBG_LOG_T(GetTrainTitle() << " mainStationArrival: " << CTimeInterval::MinutesToTime(mainStationArrival));
-        DBG_LOG_T(GetTrainTitle() << " mainStationDeparture: " << CTimeInterval::MinutesToTime(mainStationDeparture));
-        */
+        unsigned targetStationArrival = Time + m_ScheduleTargetStationArrival - m_ScheduleStartTime;
+        unsigned mainStationArrival = Time + m_ScheduleMainStationArrival - m_ScheduleStartTime;
+        unsigned mainStationDeparture = Time + m_ScheduleMainStationDeparture - m_ScheduleStartTime;
 
         // Generate train with delay
-        (new CPublicTrain(*this, Time + CPublicTrain::GetBoardingTime(), targetStationArrival,
+        (new CCargoTrain(*this, Time, targetStationArrival,
             mainStationArrival, mainStationDeparture))->Activate(Time + Exponential(m_AverageDelay));
     }
 

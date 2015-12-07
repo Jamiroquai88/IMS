@@ -14,7 +14,7 @@
 /**
  * \brief Debug helper code
  */
-//#define DEBUG
+#define DEBUG
 
 /**
  * \brief Debug log to stdout

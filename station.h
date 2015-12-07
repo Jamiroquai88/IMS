@@ -5,6 +5,7 @@
 #include <string>
 
 class CPublicTrain;
+class CCargoTrain;
 
 class CStation
 {
@@ -15,9 +16,9 @@ public:
 	const std::string& GetTitle() const;
 
 	/**
-     * \brief   Add train
+     * \brief   Add public train
      */
-    CPublicTrainGenerator& AddTrain(const std::string& trainTitle,
+    CPublicTrainGenerator& AddPublicTrain(const std::string& trainTitle,
             unsigned time,
             CStation& targetStation,
             CPublicTrainGenerator::Frequency frequency,
@@ -28,9 +29,28 @@ public:
             unsigned mainStationDeparture = 0);
 
     /**
-     * \brief   Train enters the station
+     * \brief   Add cargo train
+     */
+    CTrainGenerator& AddCargoTrain(const std::string& trainTitle,
+            unsigned time,
+            CStation& targetStation,
+            CPublicTrainGenerator::Frequency frequency,
+            unsigned targetStationArrival,
+            unsigned averageDelay = 0,
+            bool bStopsInMainStation = false,
+            unsigned mainStationArrival = 0,
+            unsigned mainStationDeparture = 0);
+
+
+    /**
+     * \brief   Public train enters the station
      */
     virtual void Enter(CPublicTrain& train) const;
+
+    /**
+     * \brief   Cargo train enters the station
+     */
+    virtual void Enter(CCargoTrain& train) const;
 
     /**
      * \brief   Train leaves the station

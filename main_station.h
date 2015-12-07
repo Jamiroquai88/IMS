@@ -43,13 +43,14 @@ public:
 	/**
 	 * \brief Set number of the rails at the station (store capacity).
 	 */
-	void SetRailsNumber(unsigned count);
+	void SetTransportRailsNumber(unsigned count);
+	void SetCargoRailsNumber(unsigned count);
 
 	const AdjacentStations& GetAdjacentStations() const;
     const CAdjacentStation& GetAdjacentStation(const std::string& title) const;
     CAdjacentStation& GetAdjacentStation(const std::string& title);
 
-    void AddAdjacentStation(const std::string& title);
+    CAdjacentStation* AddAdjacentStation(const std::string& title);
 
     bool HasTrack(const CAdjacentStation& adjStation) const;
 
@@ -63,12 +64,14 @@ public:
     Histogram& GetDelayHistogram();
     Histogram& GetDefectsHistogram();
 
-    Store &GetRailsStore();
+    Store &GetTransportRailsStore();
+    Store &GetCargoRailsStore();
 
     /**
      * \brief Train enters the station.
      */
     void Enter(CPublicTrain& train);
+    void Enter(CCargoTrain& train);
 
     /**
      * \brief Train leaves the station.
@@ -93,7 +96,8 @@ private:
     // Histogram for defects
     Histogram m_DefectsHistogram;
     // Store for station's rails
-    Store m_RailsStore;
+    Store m_PublicRailsStore;
+    Store m_CargoRailsStore;
 
 };
 
@@ -136,11 +140,16 @@ inline Histogram& CMainStation::GetDefectsHistogram()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline Store& CMainStation::GetRailsStore()
+inline Store& CMainStation::GetTransportRailsStore()
 {
-  return m_RailsStore;
+  return m_PublicRailsStore;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline Store& CMainStation::GetCargoRailsStore()
+{
+  return m_PublicRailsStore;
+}
 
 
 #endif /* MAIN_STATION_H_ */

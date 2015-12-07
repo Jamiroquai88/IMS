@@ -223,7 +223,7 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
       else
         freq = CPublicTrainGenerator::FREQ_DAILY;
 
-      pStationFrom->AddTrain(unit.name,
+      pStationFrom->AddPublicTrain(unit.name,
         unit.appears, *pStationTo,
         freq, unit.disappears, unit.late,
         !unit.through.empty(), unit.comes, unit.leaves);

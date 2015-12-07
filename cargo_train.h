@@ -10,15 +10,19 @@
 
 #include "train.h"
 
+class CCargoTrainGenerator;
+
 class CCargoTrain : public CTrain
 {
 public:
-    CCargoTrain(const CTrainGenerator& generator,
+    CCargoTrain(const CCargoTrainGenerator& generator,
         unsigned scheduledStartTime,
         unsigned scheduledTargetStationArrival,
         unsigned scheduledMainStationArrival = 0,
         unsigned scheduledMainStationDeparture = 0);
     virtual ~CCargoTrain();
+
+    void Behavior() override;
 };
 
 #endif /* CARGO_TRAIN_H_ */
