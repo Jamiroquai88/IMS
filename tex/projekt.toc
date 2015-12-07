@@ -21,5 +21,6 @@
 \contentsline {section}{\numberline {5.2}Dokument\'acia jednotliv\'ych experimentov}{10}{section.5.2}
 \contentsline {subsection}{\numberline {5.2.1}Me\v skanie vlakov osobnej dopravy}{10}{subsection.5.2.1}
 \contentsline {subsection}{\numberline {5.2.2}Vplyv por\'uch na me\v skanie vlakov osobnej dopravy}{10}{subsection.5.2.2}
-\contentsline {section}{\numberline {5.3}Z\'aver experimentov}{10}{section.5.3}
-\contentsline {chapter}{\numberline {6}Z\'aver}{11}{chapter.6}
+\contentsline {subsection}{\numberline {5.2.3}Vy\v ta\v zenie ko\v laj\IeC {\'\i } osobnej dopravy}{10}{subsection.5.2.3}
+\contentsline {section}{\numberline {5.3}Z\'aver experimentov}{11}{section.5.3}
+\contentsline {chapter}{\numberline {6}Z\'aver}{12}{chapter.6}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.12.4)  7 DEC 2015 10:02
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.12.4)  7 DEC 2015 15:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -451,7 +451,7 @@ LaTeX Font Info:    Created by CsPsFont utility v.1.0e (C) Z. Wagner, 1998/01/3
 \@vyskartext=\skip51
 \@vyskaobr=\skip52
 
-<fig/vut-zp2.pdf, id=106, 109.40875pt x 109.40875pt>
+<fig/vut-zp2.pdf, id=110, 109.40875pt x 109.40875pt>
 File: fig/vut-zp2.pdf Graphic file (type pdf)
  <use fig/vut-zp2.pdf>
 Package pdftex.def Info: fig/vut-zp2.pdf used on input line 109.
@@ -461,7 +461,7 @@ Overfull \hbox (109.58464pt too wide) in paragraph at lines 109--109
 [][] 
  []
 
-<fig/fit-zp2.pdf, id=107, 120.45pt x 120.45pt>
+<fig/fit-zp2.pdf, id=111, 120.45pt x 120.45pt>
 File: fig/fit-zp2.pdf Graphic file (type pdf)
  <use fig/fit-zp2.pdf>
 Package pdftex.def Info: fig/fit-zp2.pdf used on input line 109.
@@ -537,7 +537,7 @@ l.52 	\end{itemize}
                     [3
 
 ]
-Overfull \hbox (2.09564pt too wide) in paragraph at lines 67--68
+Overfull \hbox (2.09564pt too wide) in paragraph at lines 68--69
 \IL2/cmr/m/n/10.95 Vrámci mo-de-lo-va-nia sys-tému boli pou-¾ité GVD pre rok 20
 15[[]] ob-sa-huj-úce vla-kové trate[[]]
  []
@@ -546,112 +546,118 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.84 \item O
+l.85 \item O
             sobný vlak (Os) - vlak, ktorý zabezpeèuje prepravu spravidla do ...
 [4] [5] [6]
 Kapitola 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Overfull \hbox (25.47334pt too wide) in paragraph at lines 139--141
+\IL2/cmr/m/n/10.95 spo-loènú koµaj je im-ple-men-to-vaná za-ri-a-de-ním s vý-lu
+-è-ným prístupom, trie-dou simlib3::Facility[[]],
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 []|\IL2/cmr/m/n/10.95 Èíslo
  []
 
 
-Overfull \hbox (4.22343pt too wide) in paragraph at lines 144--144
+Overfull \hbox (4.22343pt too wide) in paragraph at lines 159--159
 []|\IL2/cmr/m/n/10.95 Zme¹kané
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 min-úty
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 fe-bruár
  []
 
 
-Underfull \hbox (badness 4792) in paragraph at lines 144--144
+Underfull \hbox (badness 4792) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 / Poèet
  []
 
 
-Overfull \hbox (4.22343pt too wide) in paragraph at lines 144--144
+Overfull \hbox (4.22343pt too wide) in paragraph at lines 159--159
 []|\IL2/cmr/m/n/10.95 Zme¹kané
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 min-úty
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 ma-rec
  []
 
 
-Underfull \hbox (badness 4792) in paragraph at lines 144--144
+Underfull \hbox (badness 4792) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 / Poèet
  []
 
 
-Overfull \hbox (4.22343pt too wide) in paragraph at lines 144--144
+Overfull \hbox (4.22343pt too wide) in paragraph at lines 159--159
 []|\IL2/cmr/m/n/10.95 Zme¹kané
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 min-úty
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 apríl /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 Poèet
  []
 
 
-Overfull \hbox (4.22343pt too wide) in paragraph at lines 144--144
+Overfull \hbox (4.22343pt too wide) in paragraph at lines 159--159
 []|\IL2/cmr/m/n/10.95 Zme¹kané
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 min-úty
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 máj /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 Poèet
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 []|\IL2/cmr/m/n/10.95 Zme¹kané
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 min-úty
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 spolu /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--144
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 \IL2/cmr/m/n/10.95 Poèet vla-
  []
 
@@ -664,15 +670,15 @@ Kapitola 4.
 ]
 Kapitola 5.
 
-Underfull \hbox (badness 10000) in paragraph at lines 178--179
+Underfull \hbox (badness 10000) in paragraph at lines 193--194
 
  []
 
 [10
 
-]
+] [11]
 Kapitola 6.
-) (./projekt.bbl [11
+) (./projekt.bbl [12
 
 ]
 LaTeX Font Info:    Try loading font information for IL2+cmtt on input line 19.
@@ -680,18 +686,18 @@ LaTeX Font Info:    Try loading font information for IL2+cmtt on input line 19.
 
 (/usr/share/texlive/texmf-dist/tex/cslatex/base/il2cmtt.fd
 File: il2cmtt.fd 1997/08/20 CSLaTeX font definitions
-) [12
+) [13
 
 ])
 (./prilohy.tex)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 133.
- [13]
+ [14]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 133.
  (./projekt.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 133.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 133.
 Package rerunfilecheck Info: File `projekt.out' has not changed.
-(rerunfilecheck)             Checksum: 82B4E8066DBD8ACF32EE5660B2DBE9BD;4841.
+(rerunfilecheck)             Checksum: C444C8283953FC5D015D751A4A5E7B12;5084.
 
 
 LaTeX Font Warning: Size substitutions with differences
@@ -700,24 +706,26 @@ LaTeX Font Warning: Size substitutions with differences
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 133.
  ) 
 Here is how much of TeX's memory you used:
- 12088 strings out of 494437
- 170705 string characters out of 6165285
- 249201 words of memory out of 5000000
+ 12089 strings out of 494437
+ 170703 string characters out of 6165285
+ 250201 words of memory out of 5000000
  15135 multiletter control sequences out of 15000+600000
  22856 words of font info for 52 fonts, out of 8000000 for 9000
  360 hyphenation exceptions out of 8191
  43i,8n,40p,769b,545s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/cs/xl2.enc}</usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/cs/csbx10.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/cs/csbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cs/cs
-r10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cs/csti10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/cs/cstt10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on projekt.pdf (17 pages, 109709 bytes).
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/cs/csbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cs/
+csbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cs/csr10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/cs/csti10.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/cs/cstt10.pfb></usr/share/texlive/texmf-dist/font
+s/type1/urw/helvetic/uhvr8a.pfb>
+Output written on projekt.pdf (18 pages, 129753 bytes).
 PDF statistics:
- 315 PDF objects out of 1000 (max. 8388607)
- 284 compressed objects within 3 object streams
- 61 named destinations out of 1000 (max. 500000)
- 203 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 338 PDF objects out of 1000 (max. 8388607)
+ 303 compressed objects within 4 object streams
+ 62 named destinations out of 1000 (max. 500000)
+ 211 words of extra memory for PDF output out of 10000 (max. 10000000)
 
