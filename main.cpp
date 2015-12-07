@@ -9,9 +9,9 @@
 #include <sstream>
 
 // In days
-#define SMALL_DEFECT_FREQ 24
-#define MEDIUM_DEFECT_FREQ 41
-#define LARGE_DEFECT_FREQ 11
+#define SMALL_DEFECT_FREQ 24/24
+#define MEDIUM_DEFECT_FREQ 41/41
+#define LARGE_DEFECT_FREQ 11/11
 
 // In minutes
 #define SMALL_DEFECT_DELAY 2
@@ -19,13 +19,13 @@
 #define LARGE_DEFECT_DELAY 80
 
 // Trails numbers in Zilina
-#define TRANSPORT_RAILS_NUM 2
-#define CARGO_RAILS_NUM 2
+#define TRANSPORT_RAILS_NUM 7
+#define CARGO_RAILS_NUM 7
 
 //Cargo trains through Zilina
 #define CARGO_TRAINS_NUM 48
 
-#define SIMULATION_DAYS 365*1
+#define SIMULATION_DAYS 100
 
 
 
@@ -120,10 +120,10 @@ int main(int argc, char *argv[])
     DBG_LOG(mainStation.GetAdjacentStations().size());
 
     mainStation.GetDelayHistogram().Output();
-    mainStation.GetDefectsHistogram().Output();
+
     mainStation.GetTransportRailsStore().Output();
     mainStation.GetCargoRailsStore().Output();
-
+    mainStation.GetDefectsHistogram().Output();
     return 0;
 }
 

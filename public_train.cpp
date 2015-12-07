@@ -206,7 +206,7 @@ void CPublicTrain::Behavior()
             << ":\t\tTotal delay: "
             << absDelay << " minutes");
 
-        CMainStation::GetInstance().GetDelayHistogram()(relDelay);
+        CMainStation::GetInstance().GetDelayHistogram()(absDelay);
 
         DELAY_LOG(relDelay, absDelay);
     }
