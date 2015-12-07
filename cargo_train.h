@@ -15,7 +15,7 @@ class CCargoTrainGenerator;
 class CCargoTrain : public CTrain
 {
 public:
-    CCargoTrain(const CCargoTrainGenerator& generator,
+    CCargoTrain(CCargoTrainGenerator& generator,
         unsigned scheduledStartTime,
         unsigned scheduledTargetStationArrival,
         unsigned scheduledMainStationArrival = 0,

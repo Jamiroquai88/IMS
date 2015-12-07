@@ -7,7 +7,7 @@
 
 #include "train.h"
 
-CTrain::CTrain(const CTrainGenerator& generator,
+CTrain::CTrain(CTrainGenerator& generator,
     unsigned scheduledStartTime,
     unsigned scheduledTargetStationArrival,
     unsigned scheduledMainStationArrival,

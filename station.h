@@ -43,19 +43,16 @@ public:
 
 
     /**
-     * \brief   Public train enters the station
+     * \brief   Train enters the station
      */
-    virtual void Enter(CPublicTrain& train) const;
-
-    /**
-     * \brief   Cargo train enters the station
-     */
-    virtual void Enter(CCargoTrain& train) const;
+    virtual void Enter(CPublicTrain& train) = 0;
+    virtual void Enter(CCargoTrain& train) = 0;
 
     /**
      * \brief   Train leaves the station
      */
-    virtual void Leave(CPublicTrain& train) const;
+    virtual void Leave(CPublicTrain& train) = 0;
+    virtual void Leave(CCargoTrain& train) = 0;
 
 protected:
 	std::string m_Title;

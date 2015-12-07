@@ -31,7 +31,7 @@ public:
         CTrain& m_Train;
     };
 
-    CTrain(const CTrainGenerator& generator,
+    CTrain(CTrainGenerator& generator,
         unsigned scheduledStartTime,
         unsigned scheduledTargetStationArrival,
         unsigned scheduledMainStationArrival = 0,
@@ -40,13 +40,13 @@ public:
 
     unsigned GetTrackDuration() const;
     unsigned GetTraveledMinutes() const;
-    unsigned GetDistanceFromMainStation() const;
-    const CTrainGenerator& GetGenerator() const;
+    unsigned GetDistanceFromMainStation();
+    CTrainGenerator& GetGenerator();
 
 protected:
     void Travel(unsigned duration);
 
-    const CTrainGenerator& m_Generator;
+    CTrainGenerator& m_Generator;
 
     // own schedule times (computed by generator)
 
@@ -82,7 +82,7 @@ inline unsigned CTrain::GetTraveledMinutes() const
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline unsigned CTrain::GetDistanceFromMainStation() const
+inline unsigned CTrain::GetDistanceFromMainStation()
 {
     // only defined if the train is on a track
     assert(m_pTrack);
@@ -108,7 +108,7 @@ inline unsigned CTrain::GetDistanceFromMainStation() const
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline const CTrainGenerator& CTrain::GetGenerator() const
+inline CTrainGenerator& CTrain::GetGenerator()
 {
     return m_Generator;
 }

@@ -122,14 +122,15 @@ int main(int argc, char *argv[])
 }
 
 void generateCargoTrains(std::vector<CAdjacentStation*>& cargoTrainStations)
-{ /*
-    for(int i = 0; i < Exponential(100); i++ )
+{
+    //for(int i = 0; i < Exponential(100); i++ )
+    for(int i = 0; i < 200; i++ )
     {
         CMainStation* pMainStation = &CMainStation::GetInstance();
         CAdjacentStation* pAdjacentStation = cargoTrainStations[rand() % cargoTrainStations.size()];
 
         std::stringstream ssTrainName;
-        ssTrainName << "Cargo Train No. A" << i;
+        ssTrainName << "Cargo Train No. " << i;
         unsigned startTime = rand() % CTimeInterval::TimeToMinutes(0,0,SIMULATION_DAYS);
 
         // coming to / leaving from main station
@@ -146,12 +147,16 @@ void generateCargoTrains(std::vector<CAdjacentStation*>& cargoTrainStations)
             pDst = pMainStation;
         }
 
+        ssTrainName << pSrc->GetTitle()[0];
+
         // t = s / v
         unsigned duration = pMainStation->GetTrack(*pAdjacentStation).GetLength() / 100;
         // different speeds
         duration += Exponential(60);
 
+        DBG_LOG_T("Cargo train from " << pSrc->GetTitle() << " to " << pDst->GetTitle());
+
         pSrc->AddCargoTrain(ssTrainName.str(), startTime, *pDst, CTrainGenerator::Frequency::FREQ_ONCE,
                 startTime + duration, 5);
-    }*/
+    }
 }

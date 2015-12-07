@@ -61,8 +61,8 @@ public:
    unsigned GetMainStationArrival() const;
    unsigned GetMainStationDeparture() const;
    const ScheduleExceptions& GetScheduleExceptions() const;
-   const CStation& GetStartStation() const;
-   const CStation& GetTargetStation() const;
+   CStation& GetStartStation();
+   CStation& GetTargetStation();
    unsigned GetTargetStationArrival() const;
    /** \} */
 
@@ -138,13 +138,13 @@ inline const CTrainGenerator::ScheduleExceptions& CTrainGenerator::GetScheduleEx
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline const CStation& CTrainGenerator::GetStartStation() const
+inline CStation& CTrainGenerator::GetStartStation()
 {
     return m_StartStation;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-inline const CStation& CTrainGenerator::GetTargetStation() const
+inline CStation& CTrainGenerator::GetTargetStation()
 {
     return m_TargetStation;
 }

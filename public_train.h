@@ -21,7 +21,7 @@ public:
      * \brief Constructor
      * \param generator Train generator containing train settings (schedule, exceptions..)
      */
-    CPublicTrain(const CPublicTrainGenerator& generator,
+    CPublicTrain(CPublicTrainGenerator& generator,
         unsigned scheduledStartTime,
         unsigned scheduledTargetStationArrival,
         unsigned scheduledMainStationArrival = 0,

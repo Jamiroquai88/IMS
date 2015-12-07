@@ -18,7 +18,7 @@ const unsigned CPublicTrain::BOARDING_TIME = 5;
 const unsigned CPublicTrain::CProgressUpdateEvent::FREQUENCY = 10;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-CPublicTrain::CPublicTrain(const CPublicTrainGenerator& generator,
+CPublicTrain::CPublicTrain(CPublicTrainGenerator& generator,
     unsigned scheduledStartTime,
     unsigned scheduledTargetStationArrival,
     unsigned scheduledMainStationArrival,

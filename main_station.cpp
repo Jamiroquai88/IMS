@@ -118,6 +118,7 @@ void CMainStation::Enter(CPublicTrain& train)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CMainStation::Enter(CCargoTrain& train)
 {
+    DBG_LOG_T(train.GetGenerator().GetTrainTitle() << "\t\tCargo entering the main station");
     m_CargoRailsStore.Enter(dynamic_cast<Entity*>(&train), 1);
 }
 
@@ -125,4 +126,11 @@ void CMainStation::Enter(CCargoTrain& train)
 void CMainStation::Leave(CPublicTrain& train)
 {
     m_PublicRailsStore.Leave(1);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainStation::Leave(CCargoTrain& train)
+{
+    DBG_LOG_T(train.GetGenerator().GetTrainTitle() << "\t\tCargo leaving the main station");
+    m_CargoRailsStore.Leave(1);
 }

@@ -77,6 +77,7 @@ public:
      * \brief Train leaves the station.
      */
     void Leave(CPublicTrain& train);
+    void Leave(CCargoTrain& train);
 
 private:
 	CMainStation();
@@ -148,7 +149,7 @@ inline Store& CMainStation::GetTransportRailsStore()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 inline Store& CMainStation::GetCargoRailsStore()
 {
-  return m_PublicRailsStore;
+  return m_CargoRailsStore;
 }
 
 
