@@ -43,7 +43,7 @@ void CCargoTrain::Behavior()
 
     // lock the track start
     m_Generator.GetStartStation().SeizeTrack(*this, m_pTrack, true);
-    Wait(1);
+    Wait(STATION_LEAVING_TIME);
     // leave the platform
     m_Generator.GetStartStation().Leave(*this);
     // unlock the track start
@@ -53,7 +53,7 @@ void CCargoTrain::Behavior()
 
     // lock track end
     m_Generator.GetTargetStation().SeizeTrack(*this, m_pTrack, false);
-    Wait(1);
+    Wait(STATION_ENTERING_TIME);
     // enter the station
     m_Generator.GetTargetStation().Enter(*this);
     // unlock track end

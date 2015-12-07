@@ -64,7 +64,7 @@ void CPublicTrain::Behavior()
 
     // lock the track start
     m_Generator.GetStartStation().SeizeTrack(*this, m_pTrack, true);
-    Wait(1);
+    Wait(STATION_LEAVING_TIME);
     // leave the platform
     m_Generator.GetStartStation().Leave(*this);
 
@@ -120,7 +120,7 @@ void CPublicTrain::Behavior()
 
         // lock track end
         CMainStation::GetInstance().SeizeTrack(*this, m_pTrack, false);
-        Wait(1);
+        Wait(STATION_ENTERING_TIME);
         // enter main station
         CMainStation::GetInstance().Enter(*this);
         // unlock track end
@@ -150,7 +150,7 @@ void CPublicTrain::Behavior()
 
         // lock track start
         CMainStation::GetInstance().SeizeTrack(*this, m_pTrack, true);
-        Wait(1);
+        Wait(STATION_LEAVING_TIME);
         // leave the station
         CMainStation::GetInstance().Leave(*this);
         // unlock track start
@@ -189,7 +189,7 @@ void CPublicTrain::Behavior()
 
     // lock track end
     m_Generator.GetTargetStation().SeizeTrack(*this, m_pTrack, false);
-    Wait(1);
+    Wait(STATION_ENTERING_TIME);
     // enter the station
     m_Generator.GetTargetStation().Enter(*this);
     // unlock track end

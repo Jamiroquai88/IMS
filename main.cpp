@@ -21,7 +21,7 @@
 #define TRANSPORT_RAILS_NUM 2
 #define CARGO_RAILS_NUM 2
 
-#define SIMULATION_DAYS 50
+#define SIMULATION_DAYS 300
 
 void generateCargoTrains(std::vector<CAdjacentStation*>& cargoTrainStations);
 

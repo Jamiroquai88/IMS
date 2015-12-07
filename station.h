@@ -4,6 +4,9 @@
 #include "public_train_generator.h"
 #include <string>
 
+#define STATION_ENTERING_TIME 1
+#define STATION_LEAVING_TIME 1
+
 class CPublicTrain;
 class CCargoTrain;
 class CTrack;
