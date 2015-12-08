@@ -52,7 +52,7 @@ Ide o~¾elezniènú stanicu podµa povahy práce\cite{vlakyZilinaWeb}:
 	\end{itemize}
 	
 \end{itemize}
-Na stanici sa nachádz sedem nástupi¹», s~podchodovým viac úrovòovým prístupom\cite{vlakyZilinaWeb}:
+Na stanici sa nachádza sedem nástupi¹», s~podchodovým viac úrovòovým prístupom\cite{vlakyZilinaWeb}:
 \begin{itemize}
 	\item Vyvý¹ené kryté nástupi¹te pri výpravnej budove je dlhé 200 m. Slú¾i pre vlaky pristavené na koµajach è.~9, 7, 5. Medzi koµajami è.~9 a è. 7 a è. 7 a è.~5 sa nachádzajú 2 vyvý¹ené nekryté nástupi¹tia .
 	\item Vyvý¹ené kryté nástupi¹te je dlhé 300~m. Slú¾i pre vlaky pristavené na koµajach è.~2 a è.~3.
@@ -123,9 +123,8 @@ Obraty (alebo aj obehy, poprípade turnusy) ru¹òov a~ru¹novodièov sú rozdelené do
 
 \chapter{Koncepcia modelu}
 
-\section{Obsadzovanie koµají ¾elezniènej stanice ®ilina}
-Pri modelovaní obsadzovania koµají vlakmi prichádzajúcimi alebo zaèínajúcimi v~®S ®ilina sme sa riadili sekciou~\ref{sec:zszilina}~a~\ref{sec:plan}. Samotné koµaje sú implementované pomocou triedy simlib3::Store\cite{simlibWeb} s~kapacitou sedem koµají~\ref{sec:zszilina} pre osobnú dopravu, z~dôvodu, ¾e na ®ST ®ilina sa nachádza sedem nástupi¹». Pre ND sme urèili poèet koµají na 4~\ref{sec:plan}. Fronta prichádzajúcich vlakov je v~prípade plného obsadenia zaradená do fronty simlib3::Queue~Q1\cite{simlibWeb}. Model ®S ®ilina nepoèíta s~plánom obsadenia koµají~\ref{sec:plan}, z~dôvodu, ¾e ®SR nám ho neboli ochotné sprístupni» ani vrámci edukatívnych úèelov.\\
-Skutoènos», ¾e vlaky pou¾ívajú pre príchod na stanicu resp. odchod zo stanice v¾dy jednu spoloènú koµaj je implementovaná zariadením s výluèným prístupom, triedou simlib3::Facility\cite{simlibWeb}, prièom zariadenia sa nachádzajú na v¹etkých tratiach\ref{sec:gvd} v oboch smeroch.
+\section{Základná ¹truktúra modelu}
+Ñavrhnutý model je abstrakciou zvolenej ¾elezniènej stanice zasadenej do pevne danej siete staníc a ¾eleznièných tratí medzi nimi. Zvolená stanica je oznaèená ako hlavná stanica modelu (Main Station) a tvorí jadro modelu. V rámci tejto stanice je skúmaný postupný prícho/odchod vlakov, priebe¾né me¹kania vlakov a obsadzovanie jednotlivých stanièných koµají. Okolité stanice slú¾ia na identifikáciu koncových bodov jednotlivých vlakových liniek a tvoria hranièné body systému.\\
 
 \section{Model grafikonu vlakovej dopravy}
 \label{sec:gvdmodel}
@@ -165,9 +164,19 @@ Veµmi dôle¾itým faktorom pri modelovaní GVD je me¹kanie linky. ©tatistiky o~me¹k
 Dostupné údaje sa v¹ak týkajú len vlakov kategórie InterCity za obdobie február - máj 2015 prechádzajúce cez ®ST Bratislava, preto sme pre ostatné kategórie vlakov urèili priemerné exponenciálne oneskorenie so stredom pa» minút.\\
 Model GVD zanedbáva mimoriadnosti v osobnej vlakovej doprave, tieto udalosti nastávajú èastokrát náhodne a nie je pevne dané, kedy táto udalos» nastane.\cite{forumVlaky}
 
+\section{Pohyb vlakov}
+Jednotlivé vlaky sú modelované ako procesy. Sú plánované podµa modelového grafikonu, v prípade nákladných vlakov a vlakov doplnených pre testovanie zvý¹enej zá»a¾e je èas ich odchodu/príchodu daný exponenciálnym rozlo¾ením s pevne daným stredom.\\
+Pre úèely sledovania me¹kaní vlakov nie je nutné sledova» presnú polohu vlaku na trati v reálnom èase a vzhµadomn na komplexnos» problematiky (zrýchlenie vlaku, maximálna povolená rýchlos» na danom úseku, mo¾nos» predchádzania vlakov na staniciach, èakanie na výhybkách a pod.) by to bolo znaène nároèné. Poloha vlaku je teda vo v¹ebecnosti zanedbaná, a v modeli nie je zaruèené poradie príchodov jednotlivých vlakov.
+
+\section{Obsadzovanie koµají ¾elezniènej stanice ®ilina}
+Pri modelovaní obsadzovania koµají vlakmi prichádzajúcimi alebo zaèínajúcimi v~®S ®ilina sme sa riadili sekciou~\ref{sec:zszilina}~a~\ref{sec:plan}. Samotné koµaje sú implementované pomocou triedy simlib3::Store\cite{simlibWeb} s~kapacitou sedem koµají~\ref{sec:zszilina} pre osobnú dopravu, z~dôvodu, ¾e na ®ST ®ilina sa nachádza sedem nástupi¹». Pre ND sme urèili poèet koµají na 4~\ref{sec:plan}. Fronta prichádzajúcich vlakov je v~prípade plného obsadenia zaradená do fronty simlib3::Queue~Q1\cite{simlibWeb}. Model ®S ®ilina nepoèíta s~plánom obsadenia koµají~\ref{sec:plan}, z~dôvodu, ¾e ®SR nám ho neboli ochotné sprístupni» ani vrámci edukatívnych úèelov.\\
+Skutoènos», ¾e vlaky pou¾ívajú pre príchod na stanicu resp. odchod zo stanice v¾dy jednu spoloènú koµaj je implementovaná zariadením s výluèným prístupom, triedou simlib3::Facility\cite{simlibWeb}, prièom zariadenia sa nachádzajú na v¹etkých tratiach\ref{sec:gvd} v oboch smeroch.
+
 \section{Model porúch}
-Vrámci modelu bolo nevyhnutné zavies» výskyt porúch, vychádzali sme z kapitoly ~\ref{sec:obraty}. Esenciálna pre nás bola då¾ka oneskorenia vlaku a~poèet záznamov poèas tohto èasového obdobia. Poruchy sme rozdelili do troch kategórii - malé (men¹ie ako 10 min), stredné (10 min - 30 min) a~vá¾ne (väè¹ie ako 30 min).\\
-Pre ka¾dú kategóriu porúch sme pou¾ili nasledujúci vzorec a~urèili frekvenciu výskytu poruchy:
+
+Hoci presná poloha vlaku v konkrétnom èase nie je z pohµadu tohto modelu podstatná, ak uva¾ujeme poruchy vlakov/nehody na trati, je potrebné urèi» rozsah dopadu tejto udalosti. Ak by toti¾ nehody na zaèiatku trate spôsobovali blokovanie vlakov odchádzajúcich a¾ z nasledujúcej stanice, výsledky experimentov by mohli by» skreslené. V tomto prípade je teda poloha vlaku aproximovaná na základe plánovanej doby trvania trasy a uplynutého èasu od zaèiatku trasy. Týmto spôsobom je mo¾né pribli¾ne urèi» miesto poruchovej/nehodovej udalosti a ovplyvòova» len vlaky smerujúce k nemu.\\
+Pri zavedení výskytu porúch sme vychádzali z kapitoly ~\ref{sec:obraty}. Esenciálna pre nás bola då¾ka oneskorenia vlaku a~poèet záznamov poèas tohto èasového obdobia. Poruchy sme rozdelili do troch kategórii - malé (men¹ie ako 10 min), stredné (10 min - 30 min) a~vá¾ne (väè¹ie ako 30 min). \\
+Pre ka¾dú kategóriu porúch sme pou¾ili nasledujúci vzorec a urèili frekvenciu výskytu poruchy:
 
 \begin{displaymath}
 frequency = \frac{number~of~days}{number~of~defects}
@@ -194,16 +203,28 @@ Priemerný výskyt chýb a~ich trvanie sme uviedli do nasledujúcej tabuµky:
 
 Doba odstránenia poruchy s najni¾¹ou záva¾nos»ou je znaène ovplyvnená faktom, ¾e v databáze nebola pri v¹etkých poruchách uvedená.
 
-
 \section{Model nákladnej dopravy}
-Ako podklad pre modelovanie ND nám poslú¾il plán vlakotvorby ND\cite{PVND}. S~ohµadom na fakt, ¾e preva¾ná väè¹ina vlakov ND sa zavádza operatívne\cite{keloMail} a~informácia, ¾e bude vypravený vlak ND sa èasto zadáva len hodinu pred odchodom vlaku, resp. hodinu pred odchodom mô¾e by» bez problémov odvolaná, sme sa rozhodli ND modelova» poissonovým procesom príchodov\cite{slajdy88}. Na urèenie strednej doby príchodov do systému sme pou¾ili plán vlakotvorby ND\cite{PVND}, kde sme vyhµadali v¹etky vlaky v¹etkých kategórií ND prechádzajúcich cez ®ST ®ilina poèas jedného dòa.
+Ako podklad pre modelovanie ND nám poslú¾il plán vlakotvorby ND\cite{PVND}. S~ohµadom na fakt, ¾e preva¾ná väè¹ina vlakov ND sa zavádza operatívne\cite{keloMail} a informácia, ¾e bude vypravený vlak ND sa èasto zadáva len hodinu pred odchodom vlaku, resp. hodinu pred odchodom mô¾e by» bez problémov odvolaná, sme sa rozhodli ND modelova» poissonovým procesom príchodov\cite{slajdy88}. Na urèenie èasu príchodov do systému sme pou¾ili plán vlakotvorby ND\cite{PVND}, kde sme vyhµadali v¹etky vlaky v¹etkých kategórií ND prechádzajúcich cez ®S ®ilina poèas jedného dòa.\\
+Z dôvodu nepravidelnosti vlakov ND nemá veµký význam sledova» ich me¹kanie, av¹ak ich prítomnos» v systéme ovplyvòuje vy»a¾enos» vstupného/výstupného úseku trate z hlavnej stanice, ktorý je zdieµaný osobnou aj nákladnou dopravou a stanica musí s týmto za»a¾ením zo strany ND poèíta».
 
-\section{Model obratov}
+\section{Obraty}
 Obraty ru¹òov, ru¹novodièov, súprav a~vlakových èiat vychádzajú z~kapitoly~\ref{sec:obraty}. S ohµadom na skutoènos», ¾e by bolo potrebné spracováva» v¹etky obraty osobnej aj nákladnej dopravy a~následne ich spája» s~konkrétnymi linkami, sme sa rozhodli faktor obratov zanedba».
 Model teda poèíta so skutoènos»ou, ¾e v¹etky vlaky, ktoré budú zaèína» zo ®ST ®ilina, budú v potrebnom èase k~dispozícii a~preto budú ma» nulové oneskorenie. Model takisto predpokladá plnú dostupnos» v¹etkých vlakov v~®ST ®ilina. To okrem iného znamená, ¾e v~modeli zanedbávame situácie, ak sú jednotlivé linky na seba nejakým spôsobom naviazané (vlak prichádza do cieµovej stanice, kde má za istý èas vy¹tartova» ako iná linka, av¹ak má me¹kanie a~nie je mo¾né, aby vy¹tartoval vèas a~podobne).
 
 \chapter{Architektúra simulaèného modelu}
-Pali daèo napí¹e èo kázali pán farár dneska u luteránoch
+Model je implementovaný v jazyku C++ a navrhnutý objektovo. Jadrom modelu je objekt triedy CMainStation, implementovaný ako singleton, ktorý reprezentuje hlavnú stanicu modelu a obsahuje väè¹inu globálnych ¹tatistík.
+\section{Základné entity}
+Architektúra modelu vychádza z pou¾itej simulaènej kni¾nice simlib. Procesy sú implmentované ako triedy odvodené od triedy simlib::Process a udalosti od triedy simlib::Event.\\
+Základným typom procesu v systéme je CTrain, ktorý je ¹pecializovaný ako CPublicTrain pre vlaky osobnej dopravy a CCargoTrain pre vlaky ND. Tieto procesy sú periodicky vytvárané generátormi typu CTrainGenerator. Generátor obsahuje dáta spoloèné pre pre v¹etky vlaky danej linky, konkrétny vlak potom obsahuje svoj reálny èas odchodu/príchodu, me¹kanie a pod.\\
+Topológia systému je definovaná stanicami (objekty typu CStation) a tra»ami medzi nimi (CTrack). Dynamicky sa vytvára pridávaním susedných staníc do hlavnej stanice.\\
+V prípade viacerých staníc v jednom smere je model tratí hierarchický (tra» mô¾e obsahova» vnorený segment). Toto usporiadanie umo¾nuje identifikáciu miesta poruchovej udalosti a spropagovanie tejto udalosti medzi vlaky, ktoré sú òou ovplyvnené (na základe pribli¾nej polohy a smeru).\\
+Správanie porúch je v systéme implementované v rámci procesov triedy CDefect, ktoré sú generované udalos»ami typu CDefectGenerator. Porucha obsahuje informácie o polohe a smere v ktorom vznikla (koµaj v opaènom smere je priechodná).
+\section{Obsluha porúch}
+Poruchy vznikajú ako nahodné procesy so strednou dobou výskytu. Pri vzniknutí poruchy sa vyberie tra» a na nej náhodným spôsobom vlak, ktorý sa pova¾uje za zdroj poruchy. Následne sa informácia o poruche distirbuuje medzi v¹etky vlaky, ktoré sa blí¾ia k miestu poruchy. Tieto vlaky zastavujú a èakajú na informáciu o odstránení poruchy.
+Proces vlaku teda musí poèas prechodu medzi stanicami oèakáva» poruchu (predèasné aktivovanie procesu) a pri poruche èaka» na jej odstránenie.
+\section{Sledovanie polohy vlaku}
+Proces vlaku pri presune medzi stanicami oèakáva preru¹enia od periodickej kontrolnej udalosti CProgressUpdateEvent, na základe ktorého aktualizuje svoj stav (poèet prejdených minút od zaèiatku trasy). Z údajov o då¾ke a plánovanej dobe trvania trasy je potom mo¾né aproximova» polohu vlaku.
+
 
 \chapter{Podstata simulaèných experimentov a ich priebeh}
 Podstatou simulaèných experimentov bolo dokáza» validitu ná¹ho modelu ®ST ®ilina a~potvrdi» resp. vyvráti» fakt, ¾e èasy a~vy»a¾enos» ®ST ®ilina je nastavená na maximálnu mo¾nú úroveò a~prípadne vypracova» metodológie, ktoré by mohli pomôc» zvý¹i» efektivitu vlakovej dopravy.
