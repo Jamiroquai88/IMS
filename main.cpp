@@ -24,16 +24,16 @@
 #define CARGO_RAILS_NUM 4
 
 //Cargo trains through Zilina
-#define CARGO_TRAINS_NUM 48*100
+#define CARGO_TRAINS_NUM 48
 
-#define SIMULATION_DAYS 365
+#define SIMULATION_DAYS 60
 
 void generateCargoTrains(std::vector<CAdjacentStation*>& cargoTrainStations);
 
 /**
  * Main simulation program.
  *
- * Simulation time unit is ...
+ * Simulation time unit is 60 days
  */
 
 int main(int argc, char *argv[])
@@ -64,8 +64,8 @@ int main(int argc, char *argv[])
     cargoTrainStations.push_back(mainStation.AddAdjacentStation("Ruzomberok"));
     cargoTrainStations.push_back(mainStation.AddAdjacentStation("Trencin"));
     mainStation.AddAdjacentStation("Vrutky");
-    //mainStation.AddAdjacentStation("Zilina Solinky");
-    //mainStation.AddAdjacentStation("Zilina Zariecie");
+    mainStation.AddAdjacentStation("Zilina Solinky");
+    mainStation.AddAdjacentStation("Zilina Zariecie");
 
 
     // Track 127 - Zilina ------> Cadca
@@ -77,8 +77,8 @@ int main(int argc, char *argv[])
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Brodno"), 5));
 
     // Track 126 - Zilina ------> Rajec
-    //mainStation.AddCoreTrack(mainStation.GetAdjacentStation("Zilina Solinky"), 5)
-    //    .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Zilina Zariecie"), 2));
+    mainStation.AddCoreTrack(mainStation.GetAdjacentStation("Zilina Solinky"), 5)
+        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Zilina Zariecie"), 2));
 
     // Track 120 - Bratislava ------> Zilina
     mainStation.AddCoreTrack(mainStation.GetAdjacentStation("Trencin"), 179)
@@ -116,15 +116,12 @@ int main(int argc, char *argv[])
     largeDefects.Activate(CTimeInterval::TimeToMinutes(0,0, LARGE_DEFECT_FREQ));
 
     Run();
-    DBG_LOG(mainStation.GetAdjacentStations().size());
 
     mainStation.GetDelayHistogram().Output();
-
     mainStation.GetTransportRailsStore().Output();
     mainStation.GetCargoRailsStore().Output();
     mainStation.GetDefectsHistogram().Output();
-    CDefect::m_StoppedTrainsHistogram.Output();
-    CDefect::m_RestartedTrainsHistogram.Output();
+
     return 0;
 }
 
