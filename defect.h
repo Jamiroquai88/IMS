@@ -33,6 +33,9 @@ class CDefect : public Process
     unsigned int GetLocation() const;
     unsigned int GetId() const;
 
+    static Histogram m_StoppedTrainsHistogram;
+    static Histogram m_RestartedTrainsHistogram;
+
   private:
     void SetDefectStartTime(unsigned int time);
 

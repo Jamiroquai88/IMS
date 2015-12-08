@@ -15,7 +15,7 @@
 // boarding time
 const unsigned CPublicTrain::BOARDING_TIME = 5;
 // update progress every 5 minutes
-const unsigned CPublicTrain::CProgressUpdateEvent::FREQUENCY = 60;
+const unsigned CPublicTrain::CProgressUpdateEvent::FREQUENCY = 5;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CPublicTrain::CPublicTrain(CPublicTrainGenerator& generator,
@@ -135,7 +135,7 @@ void CPublicTrain::Behavior()
         {
             DBG_LOG(m_Generator.GetTrainTitle()
                 << ":\t\tadditional delay: "
-                << ((unsigned)Time - m_ScheduledMainStationArrival) << " minutes");
+                << ((unsigned)Time - m_ScheduledMainStationArrival - initialDelay) << " minutes");
         }
 
         // wait at the main station
@@ -159,7 +159,7 @@ void CPublicTrain::Behavior()
         m_pTrack->AddPassingTrain(*this);
 
         // leaving main station
-        DBG_LOG_T(m_Generator.GetTrainTitle() + ":\t\tLeaving the main station");
+        DBG_LOG_T(m_Generator.GetTrainTitle() + ":\t\Leaving the main station");
 
         // check for defect
         CDefect* pDefect = m_pTrack->GetDefect(0, m_DirFromMainStation);
@@ -167,14 +167,14 @@ void CPublicTrain::Behavior()
         {
             unsigned defectId = pDefect->GetId();
             DBG_LOG_T(m_Generator.GetTrainTitle()
-                << ":\t\tCan't leave main station because of a defect (id: " << defectId << ")");
+                << ":\t\tCan't travel from main station because of a defect (id: " << defectId << ")");
 
             Passivate();
             // defect must be fixed now
             assert(m_pTrack->GetDefect(GetDistanceFromMainStation(), m_DirFromMainStation) == NULL);
 
             DBG_LOG_T(m_Generator.GetTrainTitle()
-                << ":\t\tLeaving station after a defect removal (id: " << defectId << ")");
+                << ":\t\tTravelling from station after a defect removal (id: " << defectId << ")");
         }
 
         // update time to target station

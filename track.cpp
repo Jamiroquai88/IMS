@@ -67,52 +67,24 @@ CDefect* CTrack::GetDefect(unsigned location, bool dirFromMainStation) const
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CTrack::GetComingTrains(unsigned location, bool bFromMainStation, Trains& trains) const
 {
-    bool bAddOwnTrains = true;
-
-    // MAIN STATION -> location -> TARGET STATION
-    if(bFromMainStation)
+    // location can reside within the nested segment
+    if(m_pNestedSegment)
     {
-        // a nested segment exists
-        if(m_pNestedSegment)
-        {
-            // location is resides within the nested segment
-            if(location < m_pNestedSegment->GetLength())
-            {
-                bAddOwnTrains = false;
-            }
-
-            m_pNestedSegment->GetComingTrains(location, bFromMainStation, trains);
-        }
-    }
-    // MAIN STATION <- location <- TARGET STATION
-    else
-    {
-        // a nested segment exists
-        if(m_pNestedSegment)
-        {
-            // location resides outside the nested segment
-            if(location > m_pNestedSegment->GetLength())
-            {
-                m_pNestedSegment->GetComingTrains(location, bFromMainStation, trains);
-            }
-        }
+        m_pNestedSegment->GetComingTrains(location, bFromMainStation, trains);
     }
 
     // add own trains
-    if(bAddOwnTrains)
+    for(Trains::const_iterator itTrain = m_PassingTrains.begin();
+        itTrain != m_PassingTrains.end();
+        ++itTrain)
     {
-        for(Trains::const_iterator itTrain = m_PassingTrains.begin();
-            itTrain != m_PassingTrains.end();
-            ++itTrain)
-        {
-            // train approximate location
-            unsigned trainLocation = (*itTrain)->GetDistanceFromMainStation();
+        // train approximate location
+        unsigned trainLocation = (*itTrain)->GetDistanceFromMainStation();
 
-            if( (bFromMainStation && trainLocation < location) ||
-                (!bFromMainStation && trainLocation > location) )
-            {
-                trains.insert(*itTrain);
-            }
+        if( (bFromMainStation && trainLocation < location) ||
+            (!bFromMainStation && trainLocation > location) )
+        {
+            trains.insert(*itTrain);
         }
     }
 }
@@ -146,7 +118,6 @@ void CTrack::SetDefect(CDefect& defect, unsigned location)
     // own defect
     if(!m_pNestedSegment || location > m_pNestedSegment->GetLength())
     {
-        DBG_LOG_T("NEW DEFECT ");
         m_pDefect = &defect;
     }
     // place the defect in the proper segment

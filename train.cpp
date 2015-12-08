@@ -37,7 +37,9 @@ CTrain::~CTrain()
  */
 void CTrain::Travel(unsigned duration)
 {
-    unsigned expectedArrivalTime = Time + duration;
+    unsigned time = (unsigned)Time;
+    unsigned scheduledArrivalTime = time + duration;
+    unsigned expectedArrivalTime = scheduledArrivalTime;
     unsigned timeToTarget = duration;
 
     // update track duration & location
@@ -45,12 +47,13 @@ void CTrain::Travel(unsigned duration)
     m_TraveledMinutes = 0;
 
     Wait(timeToTarget);
+    time = (unsigned)Time;
 
     // interrupts
-    while(Time < expectedArrivalTime)
+    while(time < expectedArrivalTime)
     {
         // interrupted
-        timeToTarget = expectedArrivalTime - Time;
+        timeToTarget = expectedArrivalTime - time;
 
         // update progress
         m_TraveledMinutes = duration - timeToTarget;
@@ -65,12 +68,24 @@ void CTrain::Travel(unsigned duration)
                 << ":\t\tStopping because of defect (id: "
                 << pDefect->GetId() << ")");
             Passivate();
+            time = (unsigned)Time;
         }
 
         // defect fixed - wait for the rest of the journey
-        expectedArrivalTime = Time + timeToTarget;
+        expectedArrivalTime = time + timeToTarget;
+
+        if(expectedArrivalTime - scheduledArrivalTime > 30)
+        {
+            DBG_LOG_T(m_Generator.GetTrainTitle()
+                << "\t\tTravel delay: "
+                << (expectedArrivalTime - scheduledArrivalTime)
+                << "sched: " << scheduledArrivalTime
+                << "exp:" << expectedArrivalTime
+                << " [WARNING]");
+        }
 
         Wait(timeToTarget);
+        time = (unsigned)Time;
     }
 
     // update track duration & location

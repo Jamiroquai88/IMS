@@ -25,7 +25,7 @@
 //Cargo trains through Zilina
 #define CARGO_TRAINS_NUM 48
 
-#define SIMULATION_DAYS 100
+#define SIMULATION_DAYS 50
 
 
 
@@ -124,6 +124,8 @@ int main(int argc, char *argv[])
     mainStation.GetTransportRailsStore().Output();
     mainStation.GetCargoRailsStore().Output();
     mainStation.GetDefectsHistogram().Output();
+    CDefect::m_StoppedTrainsHistogram.Output();
+    CDefect::m_RestartedTrainsHistogram.Output();
     return 0;
 }
 

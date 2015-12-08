@@ -17,8 +17,8 @@ void CDefectGenerator::Behavior()
   assert(m_freq);
   (new CDefect(m_repairTime))->Activate(Time);
   double plan = Time + Exponential(m_freq);
-  DBG_LOG("DEFECT PLANNED ON " << plan);
-  DBG_LOG("REPAIR TIME" << m_repairTime);
+  DBG_LOG("DEFECT PLANNED ON " << CTimeInterval::MinutesToTime(plan));
+  DBG_LOG("REPAIR TIME" << CTimeInterval::MinutesToTime(m_repairTime));
   Activate(plan);
 }
 

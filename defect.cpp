@@ -8,6 +8,9 @@
 #include "defect.h"
 #include "public_train.h"
 
+Histogram CDefect::m_StoppedTrainsHistogram("Trains stopped by a defect", 0, 2, 30);
+Histogram CDefect::m_RestartedTrainsHistogram("Trains restarted by a defect repair", 0, 2, 30);
+
 CDefect::~CDefect()
 {
   // TODO Auto-generated destructor stub
@@ -15,6 +18,7 @@ CDefect::~CDefect()
 
 void CDefect::Behavior()
 {
+  DBG_LOG_T("DEFECT generated");
   CMainStation::Tracks tracks = CMainStation::GetInstance().GetTracks();
 
   SetDefectStartTime(Time);
@@ -25,22 +29,29 @@ void CDefect::Behavior()
   // add rand direction
   m_dirFromMainStation = false;
 
+  double repair = Exponential(m_trainRepair);
+    DBG_LOG_T("NEW DEFECT " << m_Id << ": "
+      << "repair time: " << repair
+      << " track to: " << tracks[index]->GetAdjacentStation().GetTitle()
+      << " direction: " << (m_dirFromMainStation ? "from " : "to ") << "main station");
+
   // multiple defects at the same time are disabled
   if(tracks[index]->GetDefect(0, m_dirFromMainStation) != NULL)
   {
-      DBG_LOG("DEBUG: Two DEFECT");
+      DBG_LOG_T("DEBUG: Two DEFECT");
       return;
   }
   m_distanceFromMainStation = ((int)round(simlib3::Random()*100));
   m_distanceFromMainStation = m_distanceFromMainStation % tracks[index]->GetLength();
 
   tracks[index]->SetDefect(*this, m_distanceFromMainStation);
+  DBG_LOG_T("DEFECT SET");
 
   CTrack::Trains passingTrains;
-
-  tracks[index]->GetComingTrains(m_distanceFromMainStation, m_dirFromMainStation, passingTrains);
+  tracks[index]->GetTopParentTrack()->GetComingTrains(m_distanceFromMainStation, m_dirFromMainStation, passingTrains);
   DBG_LOG("AFFECTED TRAINS START: " << passingTrains.size());
   DBG_LOG("STOPPING TRAINS: " << passingTrains.size());
+  unsigned stoppedTrains = 0;
   for(auto train : passingTrains)
   {
       // interrupt travelling trains
@@ -48,16 +59,10 @@ void CDefect::Behavior()
       {
           DBG_LOG("INTERRUPT TRAIN WHEN DEFECT");
           train->Activate();
+          stoppedTrains++;
       }
   }
-
-  double repair = Exponential(m_trainRepair);
-
-  DBG_LOG("!!!");
-  DBG_LOG_T("NEW DEFECT " << m_Id << ": "
-    << "repair time: " << m_trainRepair
-    << " track to: " << tracks[index]->GetAdjacentStation().GetTitle());
-  DBG_LOG("!!!");
+  m_StoppedTrainsHistogram(stoppedTrains);
 
   CMainStation::GetInstance().GetDefectsHistogram()(repair);
   Wait(repair);
@@ -69,13 +74,14 @@ void CDefect::Behavior()
   // move waiting trains
   // reload passing trains (new trains could have been generated and are waiting)
   passingTrains.clear();
-  tracks[index]->GetComingTrains(m_distanceFromMainStation, m_dirFromMainStation, passingTrains);
+  tracks[index]->GetTopParentTrack()->GetComingTrains(m_distanceFromMainStation, m_dirFromMainStation, passingTrains);
   DBG_LOG("AFFECTED TRAINS END: " << passingTrains.size());
   for(auto train : passingTrains)
   {
       DBG_LOG_T("ACTIVATING TRAIN AFTER DEFECT");
       train->Activate();
   }
+  m_RestartedTrainsHistogram(passingTrains.size());
 }
 
 void CDefect::SetDefectStartTime(unsigned int time)
