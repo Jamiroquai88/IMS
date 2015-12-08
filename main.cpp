@@ -10,9 +10,9 @@
 #include <sstream>
 
 // In days
-#define SMALL_DEFECT_FREQ 15//24
-#define MEDIUM_DEFECT_FREQ 10//41
-#define LARGE_DEFECT_FREQ 4//11
+#define SMALL_DEFECT_FREQ 24
+#define MEDIUM_DEFECT_FREQ 41
+#define LARGE_DEFECT_FREQ 11
 
 // In minutes
 #define SMALL_DEFECT_DELAY 2
@@ -26,9 +26,7 @@
 //Cargo trains through Zilina
 #define CARGO_TRAINS_NUM 40
 
-#define SIMULATION_DAYS 100
-
-
+#define SIMULATION_DAYS 365
 
 void generateCargoTrains(std::vector<CAdjacentStation*>& cargoTrainStations);
 
