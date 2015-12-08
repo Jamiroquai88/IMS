@@ -8,6 +8,7 @@
 #include "track.h"
 #include "public_train.h"
 #include "main_station.h"
+#include <sstream>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CTrack::CTrack(const CAdjacentStation& adjacentStation, unsigned length)
@@ -64,6 +65,22 @@ CDefect* CTrack::GetDefect(unsigned location, bool dirFromMainStation) const
     return pDefect;
 }
 
+void CTrack::GetTrains(bool bFromMainStation, Trains& trains)
+{
+    if(m_pNestedSegment)
+    {
+        m_pNestedSegment->GetTrains(bFromMainStation, trains);
+    }
+    // add own trains
+    for(Trains::const_iterator itTrain = m_PassingTrains.begin();
+        itTrain != m_PassingTrains.end();
+        ++itTrain)
+    {
+        if((*itTrain)->IsGoingFromMainStation() == bFromMainStation)
+            trains.insert(*itTrain);
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CTrack::GetComingTrains(unsigned location, bool bFromMainStation, Trains& trains) const
 {
@@ -78,13 +95,24 @@ void CTrack::GetComingTrains(unsigned location, bool bFromMainStation, Trains& t
         itTrain != m_PassingTrains.end();
         ++itTrain)
     {
-        // train approximate location
-        unsigned trainLocation = (*itTrain)->GetDistanceFromMainStation();
-
-        if( (bFromMainStation && trainLocation < location) ||
-            (!bFromMainStation && trainLocation > location) )
+        // check same direction
+        if((*itTrain)->IsGoingFromMainStation() == bFromMainStation)
         {
-            trains.insert(*itTrain);
+            // train approximate location
+            unsigned trainLocation = (*itTrain)->GetDistanceFromMainStation();
+            std::stringstream dbg;
+            dbg << "DEFECT LOC: " << location <<
+                    " TRAIN: " << (*itTrain)->GetGenerator().GetTrainTitle() <<
+                    " LOC: " << trainLocation << (bFromMainStation ? "from" : "to");
+
+            if( (bFromMainStation && trainLocation <= location) ||
+                (!bFromMainStation && trainLocation >= location) )
+            {
+                trains.insert(*itTrain);
+                dbg << " AFFECTED";
+            }
+
+            DBG_LOG_T(dbg.str());
         }
     }
 }

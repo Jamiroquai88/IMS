@@ -41,6 +41,7 @@ public:
     unsigned GetTrackDuration() const;
     unsigned GetTraveledMinutes() const;
     unsigned GetDistanceFromMainStation();
+    bool IsGoingFromMainStation() const;
     CTrainGenerator& GetGenerator();
 
 protected:
@@ -88,12 +89,16 @@ inline unsigned CTrain::GetDistanceFromMainStation()
     assert(m_pTrack);
 
     unsigned distance = 0;
-    if(m_TraveledMinutes > 0)
-    {
-        assert(m_TrackDuration > 0);
 
+    if(m_TrackDuration > 0)
+    {
         double percent = m_TraveledMinutes / (double)m_TrackDuration;
         distance = m_pTrack->GetLength() * percent;
+    }
+    // revert
+    if(!m_DirFromMainStation)
+    {
+        distance = m_pTrack->GetLength() - distance;
     }
 
     DBG_LOG_T(GetGenerator().GetTrainTitle()
@@ -105,6 +110,12 @@ inline unsigned CTrain::GetDistanceFromMainStation()
         << '\t' << distance << " / " << m_pTrack->GetLength());
 
     return distance;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline bool CTrain::IsGoingFromMainStation() const
+{
+    return m_DirFromMainStation;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

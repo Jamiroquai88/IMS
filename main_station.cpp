@@ -114,10 +114,31 @@ void CMainStation::AddTrackSegment(CTrack& track)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainStation::AddWaitingTrain(std::string waitFor, CTrain* pWaitingTrain)
+{
+    m_WaitingTrains[waitFor].insert(pWaitingTrain);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 void CMainStation::Enter(CPublicTrain& train)
 {
     // pick a rail
     m_PublicRailsStore.Enter(dynamic_cast<Entity*>(&train), 1);
+
+    // notify waiting trains
+    if(m_WaitingTrains.count(train.GetGenerator().GetTrainTitle()))
+    {
+        for(CTrain* pWaitingTrain : m_WaitingTrains[train.GetGenerator().GetTrainTitle()])
+        {
+            pWaitingTrain->Activate();
+        }
+    }
+
+    // start waiting
+    if(!train.GetWaitForTrainName().empty())
+    {
+        m_WaitingTrains[train.GetWaitForTrainName()].insert(&train);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -133,6 +154,12 @@ void CMainStation::Leave(CPublicTrain& train)
 {
     // pick a rail
     m_PublicRailsStore.Leave(1);
+
+    // remove from waiting trains
+    if(!train.GetWaitForTrainName().empty())
+    {
+        m_WaitingTrains[train.GetWaitForTrainName()].erase(&train);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

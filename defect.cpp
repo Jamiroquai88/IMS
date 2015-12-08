@@ -23,11 +23,22 @@ void CDefect::Behavior()
 
   SetDefectStartTime(Time);
 
+  m_dirFromMainStation = ((bool)round(simlib3::Random()*100));
+
   unsigned int index = ((int)round(simlib3::Random()*100)); // % tracks.size();
   index = index % tracks.size();
 
-  // add rand direction
-  m_dirFromMainStation = false;
+  CTrack::Trains passingTrains;
+  tracks[index]->GetTopParentTrack()->GetTrains(m_dirFromMainStation, passingTrains);
+  if(passingTrains.empty())
+  {
+      DBG_LOG_T("NO PASSING TRAINS...");
+      return;
+  }
+
+  CTrack::Trains::iterator itDefectTrain = passingTrains.begin();
+  unsigned trainIndex = ((int)(round(simlib3::Random()*100)));
+  trainIndex = trainIndex % passingTrains.size();
 
   double repair = Exponential(m_trainRepair);
     DBG_LOG_T("NEW DEFECT " << m_Id << ": "
@@ -35,19 +46,23 @@ void CDefect::Behavior()
       << " track to: " << tracks[index]->GetAdjacentStation().GetTitle()
       << " direction: " << (m_dirFromMainStation ? "from " : "to ") << "main station");
 
+  std::advance( itDefectTrain, trainIndex );
+  CTrain* defectTrain = *itDefectTrain;
+
   // multiple defects at the same time are disabled
   if(tracks[index]->GetDefect(0, m_dirFromMainStation) != NULL)
   {
       DBG_LOG_T("DEBUG: Two DEFECT");
       return;
   }
-  m_distanceFromMainStation = ((int)round(simlib3::Random()*100));
-  m_distanceFromMainStation = m_distanceFromMainStation % tracks[index]->GetLength();
+  //m_distanceFromMainStation = ((int)round(simlib3::Random()*100));
+  //m_distanceFromMainStation = m_distanceFromMainStation % tracks[index]->GetLength();
+  m_distanceFromMainStation = defectTrain->GetDistanceFromMainStation();
 
   tracks[index]->SetDefect(*this, m_distanceFromMainStation);
   DBG_LOG_T("DEFECT SET");
 
-  CTrack::Trains passingTrains;
+  passingTrains.clear();
   tracks[index]->GetTopParentTrack()->GetComingTrains(m_distanceFromMainStation, m_dirFromMainStation, passingTrains);
   DBG_LOG("AFFECTED TRAINS START: " << passingTrains.size());
   DBG_LOG("STOPPING TRAINS: " << passingTrains.size());
@@ -69,7 +84,7 @@ void CDefect::Behavior()
 
   tracks[index]->ClearDefect();
 
-  DBG_LOG("DEFECT REMOVED (id: " << m_Id << ")");
+  DBG_LOG_T("DEFECT REMOVED (id: " << m_Id << ")");
 
   // move waiting trains
   // reload passing trains (new trains could have been generated and are waiting)

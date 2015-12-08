@@ -13,6 +13,7 @@
 #include <cassert>
 #include <vector>
 #include <map>
+#include <set>
 
 class CAdjacentStation;
 class CTrack;
@@ -33,6 +34,11 @@ public:
     typedef std::map<CTrack*, Facility*> TrackStarts;
     // only one train can come from a particular track at the same time
     typedef std::map<CTrack*, Facility*> TrackEnds;
+
+    typedef std::set<CTrain*> TrainsSet;
+    // key => train name, the other train is waiting for
+    // val => waiting train name
+    typedef std::map<std::string, TrainsSet> WaitingTrains;
 
 	virtual ~CMainStation();
 
@@ -56,6 +62,7 @@ public:
     CAdjacentStation* AddAdjacentStation(const std::string& title);
 
     bool HasTrack(const CAdjacentStation& adjStation) const;
+    bool HasAdjacentStation(const std::string& title) const;
 
     const Tracks& GetTracks() const;
     const CTrack& GetTrack(const CAdjacentStation& adjStation) const;
@@ -63,6 +70,9 @@ public:
 
     CTrack& AddCoreTrack(const CAdjacentStation& adjStation, unsigned length);
     void AddTrackSegment(CTrack& track);
+
+    void AddWaitingTrain(std::string waitFor, CTrain* pWaitingTrain);
+    void RemoveWaitingTrain(std::string waitFor, CTrain* pWaitingTrain);
 
     Histogram& GetDelayHistogram();
     Histogram& GetDefectsHistogram();
@@ -109,12 +119,21 @@ private:
     Store m_PublicRailsStore;
     Store m_CargoRailsStore;
 
+    // trains waiting for other trains
+    WaitingTrains m_WaitingTrains;
+
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 inline bool CMainStation::HasTrack(const CAdjacentStation& adjStation) const
 {
     return m_TracksMap.find(&adjStation) != m_TracksMap.end();
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline bool CMainStation::HasAdjacentStation(const std::string& title) const
+{
+    return m_AdjacentStations.count(title);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

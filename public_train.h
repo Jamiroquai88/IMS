@@ -25,7 +25,8 @@ public:
         unsigned scheduledStartTime,
         unsigned scheduledTargetStationArrival,
         unsigned scheduledMainStationArrival = 0,
-        unsigned scheduledMainStationDeparture = 0);
+        unsigned scheduledMainStationDeparture = 0,
+        std::string waitForTrain = "");
 
     virtual ~CPublicTrain();
 
@@ -33,12 +34,23 @@ public:
 
     unsigned GetRealMainStationdeparture() const;
 
+    const std::string& GetWaitForTrainName() const;
+
     static unsigned GetBoardingTime();
 
 private:
     /// time to wait for passengers to get on the train [minutes]
     static const unsigned BOARDING_TIME;
+
+    // name of the train, this train is waiting for
+    std::string m_WaitingForTrain;
 };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+inline const std::string& CPublicTrain::GetWaitForTrainName() const
+{
+    return m_WaitingForTrain;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 inline unsigned CPublicTrain::GetBoardingTime()

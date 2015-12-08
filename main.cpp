@@ -1,4 +1,5 @@
 #include "unistd.h"
+#include "unistd.h"
 #include "schedule.h"
 #include "station.h"
 #include "adjacent_station.h"
@@ -9,9 +10,9 @@
 #include <sstream>
 
 // In days
-#define SMALL_DEFECT_FREQ 24/24
-#define MEDIUM_DEFECT_FREQ 41/41
-#define LARGE_DEFECT_FREQ 11/11
+#define SMALL_DEFECT_FREQ 15//24
+#define MEDIUM_DEFECT_FREQ 10//41
+#define LARGE_DEFECT_FREQ 4//11
 
 // In minutes
 #define SMALL_DEFECT_DELAY 2
@@ -19,13 +20,13 @@
 #define LARGE_DEFECT_DELAY 80
 
 // Trails numbers in Zilina
-#define TRANSPORT_RAILS_NUM 7
-#define CARGO_RAILS_NUM 7
+#define TRANSPORT_RAILS_NUM 3
+#define CARGO_RAILS_NUM 3
 
 //Cargo trains through Zilina
-#define CARGO_TRAINS_NUM 48
+#define CARGO_TRAINS_NUM 40
 
-#define SIMULATION_DAYS 50
+#define SIMULATION_DAYS 100
 
 
 
@@ -65,8 +66,8 @@ int main(int argc, char *argv[])
     cargoTrainStations.push_back(mainStation.AddAdjacentStation("Ruzomberok"));
     cargoTrainStations.push_back(mainStation.AddAdjacentStation("Trencin"));
     mainStation.AddAdjacentStation("Vrutky");
-    mainStation.AddAdjacentStation("Zilina Solinky");
-    mainStation.AddAdjacentStation("Zilina Zariecie");
+    //mainStation.AddAdjacentStation("Zilina Solinky");
+    //mainStation.AddAdjacentStation("Zilina Zariecie");
 
 
     // Track 127 - Zilina ------> Cadca
@@ -78,8 +79,8 @@ int main(int argc, char *argv[])
         .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Brodno"), 5));
 
     // Track 126 - Zilina ------> Rajec
-    mainStation.AddCoreTrack(mainStation.GetAdjacentStation("Zilina Solinky"), 5)
-        .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Zilina Zariecie"), 2));
+    //mainStation.AddCoreTrack(mainStation.GetAdjacentStation("Zilina Solinky"), 5)
+    //    .AddNestedSegment(new CTrack(mainStation.GetAdjacentStation("Zilina Zariecie"), 2));
 
     // Track 120 - Bratislava ------> Zilina
     mainStation.AddCoreTrack(mainStation.GetAdjacentStation("Trencin"), 179)

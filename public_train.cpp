@@ -22,7 +22,8 @@ CPublicTrain::CPublicTrain(CPublicTrainGenerator& generator,
     unsigned scheduledStartTime,
     unsigned scheduledTargetStationArrival,
     unsigned scheduledMainStationArrival,
-    unsigned scheduledMainStationDeparture)
+    unsigned scheduledMainStationDeparture,
+    std::string waitForTrain)
   : CTrain(generator, scheduledStartTime, scheduledTargetStationArrival, scheduledMainStationArrival,
           scheduledMainStationDeparture)
 {
@@ -43,6 +44,8 @@ CPublicTrain::CPublicTrain(CPublicTrainGenerator& generator,
             .GetTrack(static_cast<const CAdjacentStation&>(generator.GetTargetStation()));
         m_DirFromMainStation = true;
     }
+
+    CMainStation::GetInstance().AddWaitingTrain(waitForTrain, this);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,12 +89,12 @@ void CPublicTrain::Behavior()
         << " with initial delay: " << initialDelay << "minutes");
 
     // check for defect
-    CDefect* pDefect = m_pTrack->GetDefect(0, m_DirFromMainStation);
+    CDefect* pDefect = m_pTrack->GetDefect(GetDistanceFromMainStation(), m_DirFromMainStation);
     if(pDefect != NULL)
     {
         unsigned defectId = pDefect->GetId();
         DBG_LOG_T(m_Generator.GetTrainTitle()
-            << ":\t\tCan't start because of a defect (id: " << defectId << ")");
+            << ":\t\tCan't start because of a defect (id: " << defectId << ") at " << pDefect->GetLocation());
 
         Passivate();
         // defect must be fixed now
@@ -159,7 +162,7 @@ void CPublicTrain::Behavior()
         m_pTrack->AddPassingTrain(*this);
 
         // leaving main station
-        DBG_LOG_T(m_Generator.GetTrainTitle() + ":\t\Leaving the main station");
+        DBG_LOG_T(m_Generator.GetTrainTitle() + ":\t\tLeaving the main station");
 
         // check for defect
         CDefect* pDefect = m_pTrack->GetDefect(0, m_DirFromMainStation);
@@ -202,11 +205,12 @@ void CPublicTrain::Behavior()
     unsigned relDelay = absDelay - initialDelay;
     if(absDelay)
     {
-        DBG_LOG(m_Generator.GetTrainTitle()
+        DBG_LOG( (absDelay > 120 ? "WARNING " : "")
+            << m_Generator.GetTrainTitle()
             << ":\t\tTotal delay: "
             << absDelay << " minutes");
 
-        CMainStation::GetInstance().GetDelayHistogram()(absDelay);
+        CMainStation::GetInstance().GetDelayHistogram()(relDelay);
 
         DELAY_LOG(relDelay, absDelay);
     }

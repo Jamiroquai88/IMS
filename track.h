@@ -52,6 +52,8 @@ public:
      */
     CDefect* GetDefect(unsigned location, bool dirFromMainStation) const;
 
+    void GetTrains(bool bFromMainStation, Trains& trains);
+
     /**
      * \brief Get trains coming to the given point.
      * \param location          Distance from the main station

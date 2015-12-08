@@ -166,6 +166,12 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
       CStation* pStationTo;
       if(unit.from != "Zilina")
       {
+          if(!mainStation.HasAdjacentStation(unit.from))
+          {
+              DBG_LOG("WARINING: " << unit.from << "station not found, skipping..");
+              continue;
+          }
+
           pStationFrom = &mainStation.GetAdjacentStation(unit.from);
       }
       else
@@ -175,6 +181,11 @@ bool CSchedule::ParseAndPlan(CMainStation& mainStation)
 
       if(unit.to != "Zilina")
       {
+          if(!mainStation.HasAdjacentStation(unit.to))
+          {
+            DBG_LOG("WARINING: " << unit.to << "station not found, skipping..");
+            continue;
+          }
           pStationTo = &mainStation.GetAdjacentStation(unit.to);
       }
       else
