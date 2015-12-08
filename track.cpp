@@ -80,10 +80,11 @@ void CTrack::GetComingTrains(unsigned location, bool bFromMainStation, Trains& t
     {
         // train approximate location
         unsigned trainLocation = (*itTrain)->GetDistanceFromMainStation();
-
+        DBG_LOG("DISTANCE FROM MAIN ST: " << trainLocation);
         if( (bFromMainStation && trainLocation < location) ||
             (!bFromMainStation && trainLocation > location) )
         {
+            DBG_LOG("INSERTING TRAIN TO DEFECT");
             trains.insert(*itTrain);
         }
     }

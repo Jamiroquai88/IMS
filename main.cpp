@@ -9,9 +9,9 @@
 #include <sstream>
 
 // In days
-#define SMALL_DEFECT_FREQ 24/24
-#define MEDIUM_DEFECT_FREQ 41/41
-#define LARGE_DEFECT_FREQ 11/11
+#define SMALL_DEFECT_FREQ 24
+#define MEDIUM_DEFECT_FREQ 41
+#define LARGE_DEFECT_FREQ 11
 
 // In minutes
 #define SMALL_DEFECT_DELAY 2
@@ -25,7 +25,7 @@
 //Cargo trains through Zilina
 #define CARGO_TRAINS_NUM 48
 
-#define SIMULATION_DAYS 50
+#define SIMULATION_DAYS 365*10
 
 
 
