@@ -124,7 +124,7 @@ Obraty (alebo aj obehy, poprípade turnusy) ru¹òov a~ru¹novodièov sú rozdelené do
 \chapter{Koncepcia modelu}
 
 \section{Základná ¹truktúra modelu}
-Ñavrhnutý model je abstrakciou zvolenej ¾elezniènej stanice zasadenej do pevne danej siete staníc a ¾eleznièných tratí medzi nimi. Zvolená stanica je oznaèená ako hlavná stanica modelu (Main Station) a tvorí jadro modelu. V rámci tejto stanice je skúmaný postupný prícho/odchod vlakov, priebe¾né me¹kania vlakov a obsadzovanie jednotlivých stanièných koµají. Okolité stanice slú¾ia na identifikáciu koncových bodov jednotlivých vlakových liniek a tvoria hranièné body systému.\\
+Ñavrhnutý model je abstrakciou zvolenej ¾elezniènej stanice zasadenej do pevne danej siete staníc a ¾eleznièných tratí medzi nimi. Zvolená stanica je oznaèená ako hlavná stanica modelu (Main Station) a tvorí jadro modelu. V rámci tejto stanice je skúmaný postupný príchod/odchod vlakov, priebe¾né me¹kania vlakov a obsadzovanie jednotlivých stanièných koµají. Okolité stanice slú¾ia na identifikáciu koncových bodov jednotlivých vlakových liniek a tvoria hranièné body systému.\\
 
 \section{Model grafikonu vlakovej dopravy}
 \label{sec:gvdmodel}
@@ -220,36 +220,39 @@ Topológia systému je definovaná stanicami (objekty typu CStation) a tra»ami medz
 V prípade viacerých staníc v jednom smere je model tratí hierarchický (tra» mô¾e obsahova» vnorený segment). Toto usporiadanie umo¾nuje identifikáciu miesta poruchovej udalosti a spropagovanie tejto udalosti medzi vlaky, ktoré sú òou ovplyvnené (na základe pribli¾nej polohy a smeru).\\
 Správanie porúch je v systéme implementované v rámci procesov triedy CDefect, ktoré sú generované udalos»ami typu CDefectGenerator. Porucha obsahuje informácie o polohe a smere v ktorom vznikla (koµaj v opaènom smere je priechodná).
 \section{Obsluha porúch}
-Poruchy vznikajú ako nahodné procesy so strednou dobou výskytu. Pri vzniknutí poruchy sa vyberie tra» a na nej náhodným spôsobom vlak, ktorý sa pova¾uje za zdroj poruchy. Následne sa informácia o poruche distirbuuje medzi v¹etky vlaky, ktoré sa blí¾ia k miestu poruchy. Tieto vlaky zastavujú a èakajú na informáciu o odstránení poruchy.
+Poruchy vznikajú ako nahodné procesy so strednou dobou výskytu. Pri vzniknutí poruchy sa vyberie tra» a na nej náhodným spôsobom vlak, ktorý sa pova¾uje za zdroj poruchy. Následne sa informácia o poruche distribuuje medzi v¹etky vlaky, ktoré sa blí¾ia k miestu poruchy. Tieto vlaky zastavujú a èakajú na informáciu o odstránení poruchy.
 Proces vlaku teda musí poèas prechodu medzi stanicami oèakáva» poruchu (predèasné aktivovanie procesu) a pri poruche èaka» na jej odstránenie.
 \section{Sledovanie polohy vlaku}
 Proces vlaku pri presune medzi stanicami oèakáva preru¹enia od periodickej kontrolnej udalosti CProgressUpdateEvent, na základe ktorého aktualizuje svoj stav (poèet prejdených minút od zaèiatku trasy). Z údajov o då¾ke a plánovanej dobe trvania trasy je potom mo¾né aproximova» polohu vlaku.
 
 
 \chapter{Podstata simulaèných experimentov a ich priebeh}
-Podstatou simulaèných experimentov bolo dokáza» validitu ná¹ho modelu ®ST ®ilina a~potvrdi» resp. vyvráti» fakt, ¾e èasy a~vy»a¾enos» ®ST ®ilina je nastavená na maximálnu mo¾nú úroveò a~prípadne vypracova» metodológie, ktoré by mohli pomôc» zvý¹i» efektivitu vlakovej dopravy.
+Podstatou simulaèných experimentov bolo dokáza» validitu ná¹ho modelu ®ST ®ilina, otestova» správanie ®ST ®ilina pri ¹tandardnom ako aj zvý¹enom za»a¾ení a~prípadne poslú¾i» k vypracovaniu metodológií, ktoré by mohli pomôc» zvý¹i» efektivitu vlakovej dopravy.
 
 \section{Postup experimentovania a okolnosti ¹túdie}
-Overenie validity modelu sa bude sklada» z viacerých krokov, ktorými sa budeme sna¾i» èo najviac priblí¾i» reálnemu vy»a¾eniu ®ST ®ilina a~dokumentova» postupy a~experimenty, ktorými by bolo mo¾né zefektívni» chod ®ST ®ilina.
+Prvý experiment poslú¾i na overenie valídnosti modelu - demon¹truje správanie systému pri ¹tandardnom plánovanom za»a¾ení. Ïal¹ie experimenty zobrazujú systém pri ne¹tandardnej zvý¹enej zá»a¾i a poukazujú na limity ®ST ®ilina.
 
 \section{Dokumentácia jednotlivých experimentov} 
 
 \subsection{Me¹kanie vlakov osobnej dopravy}
-Plán osobnej vlakovej dopravy vychádza z~GVD pre rok 2015\cite{gvdSR} a dostupných ¹tatistík popísaných v~sekcií~\ref{sec:gvdmodel}. Zmyslom tohto experimentu bolo dokáza», ¾e chovanie ná¹ho modelu sa s~ohµadom na me¹kania pribli¾uje reálnemu systému ®ST ®ilina.\\
+Plán osobnej vlakovej dopravy vychádza z~GVD pre rok 2015\cite{gvdSR} a dostupných ¹tatistík popísaných v~sekcií~\ref{sec:gvdmodel}. Zmyslom tohto experimentu bolo dokáza», ¾e chovanie ná¹ho modelu sa pribli¾uje reálnemu systému, teda, ¾e vlaky dorazia do cieµa a ¾e me¹kania vlakov nebudú presahova» hodnoty niekoµkých hodín. Z výsledkov mô¾me usudzova» podobnos» s reálnou situáciou, kde niekoµko minútové me¹kanai sú spravidla be¾né, a naopak, èím dlh¹ie je me¹kanie, tým je jeho výskyt menej èastý.\\
+Graf 1 zobrazuje výsledky experimentu - poèet me¹kajúcich vlakov podµa doby me¹kania za obdobie jedného roka.
 
 \begin{center}
 \includegraphics[scale=0.65]{fig/meskanie.jpg}
 \end{center}
 
 \subsection{Vplyv porúch na me¹kanie vlakov osobnej dopravy}
-V~nasledujúcom experimente sa pokúsime zisti» vplyv výskytu porúch na trati na me¹kanie vlakov osobnej dopravy. V~experimente budeme zvy¹ova» poèet výskytov v¹etkých troch druhov porúch priemerne 2x. Sledovali sme osobné vlaky InterCity, pre ktoré máme k dispozícií reálne ¹tatistiky popísané v~kapitole~\ref{sec:gvdmodel}. V grafe vidíme porovnanie ¹tatistík, ná¹ho systému a systému s dvojnásobným výskytom porúch.
+V~nasledujúcom experimente sme sa pokú¹ali zisti» vplyv výskytu porúch na trati na me¹kanie vlakov osobnej dopravy. V~experimente sme zvy¹ovali poèet výskytov v¹etkých troch druhov porúch priemerne 2x. Sledovali sme konkrétne osobné vlaky InterCity, pre ktoré máme k dispozícií reálne ¹tatistiky popísané v~kapitole~\ref{sec:gvdmodel}. V grafe vidíme porovnanie získaných ¹tatistík s výsledkami ná¹ho systému pri ¹tandardnej poruchovosti a systému s dvojnásobným výskytom porúch.\\
+Modrý ståpec ukazuje priemerné me¹kanie vlaku zaznamenané v Bratislave. Túto hodnotu sme pou¾ili ako strednú hodnotu poèiatoèného me¹kania, s ktorým daný vlak prichádza do systému. V rámci systému je ovplyvòovaný poruchami, ktoré mô¾u na trati do/z hlavnej stanice nasta» a spôsobi» dodatoèné me¹kanie. Toto me¹kanie sa prejaví ako rozdiel modrého a èerveného ståpca. Posledný ståpec znázoròuje celkové me¹kanie vlaku pri zdvojnásobení výskytu porúch.\\
+Z grafu je vidie» vz»ah medzi poèiatoèným a celkovým me¹kaním vlaku po prechode systémom. Vplyv výskytu porúch na celkové me¹kanie vlaku je zjavný, prièom ale vidie» do urèitej miery stálu hodnotu dodatoèného me¹kania spôsobeného poruchami (podobný rozdiel medzi hodnotami ståpcov pre jeden vlak). To je dané stálymi strednými hodnotami výskytov jednotlivých generovnaých typov porúch.
 
 \begin{center}
 \includegraphics[scale=0.65]{fig/icdefects.jpg}
 \end{center}
 
 \subsection{Vy»a¾enie koµají osobnej dopravy}
-V~nasledujúcom experimente sa pokúsime zisti» vy»a¾enos» koµají osobnej dopravy ®ST ®ilina a~simulova» situáciu, ¾e prichádzajúci vlak osobnej dopravy nebude ma» mo¾nos» hneï zabra» voµné nástupi¹te a~bude musie» èaka» vo fronte na uvoµnenie nástupi¹»a.
+V~tomto experimente sme sa pokúsili zisti» vy»a¾enos» koµají osobnej dopravy ®ST ®ilina a~simulova» situáciu, keï prichádzajúci vlak osobnej dopravy nebude ma» mo¾nos» hneï zabra» voµné nástupi¹te a~bude musie» èaka» vo fronte na uvoµnenie nástupi¹»a. 
 
 \subsection{Navy¹ovanie mno¾stva spojov v GVD}
 
