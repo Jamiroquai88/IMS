@@ -97,41 +97,24 @@ Na základe plánu vlakotvorby ND\cite{PVND} mô¾me nákladné vlaky rozdeli» do nasl
 \end{itemize}
 
 \section{Poruchy vozòov a hnacích dráhových vozidiel}
+\label{sec:poruchy}
 Poruchy sú èastým zdrojom oneskorenia vlakov, èi u¾ osobných alebo nákladných. Udalos» poruchy vozòa alebo hnacích dráhových vozidiel (ïalej len HDV) doká¾e naru¹i» chod celej stanice, predov¹etkým vïaka ostrým obratom a~èasom vyhroteným na doraz\cite{keloMail}. Ako zdroj ¹tatistík o výskyte porúch nám poslú¾il web www.vlaky.net\cite{vlakyWeb}, a~ich databáza porúch HDV a~vozòov vedená od 14.6.2014\cite{poruchyWeb}.
-Esenciálna pre nás bola då¾ka oneskorenia vlaku a~poèet záznamov poèas tohto èasového obdobia. Poruchy sme rozdelili do troch kategórii - malé (men¹ie ako 10 min), stredné (10 min - 30 min) a~vá¾ne (väè¹ie ako 30 min). \\
-Pre ka¾dú kategóriu porúch sme pou¾ili nasledujúci vzorec a urèili frekvenciu výskytu poruchy:
-
-\begin{displaymath}
-frequency = \frac{number~of~days}{number~of~defects}
-\end{displaymath}
-
-Taktie¾ sme pre ka¾dú kategóriu poruchy vypoèítali jej priemerné trvanie:  
-
-\begin{displaymath}
-average = \frac{sum~of~time~needed~for~repair}{number~of~defects}
-\end{displaymath}
-
-Priemerný výskyt chýb a~ich trvanie sme uviedli do nasledujúcej tabuµky:
-
-\begin{center}
-    \begin{tabular}{| l | l | l |}
-    \hline
-    Záva¾nos» & Frekvencia výskytu & Då¾ka opravy \\ \hline
-    malá & 24 dní & 2 min \\ \hline
-    stredná & 41 dní & 19 min \\ \hline
-    vá¾na & 11 dní & 80 min \\ \hline
-    \end{tabular}
-\end{center}
 
 \section{Plán obsadenia koµají}
 \label{sec:plan}
 Priraïovanie konkrétnych koµají a~nástupi¹» je vopred dané. Ka¾dý rok sa pre konkrétnu ®S vypracuváva plán obsadenia koµají, kde sa pri ka¾dej koµaji eviduje, odkedy - dokedy má by» obsadená a ktorým vlakom, toto opatrenie zamedzuje prípadnému nedostatku nástupi¹». Plán obsadenia koµají má podobu grafu s 24 ¹tvorcovými hodinovými okienkami v ktorých sú úseèkami znázornené pobyty súprav vrámci ®S. Zmeny sa v¹ak èastokrát rie¹ia aj operatívne. \cite{keloMail} 
 \\Koµaje sú rozdelené najmä na\cite{PVND}:
+
 \begin{itemize}
 \item Dopravné - slú¾ia pre vlaky na osobnú dopravu. ®S ®ilina má k dispozícii 36 dopravných koµají\cite{vlakyZilinaWeb}.
 \item Manipulaèné - slú¾ia na nákladku, výkladku, odstraòovanie súprav a iné. ®© vyuzíva 24 manipulaèných koµají\cite{vlakyZilinaWeb}.
 \item Koµaje bez nástupi¹» - slú¾ia pre nákladnú dopravu. v ®S ®ilina sa nachádzajú 4\cite{vlakyZilinaWeb}.
 \end{itemize}
+
+\section{Obraty ru¹òov, ru¹novodièov, súprav a vlakových èiat}
+\label{sec:obraty}
+Ïal¹ím dôle¾itým faktorom, ktorý má veµmi èasto vplyv na plynulos» vlakovej dopravy, hlavne cez väè¹ie uzly, ktorým ®S ®ilina nepochybne je, je systém výmien a~obratov medzi ru¹nami, ru¹novodièmi, súpravami a~vlakovými èatami. V¹etky výmeny a~obraty majú predpísané turnusy na celý rok. Keï sa toti¾ jeden vlak výrazne ome¹ká, mô¾e ma» druhý vlak problém odís» z dôvodu, ¾e mu chýba ru¹eò, ru¹òovodiè alebo vlaková èata (vlakvedúci). Ak èokoµvek zo spomenutého v èase odchodu vlaku nie je k dispozícii, musí jednoducho èaka», kým bude ma» dostatoèné kapacity. Pre túto pozíciu sa na ®S nachádza dispeèer, ktorý sa v prípade chýbajúcich kapacít sna¾í nájs» najvhodnej¹iu alternatívu.\\
+Obraty (alebo aj obehy, poprípade turnusy) ru¹òov a ru¹novodièov sú rozdelené do dvoch kategórii - na osobnú dopravu\cite{obratyOS} a nákladnú dopravu\cite{obratyCARGO}, vychádzali sme z obehov pre rok 2015. Obehy vlakových èiat si vypracúva ka¾dá stanica samostatne, tie k dispozícii bohu¾iaµ nemáme\cite{gulikMail}.
 
 \chapter{Koncepcia modelu}
 
@@ -141,7 +124,7 @@ Skutoènos», ¾e vlaky pou¾ívajú pre príchod na stanicu resp. odchod zo stanice v¾
 
 \section{Model grafikonu vlakovej dopravy}
 \label{sec:gvdmodel}
-Model grafikonu vychádza z GVD 2015\cite{gvdSR} pre trate uvedené v kapitole 2.3. Pre úèely modelu ®S ®ilina sme GVD zjednodu¹ili a v¾dy uviedli len stanicu, s ktorou je konkrétna linka osobnej vlakovej dopravy prepojená (zastávky vlakov osobnej dopravy závisia od kategórie vlaku).\\
+Model grafikonu vychádza z GVD 2015\cite{gvdSR} pre trate uvedené v kapitole \ref{sec:gvd}. Pre úèely modelu ®S ®ilina sme GVD zjednodu¹ili a v¾dy uviedli len stanicu, s ktorou je konkrétna linka osobnej vlakovej dopravy prepojená (zastávky vlakov osobnej dopravy závisia od kategórie vlaku).\\
 Zastávky na tratiach sú nasledujúce:
 
 \begin{itemize}
@@ -173,10 +156,40 @@ Veµmi dôle¾itým faktorom pri modelovaní GVD je me¹kanie linky. ©tatistiky o  me¹
     \end{tabular}
 \end{center}
 
-Dostupné údaje sa v¹ak týkajú len vlakov kategórie InterCity za obdobie február - máj 2015 prechádzajúce cez ®S Bratislava, preto sme pre ostatné kategórie vlakov urèili priemerné exponenciálne oneskorenie so stredom pa» minút. Model poèíta so skutoènos»ou, ¾e v¹etky vlaky, ktoré budú zaèína» zo ®S ®ilina, budú v potrebnom èase k dispozícii a preto budú ma» nulové oneskorenie. Model takisto predpokladá plnú dostupnos» v¹etkých vlakov v ®S ®ilina. To okrem iného znamená, ¾e v modeli zanedbávame situácie, ak sú jednotlivé linky na seba nejakým spôsobom naviazané (vlak prichádza do cieµovej stanice, kde má za istý èas vy¹tartova» ako iná linka, av¹ak má me¹kanie a nie je mo¾né, aby vy¹tartoval vèas a podobne).
+Dostupné údaje sa v¹ak týkajú len vlakov kategórie InterCity za obdobie február - máj 2015 prechádzajúce cez ®S Bratislava, preto sme pre ostatné kategórie vlakov urèili priemerné exponenciálne oneskorenie so stredom pa» minút. 
+
+\section{Model porúch}
+Vrámci modelu bolo nevyhnutné zavies» výskyt porúch, vychádzali sme z kapitoly ~\ref{sec:obraty}. Esenciálna pre nás bola då¾ka oneskorenia vlaku a~poèet záznamov poèas tohto èasového obdobia. Poruchy sme rozdelili do troch kategórii - malé (men¹ie ako 10 min), stredné (10 min - 30 min) a~vá¾ne (väè¹ie ako 30 min). \\
+Pre ka¾dú kategóriu porúch sme pou¾ili nasledujúci vzorec a urèili frekvenciu výskytu poruchy:
+
+\begin{displaymath}
+frequency = \frac{number~of~days}{number~of~defects}
+\end{displaymath}
+
+Taktie¾ sme pre ka¾dú kategóriu poruchy vypoèítali jej priemerné trvanie:  
+
+\begin{displaymath}
+average = \frac{sum~of~time~needed~for~repair}{number~of~defects}
+\end{displaymath}
+
+Priemerný výskyt chýb a~ich trvanie sme uviedli do nasledujúcej tabuµky:
+
+\begin{center}
+    \begin{tabular}{| l | l | l |}
+    \hline
+    Záva¾nos» & Frekvencia výskytu & Då¾ka opravy \\ \hline
+    malá & 24 dní & 2 min \\ \hline
+    stredná & 41 dní & 19 min \\ \hline
+    vá¾na & 11 dní & 80 min \\ \hline
+    \end{tabular}
+\end{center}
 
 \section{Model nákladnej dopravy}
 Ako podklad pre modelovanie ND nám poslú¾il plán vlakotvorby ND\cite{PVND}. S~ohµadom na fakt, ¾e preva¾ná väè¹ina vlakov ND sa zavádza operatívne\cite{keloMail} a informácia, ¾e bude vypravený vlak ND sa èasto zadáva len hodinu pred odchodom vlaku, resp. hodinu pred odchodom mô¾e by» bez problémov odvolaná, sme sa rozhodli ND modelova» poissonovým procesom príchodov\cite{slajdy88}. Na urèenie èasu príchodov do systému sme pou¾ili plán vlakotvorby ND\cite{PVND}, kde sme vyhµadali v¹etky vlaky v¹etkých kategórií ND prechádzajúcich cez ®S ®ilina poèas jedného dòa.
+
+\section{Model obratov}
+Obraty ru¹òov, ru¹novodièov, súprav a vlakových èiat vychádzajú z kapitoly~\ref{sec:obraty}. S ohµadom na skutoènos», ¾e by bolo potrebné spracováva» v¹etky obraty osobnej aj nákladnej dopravy a následne ich spája» s konkrétnymi linkami, sme sa rozhodli faktor obratov zanedba».
+Model teda poèíta so skutoènos»ou, ¾e v¹etky vlaky, ktoré budú zaèína» zo ®S ®ilina, budú v potrebnom èase k dispozícii a preto budú ma» nulové oneskorenie. Model takisto predpokladá plnú dostupnos» v¹etkých vlakov v ®S ®ilina. To okrem iného znamená, ¾e v modeli zanedbávame situácie, ak sú jednotlivé linky na seba nejakým spôsobom naviazané (vlak prichádza do cieµovej stanice, kde má za istý èas vy¹tartova» ako iná linka, av¹ak má me¹kanie a nie je mo¾né, aby vy¹tartoval vèas a podobne).
 
 \chapter{Architektúra simulaèného modelu}
 Pali daèo napí¹e èo kázali pán farár dneska u luteránoch
