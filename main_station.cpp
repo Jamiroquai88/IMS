@@ -14,7 +14,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 CMainStation::CMainStation()
-	: m_Delayhistogram("Delays durations in system", 0, 5, 30),
+	: m_Delayhistogram("Delays durations in system", 0, 2, 20),
 	  m_DefectsHistogram("Defects in system", 0, 5, 30),
 	  m_PublicRailsStore("Station Transport Rails", 1),
 	  m_CargoRailsStore("Station Cargo Rails", 1)

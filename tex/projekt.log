@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.12.4)  8 DEC 2015 00:45
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.12.4)  8 DEC 2015 17:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -451,7 +451,7 @@ LaTeX Font Info:    Created by CsPsFont utility v.1.0e (C) Z. Wagner, 1998/01/3
 \@vyskartext=\skip51
 \@vyskaobr=\skip52
 
-<fig/vut-zp2.pdf, id=122, 109.40875pt x 109.40875pt>
+<fig/vut-zp2.pdf, id=126, 109.40875pt x 109.40875pt>
 File: fig/vut-zp2.pdf Graphic file (type pdf)
  <use fig/vut-zp2.pdf>
 Package pdftex.def Info: fig/vut-zp2.pdf used on input line 109.
@@ -461,7 +461,7 @@ Overfull \hbox (109.58464pt too wide) in paragraph at lines 109--109
 [][] 
  []
 
-<fig/fit-zp2.pdf, id=123, 120.45pt x 120.45pt>
+<fig/fit-zp2.pdf, id=127, 120.45pt x 120.45pt>
 File: fig/fit-zp2.pdf Graphic file (type pdf)
  <use fig/fit-zp2.pdf>
 Package pdftex.def Info: fig/fit-zp2.pdf used on input line 109.
@@ -537,7 +537,7 @@ l.52 	\end{itemize}
                     [3
 
 ]
-Overfull \hbox (2.09564pt too wide) in paragraph at lines 68--69
+Overfull \hbox (2.09564pt too wide) in paragraph at lines 69--70
 \IL2/cmr/m/n/10.95 Vrámci mo-de-lo-va-nia sys-tému boli pou-¾ité GVD pre rok 20
 15[[]] ob-sa-huj-úce vla-kové trate[[]]
  []
@@ -546,139 +546,168 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.85 \item O
+l.86 \item O
             sobný vlak (Os) - vlak, ktorý zabezpeèuje prepravu spravidla do ...
 [4] [5] [6]
 Kapitola 3.
 
-Overfull \hbox (25.47334pt too wide) in paragraph at lines 122--124
+Overfull \hbox (25.47334pt too wide) in paragraph at lines 127--129
 \IL2/cmr/m/n/10.95 spo-loènú koµaj je im-ple-men-to-vaná za-ri-a-de-ním s vý-lu
 -è-ným prístupom, trie-dou simlib3::Facility[[]],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 145.
+See the caption package documentation for explanation.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 []|\IL2/cmr/m/n/10.95 Èíslo
  []
 
 
-Overfull \hbox (4.22343pt too wide) in paragraph at lines 142--142
+Overfull \hbox (4.22343pt too wide) in paragraph at lines 148--148
 []|\IL2/cmr/m/n/10.95 Zme¹kané
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 min-úty
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 fe-bruár
  []
 
 
-Underfull \hbox (badness 4792) in paragraph at lines 142--142
+Underfull \hbox (badness 4792) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 / Poèet
  []
 
 
-Overfull \hbox (4.22343pt too wide) in paragraph at lines 142--142
+Overfull \hbox (4.22343pt too wide) in paragraph at lines 148--148
 []|\IL2/cmr/m/n/10.95 Zme¹kané
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 min-úty
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 ma-rec
  []
 
 
-Underfull \hbox (badness 4792) in paragraph at lines 142--142
+Underfull \hbox (badness 4792) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 / Poèet
  []
 
 
-Overfull \hbox (4.22343pt too wide) in paragraph at lines 142--142
+Overfull \hbox (4.22343pt too wide) in paragraph at lines 148--148
 []|\IL2/cmr/m/n/10.95 Zme¹kané
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 min-úty
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 apríl /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 Poèet
  []
 
 
-Overfull \hbox (4.22343pt too wide) in paragraph at lines 142--142
+Overfull \hbox (4.22343pt too wide) in paragraph at lines 148--148
 []|\IL2/cmr/m/n/10.95 Zme¹kané
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 min-úty
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 máj /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 Poèet
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 []|\IL2/cmr/m/n/10.95 Zme¹kané
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 min-úty
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 spolu /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \IL2/cmr/m/n/10.95 Poèet vla-
  []
 
 [7
 
-] [8] [9]
+]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 185.
+See the caption package documentation for explanation.
+
+[8] [9]
 Kapitola 4.
 [10
 
 ]
 Kapitola 5.
 
-Underfull \hbox (badness 10000) in paragraph at lines 206--207
+Underfull \hbox (badness 10000) in paragraph at lines 217--218
 
  []
 
+<fig/meskanie.jpg, id=306, 655.44875pt x 290.08376pt>
+File: fig/meskanie.jpg Graphic file (type jpg)
+ <use fig/meskanie.jpg>
+Package pdftex.def Info: fig/meskanie.jpg used on input line 220.
+(pdftex.def)             Requested size: 426.03664pt x 188.5522pt.
+
 [11
 
-] [12]
+] <fig/icdefects.jpg, id=312, 586.19pt x 330.23375pt>
+File: fig/icdefects.jpg Graphic file (type jpg)
+
+<use fig/icdefects.jpg>
+Package pdftex.def Info: fig/icdefects.jpg used on input line 227.
+(pdftex.def)             Requested size: 381.01898pt x 214.64938pt.
+ <fig/gvd.jpg, id=313, 752.8125pt x 321.2pt>
+File: fig/gvd.jpg Graphic file (type jpg)
+
+<use fig/gvd.jpg>
+Package pdftex.def Info: fig/gvd.jpg used on input line 236.
+(pdftex.def)             Requested size: 414.04816pt x 176.66054pt.
+ [12 <./fig/meskanie.jpg> <./fig/icdefects.jpg>] [13 <./fig/gvd.jpg>]
 Kapitola 6.
-) (./projekt.bbl [13
+) (./projekt.bbl [14
 
 ]
 LaTeX Font Info:    Try loading font information for IL2+cmtt on input line 29.
@@ -686,18 +715,18 @@ LaTeX Font Info:    Try loading font information for IL2+cmtt on input line 29.
 
 (/usr/share/texlive/texmf-dist/tex/cslatex/base/il2cmtt.fd
 File: il2cmtt.fd 1997/08/20 CSLaTeX font definitions
-) [14
+) [15
 
 ])
 (./prilohy.tex)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 133.
- [15]
+ [16]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 133.
  (./projekt.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 133.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 133.
 Package rerunfilecheck Info: File `projekt.out' has not changed.
-(rerunfilecheck)             Checksum: 07A4465C76D29E578D2C90CF04149482;5682.
+(rerunfilecheck)             Checksum: 34C7C276B25411D0CA007DE66CFE21E2;5927.
 
 
 LaTeX Font Warning: Size substitutions with differences
@@ -706,13 +735,13 @@ LaTeX Font Warning: Size substitutions with differences
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 133.
  ) 
 Here is how much of TeX's memory you used:
- 12104 strings out of 494437
- 170884 string characters out of 6165285
+ 12130 strings out of 494437
+ 171294 string characters out of 6165285
  250201 words of memory out of 5000000
- 15143 multiletter control sequences out of 15000+600000
+ 15160 multiletter control sequences out of 15000+600000
  22856 words of font info for 52 fonts, out of 8000000 for 9000
  360 hyphenation exceptions out of 8191
- 43i,8n,40p,744b,561s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,8n,40p,786b,547s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/cs/xl2.enc}</usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/f
@@ -722,10 +751,10 @@ csbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cs/csr10.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/cs/csti10.pfb></usr/share/texlive/
 texmf-dist/fonts/type1/public/cs/cstt10.pfb></usr/share/texlive/texmf-dist/font
 s/type1/urw/helvetic/uhvr8a.pfb>
-Output written on projekt.pdf (19 pages, 132682 bytes).
+Output written on projekt.pdf (20 pages, 196471 bytes).
 PDF statistics:
- 368 PDF objects out of 1000 (max. 8388607)
- 332 compressed objects within 4 object streams
- 69 named destinations out of 1000 (max. 500000)
- 235 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 388 PDF objects out of 1000 (max. 8388607)
+ 348 compressed objects within 4 object streams
+ 74 named destinations out of 1000 (max. 500000)
+ 258 words of extra memory for PDF output out of 10000 (max. 10000000)
 

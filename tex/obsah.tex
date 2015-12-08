@@ -2,8 +2,8 @@
 % (c) Michal Bidlo, Bohuslav K?ena, 2008
 
 \chapter{Úvod}
-V~tejto práci je rie¹ená implementácia modelu systému hromadnej obsluhy(ïalej len SHO)\cite{slajdy136} dopravného uzlu, pre implementáciu bol autormi zvolený model ¾elezniènej stanice (ïalej ako ®S) ®ilina na území Slovenskej Republiky. 
-Na základe modelu a simulaèných experimentov bude znázornené chovanie systému zalo¾ené na podkladoch pre správu a~riadenie ®S.
+V~tejto práci je rie¹ená implementácia modelu systému hromadnej obsluhy(ïalej len SHO)\cite{slajdy136} dopravného uzlu, pre implementáciu bol autormi zvolený model ¾elezniènej stanice (ïalej ako ®ST) ®ilina na území Slovenskej Republiky. 
+Na základe modelu a~simulaèných experimentov bude znázornené chovanie systému zalo¾ené na podkladoch pre správu a~riadenie ®ST.
 
 \section{Autori projektu}
 
@@ -26,14 +26,14 @@ Validita modelu SHO bola overená experimentovaním s~modelom, výsledky experiment
 
 \chapter{Rozbor témy a pou¾itých metód/technológií}
 \section{Implementaèné nástroje}
-Pre samotnú implementáciu modelu ®S ®ilina bol pou¾itý jazyk C++\cite{cppWeb} a~simulaèná kni¾nica SIMLIB3\cite{simlibWeb}, èím bolo dodr¾ané zadanie projektu.
+Pre samotnú implementáciu modelu ®ST ®ilina bol pou¾itý jazyk C++\cite{cppWeb} a~simulaèná kni¾nica SIMLIB3\cite{simlibWeb}, èím bolo dodr¾ané zadanie projektu.
 
 \section{®eleznièná stanica ®ilina}
 \label{sec:zszilina}
-®S ®ilina slú¾i ako dôle¾itý dopravný uzol nielen vrámci Slovenska, ale takisto slú¾i ako hlavný spoj s Èeskou Republikou vrámci stredného Slovenska. Stanica le¾í na vetve panaeurópskeho dopravného koridoru Bratislava - U¾horod. Stanica bola otvorená v~roku 1871 vrámci výstavby Ko¹icko-Bohumínskej ¾eleznice. ®S ®ilina le¾í v km 337,632 elektrifikovanej dvojkoµajnej trate Kraµovany-Púchov s rozchodom 1435 mm.\\
-Ide o ¾elezniènú stanicu podµa povahy práce\cite{vlakyZilinaWeb}:
+®ST ®ilina slú¾i ako dôle¾itý dopravný uzol nielen vrámci Slovenska, ale takisto slú¾i ako hlavný spoj s~Èeskou Republikou vrámci stredného Slovenska. Stanica le¾í na vetve panaeurópskeho dopravného koridoru Bratislava - U¾horod. Stanica bola otvorená v~roku 1871 vrámci výstavby Ko¹icko-Bohumínskej ¾eleznice. ®ST ®ilina le¾í v km 337,632 elektrifikovanej dvojkoµajnej trate Kraµovany-Púchov s rozchodom 1435 mm.\\
+Ide o~¾elezniènú stanicu podµa povahy práce\cite{vlakyZilinaWeb}:
 \begin{itemize}
-    \item  zmie¹anú,
+    \item zmie¹anú,
  	\item zriaïovaciu,
 	\item osobnú,
 	\item odboènú pre trate:
@@ -45,27 +45,28 @@ Ide o ¾elezniènú stanicu podµa povahy práce\cite{vlakyZilinaWeb}:
     
  	\item dispoziènú pre trate:
  	\begin{itemize}
-		\item ®ilina - Spi¹ská Nová Ves pre v¹etky vlaky. Pre vlaky, ktoré nezastavujú v ®S Spi¹ská Nová Ves je dispoziènou stanicou pre celý úsek po ®S Ko¹ice.
+		\item ®ilina - Spi¹ská Nová Ves pre v¹etky vlaky. Pre vlaky, ktoré nezastavujú v ®ST Spi¹ská Nová Ves je dispoziènou stanicou pre celý úsek po ®ST Ko¹ice.
 		\item ®ilina - Èadca pre v¹etky vlaky.
-		\item ®ilina - Trenèianska Teplá pre v¹etky vlaky a pre nákladné vlaky, ktoré v ®S ®ilina zriaïovacia stanica a Trenèianska Teplá prechodia úsek a¾ po Leopoldov. Pre vlaky, ktoré nezastavujú v ®S Trenèianska Teplá, ani v ®S Leopoldov je dispoziènou stanicou pre celý úsek po ®S Bratislava hlavná stanica, Bratislava východ a Bratislava predmestie.
+		\item ®ilina - Trenèianska Teplá pre v¹etky vlaky a pre nákladné vlaky, ktoré v ®ST ®ilina zriaïovacia stanica a Trenèianska Teplá prechodia úsek a¾ po Leopoldov. Pre vlaky, ktoré nezastavujú v ®ST Trenèianska Teplá, ani v ®ST Leopoldov je dispoziènou stanicou pre celý úsek po ®ST Bratislava hlavná stanica, Bratislava východ a Bratislava predmestie.
 		\item ®ilina - Rajec pre v¹etky vlaky.
 	\end{itemize}
 	
 \end{itemize}
 Na stanici sa nachádz sedem nástupi¹», s~podchodovým viac úrovòovým prístupom\cite{vlakyZilinaWeb}:
 \begin{itemize}
-	\item Vyvý¹ené kryté nástupi¹te pri výpravnej budove je dlhé 200 m. Slú¾i pre vlaky pristavené na koµajach è. 9, 7, 5. Medzi koµajami è. 9 a è. 7 a è. 7 a è. 5 sa nachádzajú 2 vyvý¹ené nekryté nástupi¹tia typu SUDOP.
-	\item Vyvý¹ené kryté nástupi¹te je dlhé 300 m. Slú¾i pre vlaky pristavené na koµajach è. 2 a è. 3.
-	\item Vyvý¹ené kryté nástupi¹te je dlhé 150 m. Slú¾i pre vlaky pristavené na koµajach è. 4 a è. 10,
-	\item Nekryté nástupi¹te typu SUDOP dlhé 200 m je pri slepej koµaji è.13.
-	\item Nekryté nástupi¹te typu SUDOP dlhé 200 m je pri slepej koµaji è.15.
-	\item Nekryté nástupi¹te typu SUDOP dlhé 160 m je pri slepej koµaji è.17.
-	\item Nekryté nástupi¹te typu SUDOP dlhé 160 m je pri slepej koµaji è.19.
+	\item Vyvý¹ené kryté nástupi¹te pri výpravnej budove je dlhé 200 m. Slú¾i pre vlaky pristavené na koµajach è.~9, 7, 5. Medzi koµajami è.~9 a è. 7 a è. 7 a è.~5 sa nachádzajú 2 vyvý¹ené nekryté nástupi¹tia .
+	\item Vyvý¹ené kryté nástupi¹te je dlhé 300~m. Slú¾i pre vlaky pristavené na koµajach è.~2 a è.~3.
+	\item Vyvý¹ené kryté nástupi¹te je dlhé 150~m. Slú¾i pre vlaky pristavené na koµajach è.~4 a è.~10,
+	\item Nekryté nástupi¹te dlhé 200~m je pri slepej koµaji è.~13.
+	\item Nekryté nástupi¹te dlhé 200~m je pri slepej koµaji è.~15.
+	\item Nekryté nástupi¹te dlhé 160~m je pri slepej koµaji è.~17.
+	\item Nekryté nástupi¹te dlhé 160~m je pri slepej koµaji è.~19.
 \end{itemize}
+
 
 \section{Grafikon vlakovej dopravy}
 \label{sec:gvd}
-Vrámci modelovania systému boli pou¾ité GVD pre rok 2015\cite{gvdSR} obsahujúce vlakové trate\cite{vlakyTrateWeb} prechádzajúce cez ®S ®ilina, konkrétne:
+Vrámci modelovania systému boli pou¾ité GVD pre rok 2015\cite{gvdSR} obsahujúce vlakové trate\cite{vlakyTrateWeb} prechádzajúce cez ®ST ®ilina, konkrétne:
 
 \begin{itemize}
 \item ®SR 126: ®ilina - Èadca\cite{tratCAWeb}
@@ -86,7 +87,7 @@ Na daných tratiach sa vyskytujú nasledujúce kategórie vlakov osobnej dopravy\cit
 \end{itemize}
 
 \section{Plán vlakotvorby nákladnej dopravy}
-Pre úèely validity modelu bolo nevyhnutné do modelu zaradi» okrem osobnej vlakovej dopravy aj dopravu nákladnú. Aj napriek tomu, ¾e nákladné vlaky chodia väè¹inou podµa potreby a~zavádzajú sa operatívne. Takisto pravidelnos» nákladných vlakov je v tomto prípade otázna, existujú vlaky, ktoré chodia pravidelne a~vlaky, ktoré nejdú napríklad aj rok\cite{keloMail}. Je potrebné zobra» do úvahy fakt, ¾e ®S ®ilina nie je vlakotvorná stanica a~v¹etka zá»a¾ ND sa sústreïuje do neïalekej vlakotvornej stanice ®ilina-Teplièka\cite{PVND}.
+Pre zistenie skutoèného vy»a¾enia ®ST ®ilina a jej prístupových tratí bolo nevyhnutné do modelu zaradi» okrem osobnej vlakovej dopravy aj dopravu nákladnú. Aj napriek tomu, ¾e nákladné vlaky chodia väè¹inou podµa potreby a~zavádzajú sa operatívne. Takisto pravidelnos» nákladných vlakov je v tomto prípade otázna, existujú vlaky, ktoré chodia pravidelne a~vlaky, ktoré nejdú napríklad aj rok\cite{keloMail}. Je potrebné zobra» do úvahy fakt, ¾e ®ST ®ilina nie je vlakotvorná stanica a~v¹etka zá»a¾ ND sa sústreïuje do neïalekej vlakotvornej stanice ®ilina-Teplièka\cite{PVND}.
 
 Na základe plánu vlakotvorby ND\cite{PVND} mô¾me nákladné vlaky rozdeli» do nasledujúcich kategórii:
 \begin{itemize}
@@ -98,33 +99,37 @@ Na základe plánu vlakotvorby ND\cite{PVND} mô¾me nákladné vlaky rozdeli» do nasl
 
 \section{Poruchy vozòov a hnacích dráhových vozidiel}
 \label{sec:poruchy}
-Poruchy sú èastým zdrojom oneskorenia vlakov, èi u¾ osobných alebo nákladných. Udalos» poruchy vozòa alebo hnacích dráhových vozidiel (ïalej len HDV) doká¾e naru¹i» chod celej stanice, predov¹etkým vïaka ostrým obratom a~èasom vyhroteným na doraz\cite{keloMail}. Ako zdroj ¹tatistík o výskyte porúch nám poslú¾il web www.vlaky.net\cite{vlakyWeb}, a~ich databáza porúch HDV a~vozòov vedená od 14.6.2014\cite{poruchyWeb}.
+Poruchy sú èastým zdrojom oneskorenia vlakov, èi u¾ osobných alebo nákladných. Udalos» poruchy vozòa alebo hnacích dráhových vozidiel (ïalej len HDV) doká¾e naru¹i» chod celej stanice, predov¹etkým vïaka ostrým obratom a~èasom vyhroteným na doraz\cite{keloMail}. Ako zdroj ¹tatistík o~výskyte porúch nám poslú¾il web www.vlaky.net\cite{vlakyWeb}, a~ich databáza porúch HDV a~vozòov vedená od 14.6.2014\cite{poruchyWeb}.
 
 \section{Plán obsadenia koµají}
 \label{sec:plan}
-Priraïovanie konkrétnych koµají a~nástupi¹» je vopred dané. Ka¾dý rok sa pre konkrétnu ®S vypracuváva plán obsadenia koµají, kde sa pri ka¾dej koµaji eviduje, odkedy - dokedy má by» obsadená a ktorým vlakom, toto opatrenie zamedzuje prípadnému nedostatku nástupi¹». Plán obsadenia koµají má podobu grafu s 24 ¹tvorcovými hodinovými okienkami v ktorých sú úseèkami znázornené pobyty súprav vrámci ®S. Zmeny sa v¹ak èastokrát rie¹ia aj operatívne. \cite{keloMail} 
+Priraïovanie konkrétnych koµají a~nástupi¹» je vopred dané. Ka¾dý rok sa pre konkrétnu ®ST vypracuváva plán obsadenia koµají, kde sa pri ka¾dej koµaji eviduje, odkedy - dokedy má by» obsadená a~ktorým vlakom, toto opatrenie zamedzuje prípadnému nedostatku nástupi¹». Plán obsadenia koµají má podobu grafu s~¹tvorcovými hodinovými okienkami v~ktorých sú úseèkami znázornené pobyty súprav vrámci ®ST. Zmeny sa v¹ak èastokrát rie¹ia aj operatívne. \cite{keloMail} 
 \\Koµaje sú rozdelené najmä na\cite{PVND}:
 
 \begin{itemize}
-\item Dopravné - slú¾ia pre vlaky na osobnú dopravu. ®S ®ilina má k dispozícii 36 dopravných koµají\cite{vlakyZilinaWeb}.
+\item Dopravné - slú¾ia pre vlaky na osobnú dopravu. ®ST ®ilina má k dispozícii 36 dopravných koµají\cite{vlakyZilinaWeb}.
 \item Manipulaèné - slú¾ia na nákladku, výkladku, odstraòovanie súprav a iné. ®© vyuzíva 24 manipulaèných koµají\cite{vlakyZilinaWeb}.
-\item Koµaje bez nástupi¹» - slú¾ia pre nákladnú dopravu. v ®S ®ilina sa nachádzajú 4\cite{vlakyZilinaWeb}.
+\item Koµaje bez nástupi¹» - slú¾ia pre nákladnú dopravu. V ®ST ®ilina sa nachádzajú 4\cite{vlakyZilinaWeb}.
 \end{itemize}
+
+Tra» je v~reále delená na úseky, prièom sa v~ka¾dom úseku mô¾e nachádza» maximálne jeden vlak. V prípade jednokoµajovej trate sú tieto úseky spravidla od jednej stanice po druhú. V prípade ®ST ide o~úsek Bytèica - ®ilina, ktorý osobný vlak prejde v~priemere za 10 minút a~nákladný v~priemere za 15 minút (ide len o~teoretický èas, v~sktoènosti zále¾í od hmotnosti vlaku, aký silný ru¹eò ho »ahá a~podobne). Na dvojkoµajových tratiach sú úseky medzi dvoma stanicami delené na men¹ie úseky, aby mohli ís» vlaky za sebou hustej¹ie. Na zabezpeèenie dostatoèného rozostupu vlakov sa pou¾íva automatický blok, ktorý delí tra» na úseky dlhé pribli¾ne 1 km alebo sa medzi stanicami pou¾ívajú hlásnice, hradlá resp. automatické hradlá. 
+
+V~®ST mô¾u by» limitujúcim faktorom taktie¾ vchody a~odchody vlakov z~rôznych tratí. Trate sa mô¾u krí¾i» a~preto musia vlaky v~niektorých prípadoch vzájomne èaka»\cite{gulikMail}.
 
 \section{Obraty ru¹òov, ru¹novodièov, súprav a vlakových èiat}
 \label{sec:obraty}
-Ïal¹ím dôle¾itým faktorom, ktorý má veµmi èasto vplyv na plynulos» vlakovej dopravy, hlavne cez väè¹ie uzly, ktorým ®S ®ilina nepochybne je, je systém výmien a~obratov medzi ru¹nami, ru¹novodièmi, súpravami a~vlakovými èatami. V¹etky výmeny a~obraty majú predpísané turnusy na celý rok. Keï sa toti¾ jeden vlak výrazne ome¹ká, mô¾e ma» druhý vlak problém odís» z dôvodu, ¾e mu chýba ru¹eò, ru¹òovodiè alebo vlaková èata (vlakvedúci). Ak èokoµvek zo spomenutého v èase odchodu vlaku nie je k dispozícii, musí jednoducho èaka», kým bude ma» dostatoèné kapacity. Pre túto pozíciu sa na ®S nachádza dispeèer, ktorý sa v prípade chýbajúcich kapacít sna¾í nájs» najvhodnej¹iu alternatívu.\\
-Obraty (alebo aj obehy, poprípade turnusy) ru¹òov a ru¹novodièov sú rozdelené do dvoch kategórii - na osobnú dopravu\cite{obratyOS} a nákladnú dopravu\cite{obratyCARGO}, vychádzali sme z obehov pre rok 2015. Obehy vlakových èiat si vypracúva ka¾dá stanica samostatne, tie k dispozícii bohu¾iaµ nemáme\cite{gulikMail}.
+Ïal¹ím dôle¾itým faktorom, ktorý má veµmi èasto vplyv na plynulos» vlakovej dopravy, hlavne cez väè¹ie uzly, ktorým ®S ®ilina nepochybne je, je systém výmien a~obratov medzi ru¹nami, ru¹novodièmi, súpravami a~vlakovými èatami. V¹etky výmeny a~obraty majú predpísané turnusy na celý rok. Keï sa toti¾ jeden vlak výrazne ome¹ká, mô¾e ma» druhý vlak problém odís» z~dôvodu, ¾e mu chýba ru¹eò, ru¹òovodiè alebo vlaková èata (vlakvedúci). Ak èokoµvek zo spomenutého v èase odchodu vlaku nie je k dispozícii, musí jednoducho èaka», kým bude ma» dostatoèné kapacity. Pre túto pozíciu sa na ®S nachádza dispeèer, ktorý sa v~prípade chýbajúcich kapacít sna¾í nájs» najvhodnej¹iu alternatívu.\\
+Obraty (alebo aj obehy, poprípade turnusy) ru¹òov a~ru¹novodièov sú rozdelené do dvoch kategórii - na osobnú dopravu\cite{obratyOS} a~nákladnú dopravu\cite{obratyCARGO}, vychádzali sme z~obehov pre rok 2015. Obehy vlakových èiat si vypracúva ka¾dá stanica samostatne, tie k~dispozícii nemáme\cite{gulikMail}.
 
 \chapter{Koncepcia modelu}
 
 \section{Obsadzovanie koµají ¾elezniènej stanice ®ilina}
-Pri modelovaní obsadzovania koµají vlakmi prichádzajúcimi alebo zaèínajúcimi v ®S ®ilina sme sa riadili sekciou~\ref{sec:zszilina}~a~\ref{sec:plan}. Samotné koµaje sú implementované pomocou triedy simlib3::Store\cite{simlibWeb} s kapacitou sedem koµají~\ref{sec:zszilina}. Fronta prichádzajúcich vlakov je v~prípade plného obsadenia zaradená do fronty simlib3::Queue~Q1\cite{simlibWeb}. Model ®S ®ilina nepoèíta s plánom obsadenia koµají~\ref{sec:plan}, z dôvodu, ¾e ®SR nám ho neboli ochotné sprístupni» ani vrámci edukatívnych úèelov.\\
+Pri modelovaní obsadzovania koµají vlakmi prichádzajúcimi alebo zaèínajúcimi v~®S ®ilina sme sa riadili sekciou~\ref{sec:zszilina}~a~\ref{sec:plan}. Samotné koµaje sú implementované pomocou triedy simlib3::Store\cite{simlibWeb} s~kapacitou sedem koµají~\ref{sec:zszilina} pre osobnú dopravu, z~dôvodu, ¾e na ®ST ®ilina sa nachádza sedem nástupi¹». Pre ND sme urèili poèet koµají na 4~\ref{sec:plan}. Fronta prichádzajúcich vlakov je v~prípade plného obsadenia zaradená do fronty simlib3::Queue~Q1\cite{simlibWeb}. Model ®S ®ilina nepoèíta s~plánom obsadenia koµají~\ref{sec:plan}, z~dôvodu, ¾e ®SR nám ho neboli ochotné sprístupni» ani vrámci edukatívnych úèelov.\\
 Skutoènos», ¾e vlaky pou¾ívajú pre príchod na stanicu resp. odchod zo stanice v¾dy jednu spoloènú koµaj je implementovaná zariadením s výluèným prístupom, triedou simlib3::Facility\cite{simlibWeb}, prièom zariadenia sa nachádzajú na v¹etkých tratiach\ref{sec:gvd} v oboch smeroch.
 
 \section{Model grafikonu vlakovej dopravy}
 \label{sec:gvdmodel}
-Model grafikonu vychádza z GVD 2015\cite{gvdSR} pre trate uvedené v kapitole \ref{sec:gvd}. Pre úèely modelu ®S ®ilina sme GVD zjednodu¹ili a v¾dy uviedli len stanicu, s ktorou je konkrétna linka osobnej vlakovej dopravy prepojená (zastávky vlakov osobnej dopravy závisia od kategórie vlaku).\\
+Model grafikonu vychádza z~GVD 2015\cite{gvdSR} pre trate uvedené v~kapitole~\ref{sec:gvd}. Pre úèely modelu ®ST ®ilina sme GVD zjednodu¹ili a~v¾dy uviedli len stanicu, s~ktorou je konkrétna linka osobnej vlakovej dopravy prepojená (zastávky vlakov osobnej dopravy závisia od kategórie vlaku).\\
 Zastávky na tratiach sú nasledujúce:
 
 \begin{itemize}
@@ -134,33 +139,35 @@ Zastávky na tratiach sú nasledujúce:
 \item ®SR 127: ®ilina - Záreèie, ®ilina - Solinky\cite{tratRAWeb}
 \end{itemize}
 
-Veµmi dôle¾itým faktorom pri modelovaní GVD je me¹kanie linky. ©tatistiky o  me¹kaniach si vedie dopravca (®eleznièná spoloènos» Slovensko (ïalej ako ZSSK), RegioJet) a tieto informácie u¾ nie sú verejne dostupné. Jediný zdroj, ktorý sa tejto tematike venoval bol Vladimír ©nídl z Denníku N v èlánku z 23.6.2015\cite{snidlclanok}, ktorý nám následne sprístupnil údaje, ktoré mu boli spoloènos»ami poskytnuté\cite{snidlMail}.
+Veµmi dôle¾itým faktorom pri modelovaní GVD je me¹kanie linky. ©tatistiky o~me¹kaniach si vedie dopravca (®eleznièná spoloènos» Slovensko (ïalej ako ZSSK), RegioJet) a tieto informácie u¾ nie sú verejne dostupné. Jediný zdroj, ktorý sa tejto tematike venoval bol Vladimír ©nídl z~Denníku N v~èlánku z~23.6.2015\cite{snidlclanok}, ktorý nám následne sprístupnil údaje, ktoré mu boli spoloènos»ami poskytnuté\cite{snidlMail}.
 
 \begin{center}
-    \begin{tabular}{| p{1.5cm} | l | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{2cm} |}
-    \hline
-    Èíslo vlaku & Dopravca & Zme¹kané minúty február / Poèet vlakov & Zme¹kané minúty marec / Poèet vlakov & Zme¹kané minúty apríl / Poèet vlakov & Zme¹kané minúty máj / Poèet vlakov & Zme¹kané minúty spolu / Poèet vlakov spolu\\ \hline
-    % 875/106= 499/109= 461/104= 191/18= 295/18= 93/19= 952/120= 1155/120= 1708/120= 1347/120= 1370/120= 820/120=
-    IC 502 & ZSSK & 47/28 & 274/31 & 258/26 & 296/21 & 8.25 \\ \hline
-    IC 504 & ZSSK & 25/24 & 179/31 & 60/28 & 235/26 & 4.58 \\ \hline
-    IC 505 & ZSSK & 44/19 & 240/31 & 74/28 & 103/26 & 4.43 \\ \hline
-    IC 1500 & ZSSK & 6/4 & 0/5 & 156/4 & 29/5 & 10.61 \\ \hline
-    IC 1502 & ZSSK & 16/4 & 236/5 & 8/4 & 35/5 & 16.39 \\ \hline
-    IC 1503 & ZSSK & 14/4 & 0/5 & 79/5 & 0/5 & 4.89 \\ \hline
-    IC 400 & RegioJet & 358/28 & 270/31 & 228/30 & 96/31 & 7.93 \\ \hline
-    IC 401 & RegioJet & 151/28 & 543/31 & 240/30 & 221/31 & 9.63 \\ \hline
-    IC 402 & RegioJet & 240/28 & 733/31 & 404/30 & 331/31 & 14.23 \\ \hline
-    IC 403 & RegioJet & 537/28 & 156/31 & 419/30 & 235/31 & 11.23 \\ \hline
-    IC 404 & RegioJet & 225/28 & 528/31 & 397/30 & 220/31 & 11.42 \\ \hline
-    IC 405 & RegioJet & 95/28 & 417/31 & 130/30 & 178/31 & 6.83 \\ \hline
+	\captionof{table}{Me¹kanie vlakov InterCity}
+	\begin{tabular}{| p{1.5cm} | l | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{2cm} |}
+	    \hline
+    		Èíslo vlaku & Dopravca & Zme¹kané minúty február / Poèet vlakov & Zme¹kané minúty marec / Poèet vlakov & Zme¹kané minúty apríl / Poèet vlakov & Zme¹kané minúty máj / Poèet vlakov & Zme¹kané minúty spolu / Poèet vlakov spolu\\ \hline
+    		% 875/106= 499/109= 461/104= 191/18= 295/18= 93/19= 952/120= 1155/120= 1708/120= 1347/120= 1370/120= 820/120=
+    		IC 502 & ZSSK & 47/28 & 274/31 & 258/26 & 296/21 & 8.25 \\ \hline
+    		IC 504 & ZSSK & 25/24 & 179/31 & 60/28 & 235/26 & 4.58 \\ \hline
+    		IC 505 & ZSSK & 44/19 & 240/31 & 74/28 & 103/26 & 4.43 \\ \hline
+    		IC 1500 & ZSSK & 6/4 & 0/5 & 156/4 & 29/5 & 10.61 \\ \hline
+    		IC 1502 & ZSSK & 16/4 & 236/5 & 8/4 & 35/5 & 16.39 \\ \hline
+    		IC 1503 & ZSSK & 14/4 & 0/5 & 79/5 & 0/5 & 4.89 \\ \hline
+    		IC 400 & RegioJet & 358/28 & 270/31 & 228/30 & 96/31 & 7.93 \\ \hline
+    		IC 401 & RegioJet & 151/28 & 543/31 & 240/30 & 221/31 & 9.63 \\ \hline
+    		IC 402 & RegioJet & 240/28 & 733/31 & 404/30 & 331/31 & 14.23 \\ \hline
+    		IC 403 & RegioJet & 537/28 & 156/31 & 419/30 & 235/31 & 11.23 \\ \hline
+    		IC 404 & RegioJet & 225/28 & 528/31 & 397/30 & 220/31 & 11.42 \\ \hline
+    		IC 405 & RegioJet & 95/28 & 417/31 & 130/30 & 178/31 & 6.83 \\ \hline
     \end{tabular}
 \end{center}
 
-Dostupné údaje sa v¹ak týkajú len vlakov kategórie InterCity za obdobie február - máj 2015 prechádzajúce cez ®S Bratislava, preto sme pre ostatné kategórie vlakov urèili priemerné exponenciálne oneskorenie so stredom pa» minút. 
+Dostupné údaje sa v¹ak týkajú len vlakov kategórie InterCity za obdobie február - máj 2015 prechádzajúce cez ®ST Bratislava, preto sme pre ostatné kategórie vlakov urèili priemerné exponenciálne oneskorenie so stredom pa» minút.\\
+Model GVD zanedbáva mimoriadnosti v osobnej vlakovej doprave, tieto udalosti nastávajú èastokrát náhodne a nie je pevne dané, kedy táto udalos» nastane.\cite{forumVlaky}
 
 \section{Model porúch}
-Vrámci modelu bolo nevyhnutné zavies» výskyt porúch, vychádzali sme z kapitoly ~\ref{sec:obraty}. Esenciálna pre nás bola då¾ka oneskorenia vlaku a~poèet záznamov poèas tohto èasového obdobia. Poruchy sme rozdelili do troch kategórii - malé (men¹ie ako 10 min), stredné (10 min - 30 min) a~vá¾ne (väè¹ie ako 30 min). \\
-Pre ka¾dú kategóriu porúch sme pou¾ili nasledujúci vzorec a urèili frekvenciu výskytu poruchy:
+Vrámci modelu bolo nevyhnutné zavies» výskyt porúch, vychádzali sme z kapitoly ~\ref{sec:obraty}. Esenciálna pre nás bola då¾ka oneskorenia vlaku a~poèet záznamov poèas tohto èasového obdobia. Poruchy sme rozdelili do troch kategórii - malé (men¹ie ako 10 min), stredné (10 min - 30 min) a~vá¾ne (väè¹ie ako 30 min).\\
+Pre ka¾dú kategóriu porúch sme pou¾ili nasledujúci vzorec a~urèili frekvenciu výskytu poruchy:
 
 \begin{displaymath}
 frequency = \frac{number~of~days}{number~of~defects}
@@ -175,43 +182,59 @@ average = \frac{sum~of~time~needed~for~repair}{number~of~defects}
 Priemerný výskyt chýb a~ich trvanie sme uviedli do nasledujúcej tabuµky:
 
 \begin{center}
+	\captionof{table}{Poruchy vozòov a~HDV}
     \begin{tabular}{| l | l | l |}
     \hline
-    Záva¾nos» & Frekvencia výskytu & Då¾ka opravy \\ \hline
-    malá & 24 dní & 2 min \\ \hline
-    stredná & 41 dní & 19 min \\ \hline
-    vá¾na & 11 dní & 80 min \\ \hline
+    		Záva¾nos» & Frekvencia výskytu & Då¾ka opravy \\ \hline
+    		malá & 24 dní & 2 min \\ \hline
+    		stredná & 41 dní & 19 min \\ \hline
+    		vá¾na & 11 dní & 80 min \\ \hline
     \end{tabular}
 \end{center}
 
+Doba odstránenia poruchy s najni¾¹ou záva¾nos»ou je znaène ovplyvnená faktom, ¾e v databáze nebola pri v¹etkých poruchách uvedená.
+
+
 \section{Model nákladnej dopravy}
-Ako podklad pre modelovanie ND nám poslú¾il plán vlakotvorby ND\cite{PVND}. S~ohµadom na fakt, ¾e preva¾ná väè¹ina vlakov ND sa zavádza operatívne\cite{keloMail} a informácia, ¾e bude vypravený vlak ND sa èasto zadáva len hodinu pred odchodom vlaku, resp. hodinu pred odchodom mô¾e by» bez problémov odvolaná, sme sa rozhodli ND modelova» poissonovým procesom príchodov\cite{slajdy88}. Na urèenie èasu príchodov do systému sme pou¾ili plán vlakotvorby ND\cite{PVND}, kde sme vyhµadali v¹etky vlaky v¹etkých kategórií ND prechádzajúcich cez ®S ®ilina poèas jedného dòa.
+Ako podklad pre modelovanie ND nám poslú¾il plán vlakotvorby ND\cite{PVND}. S~ohµadom na fakt, ¾e preva¾ná väè¹ina vlakov ND sa zavádza operatívne\cite{keloMail} a~informácia, ¾e bude vypravený vlak ND sa èasto zadáva len hodinu pred odchodom vlaku, resp. hodinu pred odchodom mô¾e by» bez problémov odvolaná, sme sa rozhodli ND modelova» poissonovým procesom príchodov\cite{slajdy88}. Na urèenie strednej doby príchodov do systému sme pou¾ili plán vlakotvorby ND\cite{PVND}, kde sme vyhµadali v¹etky vlaky v¹etkých kategórií ND prechádzajúcich cez ®ST ®ilina poèas jedného dòa.
 
 \section{Model obratov}
-Obraty ru¹òov, ru¹novodièov, súprav a vlakových èiat vychádzajú z kapitoly~\ref{sec:obraty}. S ohµadom na skutoènos», ¾e by bolo potrebné spracováva» v¹etky obraty osobnej aj nákladnej dopravy a následne ich spája» s konkrétnymi linkami, sme sa rozhodli faktor obratov zanedba».
-Model teda poèíta so skutoènos»ou, ¾e v¹etky vlaky, ktoré budú zaèína» zo ®S ®ilina, budú v potrebnom èase k dispozícii a preto budú ma» nulové oneskorenie. Model takisto predpokladá plnú dostupnos» v¹etkých vlakov v ®S ®ilina. To okrem iného znamená, ¾e v modeli zanedbávame situácie, ak sú jednotlivé linky na seba nejakým spôsobom naviazané (vlak prichádza do cieµovej stanice, kde má za istý èas vy¹tartova» ako iná linka, av¹ak má me¹kanie a nie je mo¾né, aby vy¹tartoval vèas a podobne).
+Obraty ru¹òov, ru¹novodièov, súprav a~vlakových èiat vychádzajú z~kapitoly~\ref{sec:obraty}. S ohµadom na skutoènos», ¾e by bolo potrebné spracováva» v¹etky obraty osobnej aj nákladnej dopravy a~následne ich spája» s~konkrétnymi linkami, sme sa rozhodli faktor obratov zanedba».
+Model teda poèíta so skutoènos»ou, ¾e v¹etky vlaky, ktoré budú zaèína» zo ®ST ®ilina, budú v potrebnom èase k~dispozícii a~preto budú ma» nulové oneskorenie. Model takisto predpokladá plnú dostupnos» v¹etkých vlakov v~®ST ®ilina. To okrem iného znamená, ¾e v~modeli zanedbávame situácie, ak sú jednotlivé linky na seba nejakým spôsobom naviazané (vlak prichádza do cieµovej stanice, kde má za istý èas vy¹tartova» ako iná linka, av¹ak má me¹kanie a~nie je mo¾né, aby vy¹tartoval vèas a~podobne).
 
 \chapter{Architektúra simulaèného modelu}
 Pali daèo napí¹e èo kázali pán farár dneska u luteránoch
 
 \chapter{Podstata simulaèných experimentov a ich priebeh}
-Podstatou simulaèných experimentov bolo dokáza» validitu ná¹ho modelu ®S ®ilina a~ potvrdi» resp. vyvráti» fakt, ¾e èasy a~vy»a¾enos» ®S ®ilina je nastavená na maximálnu mo¾nú úroveò a~prípadne vypracova» metodológie, ktoré by mohli pomôc» zvý¹i» efektivitu vlakovej dopravy.
+Podstatou simulaèných experimentov bolo dokáza» validitu ná¹ho modelu ®ST ®ilina a~potvrdi» resp. vyvráti» fakt, ¾e èasy a~vy»a¾enos» ®ST ®ilina je nastavená na maximálnu mo¾nú úroveò a~prípadne vypracova» metodológie, ktoré by mohli pomôc» zvý¹i» efektivitu vlakovej dopravy.
 
 \section{Postup experimentovania a okolnosti ¹túdie}
-Overenie validity modelu sa bude sklada» z viacerých krokov, ktorými sa budeme sna¾i» èo najviac priblí¾i» reálnemu vy»a¾eniu ®S ®ilina a dokumentova» postupy a experimenty, ktorými by bolo mo¾né zefektívni» chod ®S ®ilina.
+Overenie validity modelu sa bude sklada» z viacerých krokov, ktorými sa budeme sna¾i» èo najviac priblí¾i» reálnemu vy»a¾eniu ®ST ®ilina a~dokumentova» postupy a~experimenty, ktorými by bolo mo¾né zefektívni» chod ®ST ®ilina.
 
 \section{Dokumentácia jednotlivých experimentov} 
 
 \subsection{Me¹kanie vlakov osobnej dopravy}
-Plán osobnej vlakovej dopravy vychádza z GVD pre rok 2015\cite{gvdSR} a dostupných ¹tatistík popísaných v sekcií~\ref{sec:gvdmodel}. Zmyslom tohto experimentu bolo dokáza», ¾e chovanie ná¹ho modelu sa s ohµadom na me¹kania pribli¾uje reálnemu systému ®S ®ilina.\\
+Plán osobnej vlakovej dopravy vychádza z~GVD pre rok 2015\cite{gvdSR} a dostupných ¹tatistík popísaných v~sekcií~\ref{sec:gvdmodel}. Zmyslom tohto experimentu bolo dokáza», ¾e chovanie ná¹ho modelu sa s~ohµadom na me¹kania pribli¾uje reálnemu systému ®ST ®ilina.\\
 
-V nasledujúcom experimente sme sledovali osobné vlaky InterCity, pre ktoré máme k dispozícií reálne ¹tatistiky popísané v kapitole~\ref{sec:gvdmodel}.
+\begin{center}
+\includegraphics[scale=0.65]{fig/meskanie.jpg}
+\end{center}
 
 \subsection{Vplyv porúch na me¹kanie vlakov osobnej dopravy}
-V nasledujúcem experimente sa pokúsime zisti» vplyv výskytu porúch na trati na me¹kanie vlakov osobnej dopravy. V experimente budeme postupne zvy¹ova» poèet výskytu v¹etkých troch druhov porúch 2x a následne a¾ 5x. 
+V~nasledujúcom experimente sa pokúsime zisti» vplyv výskytu porúch na trati na me¹kanie vlakov osobnej dopravy. V~experimente budeme zvy¹ova» poèet výskytov v¹etkých troch druhov porúch priemerne 2x. Sledovali sme osobné vlaky InterCity, pre ktoré máme k dispozícií reálne ¹tatistiky popísané v~kapitole~\ref{sec:gvdmodel}. V grafe vidíme porovnanie ¹tatistík, ná¹ho systému a systému s dvojnásobným výskytom porúch.
+
+\begin{center}
+\includegraphics[scale=0.65]{fig/icdefects.jpg}
+\end{center}
 
 \subsection{Vy»a¾enie koµají osobnej dopravy}
-V nasledujúcom experimente sa pokúsime zisti» vy»a¾enos» koµají osobnej dopravy ®S ®ilina a simulova» situáciu, ¾e prichádzajúci vlak osobnej dopravy nebude ma» mo¾nos» hneï zabra» voµné nástupi¹te a bude musie» èaka» vo fronte na uvoµnenie nástupi¹»a.
+V~nasledujúcom experimente sa pokúsime zisti» vy»a¾enos» koµají osobnej dopravy ®ST ®ilina a~simulova» situáciu, ¾e prichádzajúci vlak osobnej dopravy nebude ma» mo¾nos» hneï zabra» voµné nástupi¹te a~bude musie» èaka» vo fronte na uvoµnenie nástupi¹»a.
+
+\subsection{Navy¹ovanie mno¾stva spojov v GVD}
+
+\begin{center}
+\includegraphics[scale=0.55]{fig/gvd.jpg}
+\end{center}
 
 \section{Záver experimentov}
 

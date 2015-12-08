@@ -20,11 +20,11 @@
 #define LARGE_DEFECT_DELAY 80
 
 // Trails numbers in Zilina
-#define TRANSPORT_RAILS_NUM 3
-#define CARGO_RAILS_NUM 3
+#define TRANSPORT_RAILS_NUM 7
+#define CARGO_RAILS_NUM 4
 
 //Cargo trains through Zilina
-#define CARGO_TRAINS_NUM 40
+#define CARGO_TRAINS_NUM 48*100
 
 #define SIMULATION_DAYS 365
 

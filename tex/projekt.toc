@@ -16,14 +16,15 @@
 \contentsline {section}{\numberline {3.1}Obsadzovanie ko\v laj\IeC {\'\i } \v zelezni\v cnej stanice \v Zilina}{7}{section.3.1}
 \contentsline {section}{\numberline {3.2}Model grafikonu vlakovej dopravy}{7}{section.3.2}
 \contentsline {section}{\numberline {3.3}Model por\'uch}{8}{section.3.3}
-\contentsline {section}{\numberline {3.4}Model n\'akladnej dopravy}{8}{section.3.4}
+\contentsline {section}{\numberline {3.4}Model n\'akladnej dopravy}{9}{section.3.4}
 \contentsline {section}{\numberline {3.5}Model obratov}{9}{section.3.5}
 \contentsline {chapter}{\numberline {4}Architekt\'ura simula\v cn\'eho modelu}{10}{chapter.4}
 \contentsline {chapter}{\numberline {5}Podstata simula\v cn\'ych experimentov a ich priebeh}{11}{chapter.5}
 \contentsline {section}{\numberline {5.1}Postup experimentovania a okolnosti \v st\'udie}{11}{section.5.1}
 \contentsline {section}{\numberline {5.2}Dokument\'acia jednotliv\'ych experimentov}{11}{section.5.2}
 \contentsline {subsection}{\numberline {5.2.1}Me\v skanie vlakov osobnej dopravy}{11}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Vplyv por\'uch na me\v skanie vlakov osobnej dopravy}{11}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}Vy\v ta\v zenie ko\v laj\IeC {\'\i } osobnej dopravy}{11}{subsection.5.2.3}
-\contentsline {section}{\numberline {5.3}Z\'aver experimentov}{12}{section.5.3}
-\contentsline {chapter}{\numberline {6}Z\'aver}{13}{chapter.6}
+\contentsline {subsection}{\numberline {5.2.2}Vplyv por\'uch na me\v skanie vlakov osobnej dopravy}{12}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Vy\v ta\v zenie ko\v laj\IeC {\'\i } osobnej dopravy}{12}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Navy\v sovanie mno\v zstva spojov v GVD}{13}{subsection.5.2.4}
+\contentsline {section}{\numberline {5.3}Z\'aver experimentov}{13}{section.5.3}
+\contentsline {chapter}{\numberline {6}Z\'aver}{14}{chapter.6}

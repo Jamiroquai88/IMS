@@ -15,7 +15,7 @@
  * \brief Debug helper code
  */
 //#define DEBUG
-#define DELAYS
+//#define DELAYS
 
 /**
  * \brief Debug log to stdout
