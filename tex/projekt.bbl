@@ -8,12 +8,22 @@
 \providecommand{\selectlanguage}[1]{\relax}
 \providecommand{\eprint}[2][]{\url{#2}}
 
+\bibitem{gulikMail}
+{Gulík, Jozef}: Simulácia dopravného uzlu [emailová komunikácia]. 7.12.2015
+  22:34 [cit. 2015-12-8].
+
 \bibitem{keloMail}
 {Kelo, Du¹an}: modelavanie systemu ¾eleznice [emailová komunikácia]. 28.11.2015
-  07:18 [cit. 2015-11-6].
+  07:18 [cit. 2015-12-6].
 
 \bibitem{PVND}
 {Kolektív autorov}: Plán vlakotvorby nákladnej dopravy. 2014.
+
+\bibitem{obratyOS}
+{Kolektív autorov}: Správa riadenia a realizácie prevádzky. 2014.
+
+\bibitem{obratyCARGO}
+{Kolektív autorov}: Správa riadenia a realizácie prevádzky HDV. 2014.
 
 \bibitem{slajdy136}
 Peringer, P.: Modelování a simulace, slajd è. 136 [online]. {\tt
@@ -27,7 +37,7 @@ Peringer, P.: Modelování a simulace, slajd è. 88 [online]. {\tt
 
 \bibitem{snidlMail}
 {Snídl, Vladimír}: Fwd: Dennik N: Meskanie vlakov [emailová komunikácia].
-  03.12.2015 10:58 [cit. 2015-11-6].
+  03.12.2015 10:58 [cit. 2015-12-6].
 
 \bibitem{snidlclanok}
 ©nídl Vladimír: Rekordérom v me¹kaní IC vlakov je expres RegioJetu z Ko¹íc do
