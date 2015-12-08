@@ -92,7 +92,7 @@ void CPublicTrain::Behavior()
     CDefect* pDefect = m_pTrack->GetDefect(GetDistanceFromMainStation(), m_DirFromMainStation);
     if(pDefect != NULL)
     {
-        unsigned defectId = pDefect->GetId();
+        //unsigned defectId = pDefect->GetId();
         DBG_LOG_T(m_Generator.GetTrainTitle()
             << ":\t\tCan't start because of a defect (id: " << defectId << ") at " << pDefect->GetLocation());
 
@@ -168,7 +168,7 @@ void CPublicTrain::Behavior()
         CDefect* pDefect = m_pTrack->GetDefect(0, m_DirFromMainStation);
         if(pDefect != NULL)
         {
-            unsigned defectId = pDefect->GetId();
+            //unsigned defectId = pDefect->GetId();
             DBG_LOG_T(m_Generator.GetTrainTitle()
                 << ":\t\tCan't travel from main station because of a defect (id: " << defectId << ")");
 

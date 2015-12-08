@@ -11,8 +11,11 @@ simulation: $(OBJ_FILES)
 %.o:%.cpp
 	$(CP) $(CPFLAGS) -c $< -o $@ -I/usr/local/include -L/usr/local/lib64 -lsimlib -lm
 	
-tar:
-	tar -cvzf archive.tgz *
+run:	
+	make && ./simulation
+
+zip:
+	zip 06_xprofa00_xricht21.zip *.cpp *.h Makefile README schedule.conf add_40_trains.conf dokumentace.pdf
 	
 clean:
 	$(RM) simulation $(OBJ_FILES) *.h.gch
